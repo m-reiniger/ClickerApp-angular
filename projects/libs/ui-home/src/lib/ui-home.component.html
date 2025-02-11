@@ -1,0 +1,12 @@
+<p>ClickerApp</p>
+
+
+<div class="counter-list" *ngFor="let counter of counterList$()">
+    <div class="counter-item">
+        <div class="counter-name"><p>{{ counter.name }}</p></div>
+        <div class="decrement-button"><button (click)="decrementCounterHandle(counter.id)">-{{ counter.defaultIncrement }}</button></div>
+        <div class="counter-value"><button>{{ counter.value() }}</button></div>
+        <div class="increment-button"><button (click)="incrementCounterHandle(counter.id)">+{{ counter.defaultIncrement }}</button></div>
+        
+    </div>
+</div>

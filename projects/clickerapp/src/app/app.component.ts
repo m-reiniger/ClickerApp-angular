@@ -1,12 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { CounterService } from './core/Counter/counter.service';
+import { TransactionOperation } from './core/transaction/transaction.type';
+
 
 @Component({
-  selector: 'app-root',
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+    selector: 'app-root',
+    imports: [
+        RouterOutlet
+    ],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'clickerapp';
+export class AppComponent implements OnInit {
+    title = 'clickerapp';
+
+    constructor(private counterService: CounterService) { }
+
+    public ngOnInit() {
+        this.counterService.createCounter('Bier', 1, TransactionOperation.ADD, 0);
+        this.counterService.createCounter('Runden', 1, TransactionOperation.SUBTRACT, 13);
+        this.counterService.createCounter('Said AI', 2, TransactionOperation.ADD, 4);
+    }
 }
