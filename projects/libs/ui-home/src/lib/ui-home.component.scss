@@ -1,9 +1,12 @@
+@use "@angular/material" as mat;
+
+@include mat.button-overrides(());
+
+
 .counter-list {
     display: flex;
     flex-direction: column;
     align-items: normal;
-
-    width: 100%;
 }
 
 .counter-item {
@@ -11,10 +14,13 @@
     flex-direction: row;
     align-items: first baseline;
 
+    width: calc(100% - 4em);
+    margin: 1em;
+
     box-shadow: var(--mat-sys-level2);
     border-radius: 5px;
-    padding: 10px;
     margin-bottom: 10px;
+    padding: 1em;
 
     * {
         margin: 0px;
@@ -37,17 +43,16 @@
         flex-basis: 0;
 
         button {
-            padding: 12px 15px;
-            border-radius: 40px;
+            @include mat.fab-overrides((
+                container-color: var(--mat-sys-tertiary-container),
+                foreground-color: var(--mat-sys-tertiary),
+                container-shape: 50%,
+            ));
+            border: 3px solid var(--mat-sys-tertiary);
             font-size: 30px;
             font-weight: bold;
-            // border: 3px solid var(--mat-sys-on-primary-container);
-            // background-color: var(--mat-sys-primary-container);
-            // color: var(--mat-sys-on-primary-container);
-            border: 3px solid #317a31;
-            background-color: #e1ede1;
-            color: #317a31;
-            min-width: 76px;
+            min-width: 80px;
+            min-height: 80px;
         }
     }
 
@@ -56,54 +61,30 @@
         flex-basis: 0;
 
         button {
-            padding: 11px 16px;
-            border-radius: 32px;
-            font-size: 16px;
-            font-weight: bold;
-            border: none;
-            background-color: #eb4c17;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            @include mat.fab-overrides((
+                container-color: var(--mat-sys-secondary),
+                foreground-color: var(--mat-sys-on-secondary),
+                container-shape: 50%,
+            ));
 
-            max-width: 48px;
-
-            &:hover {
-                transform: scale(1.05);
-                opacity: 0.9;
-            }
-
-            &:active {
-                transform: scale(0.95);
-            }
+            font-size: 18px;
+            font-weight: 600;
         }
     }
 
     .decrement-button {
         flex-grow: 1;
         flex-basis: 0;
-        padding-left: 30px;
+
         button {
-            padding: 8px 10px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: bold;
-            border: none;
-            background-color: var(--mat-sys-surface-container-highest);
-            color: var(--mat-sys-on-surface);
-            cursor: pointer;
-            transition: all 0.2s ease;
+            @include mat.fab-overrides((
+                small-container-color: var(--mat-sys-surface-container-highest),
+                small-foreground-color: var(--mat-sys-on-surface-container-highest),
+                small-container-shape: 50%,
+            ));
 
-
-
-            &:hover {
-                transform: scale(1.05);
-                opacity: 0.9;
-            }
-
-            &:active {
-                transform: scale(0.95);
-            }
+            font-size: 18px;
+            font-weight: 800;
         }
     }
 }

@@ -1,12 +1,14 @@
 import { Component, effect, Input, output, signal, Signal } from '@angular/core';
 import { NgFor } from '@angular/common';
+import {MatButtonModule} from '@angular/material/button';
 
 import { UiCounters } from './types/counters.types';
 
 @Component({
     selector: 'ui-home',
     imports: [
-        NgFor
+        NgFor,
+        MatButtonModule
     ],
     templateUrl: './ui-home.component.html',
     styleUrl: './ui-home.component.scss'

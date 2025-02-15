@@ -32,8 +32,8 @@
                             }
                         ],
                         "styles": [
-                          "@angular/material/prebuilt-themes/cyan-orange.css",
-                          "projects/clickerapp/src/styles.scss"
+                          "projects/clickerapp/src/styles.scss",
+                          "projects/clickerapp/src/styles/theme-tokens.scss"
                         ],
                         "scripts": []
                     },
