@@ -25,6 +25,6 @@ export class AppComponent implements OnInit {
     public ngOnInit() {
         this.counterService.createCounter('Bier 🍻', 1, TransactionOperation.ADD, 0);
         this.counterService.createCounter('Runden 🔄', 1, TransactionOperation.SUBTRACT, 13);
-        this.counterService.createCounter('Boss said "AI" 🤖', 2, TransactionOperation.ADD, 4);
+        // this.counterService.createCounter('Boss said "AI" 🤖', 2, TransactionOperation.ADD, 4);
     }
 }
