@@ -1,8 +1,8 @@
-import { Component, effect, OnInit, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Router } from '@angular/router';
 
-import { UiHomeComponent, UiCounters } from 'ui-home';
+import { UiHomeComponent, UiCounters } from '@libs/ui-home';
 import { CounterService } from '../../../core/Counter/counter.service';
-import { Counters } from '../../../core/Counter/counter.types';
 
 @Component({
     selector: 'app-home',
@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
 
     public counterList$: WritableSignal<UiCounters> = signal<UiCounters>([]);
 
-    constructor(private counterService: CounterService) { }
+    constructor(private counterService: CounterService, private router: Router) { }
 
     public ngOnInit() {
         const counters = this.counterService.getCounters();
@@ -34,5 +34,9 @@ export class HomeComponent implements OnInit {
 
     public decrementCounter(id: string): void {
         this.counterService.decrementCounter(id);
+    }
+
+    public addCounter(): void {
+        this.router.navigate(['/create']);
     }
 }

@@ -1,6 +1,6 @@
-import { Component, effect, Input, output, signal, Signal } from '@angular/core';
+import { Component, Input, output, signal, Signal } from '@angular/core';
 import { NgFor } from '@angular/common';
-import {MatButtonModule} from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 
 import { UiCounters } from './types/counters.types';
 
@@ -19,6 +19,7 @@ export class UiHomeComponent {
 
     incrementCounter = output<string>();
     decrementCounter = output<string>();
+    addCounter = output<void>();
 
     constructor() { }
 
@@ -28,5 +29,9 @@ export class UiHomeComponent {
 
     public decrementCounterHandle(id: string) {
         this.decrementCounter.emit(id);
+    }
+
+    public addCounterHandle() {
+        this.addCounter.emit();
     }
 }

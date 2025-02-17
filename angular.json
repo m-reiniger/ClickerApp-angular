@@ -132,6 +132,39 @@
                     }
                 }
             }
+        },
+        "@libs/counter-form": {
+          "projectType": "library",
+          "root": "projects/libs/counter-form",
+          "sourceRoot": "projects/libs/counter-form/src",
+          "prefix": "lib",
+          "architect": {
+            "build": {
+              "builder": "@angular-devkit/build-angular:ng-packagr",
+              "options": {
+                "project": "projects/libs/counter-form/ng-package.json"
+              },
+              "configurations": {
+                "production": {
+                  "tsConfig": "projects/libs/counter-form/tsconfig.lib.prod.json"
+                },
+                "development": {
+                  "tsConfig": "projects/libs/counter-form/tsconfig.lib.json"
+                }
+              },
+              "defaultConfiguration": "production"
+            },
+            "test": {
+              "builder": "@angular-devkit/build-angular:karma",
+              "options": {
+                "tsConfig": "projects/libs/counter-form/tsconfig.spec.json",
+                "polyfills": [
+                  "zone.js",
+                  "zone.js/testing"
+                ]
+              }
+            }
+          }
         }
     }
 }

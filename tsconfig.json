@@ -18,10 +18,13 @@
     "target": "ES2022",
     "module": "ES2022",
     "paths": {
+      "@libs/counter-form": [
+        "./projects/libs/counter-form/src/public-api"
+      ],
       "libs": [
         "./projects/libs"
       ],
-      "ui-home": [
+      "@libs/ui-home": [
         "./projects/libs/ui-home/src/public-api"
       ],
     }

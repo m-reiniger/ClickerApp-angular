@@ -1,0 +1,15 @@
+<form [formGroup]="counterForm" class="counter-form">
+    <mat-form-field class="counter-form-field">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+    </mat-form-field>
+    <mat-form-field class="counter-form-field">
+        <mat-label>Initial Value</mat-label>
+        <input matInput formControlName="initialValue" type="number"/>
+    </mat-form-field>
+    <mat-form-field class="counter-form-field">
+        <mat-label>Default Increment</mat-label>
+        <input matInput formControlName="defaultIncrement" type="number"/>
+    </mat-form-field>
+    <button mat-flat-button (click)="createCounter()" type="button">Create Counter</button>
+</form>

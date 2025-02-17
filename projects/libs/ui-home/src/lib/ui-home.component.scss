@@ -7,6 +7,7 @@
     display: flex;
     flex-direction: column;
     align-items: normal;
+    margin-bottom: 100px;
 }
 
 .counter-item {
@@ -37,18 +38,16 @@
 
     .counter-value {
         padding: 10px;
-        font-size: 20px;
-        font-weight: bold;
         flex-grow: 2;
         flex-basis: 0;
 
         button {
             @include mat.fab-overrides((
-                container-color: var(--mat-sys-tertiary-container),
-                foreground-color: var(--mat-sys-tertiary),
+                container-color: var(--mat-sys-primary-container),
+                foreground-color: var(--mat-sys-primary),
                 container-shape: 50%,
             ));
-            border: 3px solid var(--mat-sys-tertiary);
+            border: 3px solid var(--mat-sys-primary);
             font-size: 30px;
             font-weight: bold;
             min-width: 80px;
@@ -87,4 +86,22 @@
             font-weight: 800;
         }
     }
+}
+
+.add-counter-button {
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+
+    min-width: 80px;
+    min-height: 80px;
+
+    font-size: 30px;
+    font-weight: bold;
+
+    @include mat.fab-overrides((
+        container-color: var(--mat-sys-primary),
+        foreground-color: var(--mat-sys-on-primary),
+        container-shape: 50%,
+    ));
 }

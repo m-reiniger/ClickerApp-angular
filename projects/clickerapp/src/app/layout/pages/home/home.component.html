@@ -1,1 +1,5 @@
-<ui-home [counterList$]="counterList$" (incrementCounter)="incrementCounter($event)" (decrementCounter)="decrementCounter($event)" />
+<ui-home 
+    [counterList$]="counterList$" 
+    (incrementCounter)="incrementCounter($event)"
+    (decrementCounter)="decrementCounter($event)"
+    (addCounter)="addCounter()"/>

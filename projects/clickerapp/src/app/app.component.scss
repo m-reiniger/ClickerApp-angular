@@ -9,9 +9,17 @@
 
 content {
     padding: 20px;
+    margin-top: 54px;
+    position: absolute;
 }
 
 mat-toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
     span {
         margin-left: 10px;
     }

@@ -1,5 +1,5 @@
-<ng-container class="counter-list" *ngFor="let counter of counterList$()">
-    <section class="counter-item">
+<div class="counter-list">
+    <section class="counter-item" *ngFor="let counter of counterList$()">
         <div class="counter-name">
             <p>{{ counter.name }}</p>
         </div>
@@ -9,4 +9,5 @@
         <div class="increment-button"><button mat-fab (click)="incrementCounterHandle(counter.id)">+{{
                 counter.defaultIncrement }}</button></div>
     </section>
-</ng-container>
+</div>
+<button mat-fab class="add-counter-button" (click)="addCounterHandle()">+</button>
