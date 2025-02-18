@@ -1,5 +1,5 @@
 import { Component, Input, output, signal, Signal } from '@angular/core';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
 import { UiCounters } from './types/counters.types';
@@ -8,13 +8,15 @@ import { UiCounters } from './types/counters.types';
     selector: 'ui-home',
     imports: [
         NgFor,
+        NgIf,
         MatButtonModule
     ],
     templateUrl: './ui-home.component.html',
     styleUrl: './ui-home.component.scss'
 })
 export class UiHomeComponent {
-
+    
+    @Input() title: string = 'My Counters';
     @Input() counterList$: Signal<UiCounters> = signal<UiCounters>([]);
 
     incrementCounter = output<string>();

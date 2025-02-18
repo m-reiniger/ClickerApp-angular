@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CounterForm, CounterFormComponent } from '@libs/counter-form';
-import { CounterService } from '../../../../core/Counter/counter.service';
+import { CounterService } from '../../../../core/counter/counter.service';
 import { TransactionOperation } from '../../../../core/transaction/transaction.type';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UiHomeComponent, UiCounters } from '@libs/ui-home';
-import { CounterService } from '../../../core/Counter/counter.service';
+import { CounterService } from '../../../core/counter/counter.service';
 
 @Component({
     selector: 'app-home',

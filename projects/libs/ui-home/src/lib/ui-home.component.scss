@@ -1,91 +1,105 @@
 @use "@angular/material" as mat;
 
-@include mat.button-overrides(());
-
-
 .counter-list {
     display: flex;
     flex-direction: column;
     align-items: normal;
     margin-bottom: 100px;
-}
 
-.counter-item {
-    display: flex;
-    flex-direction: row;
-    align-items: first baseline;
-
-    width: calc(100% - 4em);
-    min-width: calc(100% - 4em);
-    max-width: calc(100% - 4em);
-    margin: 0.5em 1em;
-
-    box-shadow: var(--mat-sys-level2);
-    border-radius: 5px;
-    padding: 0.5em 1em;
-    background-color: var(--mat-sys-surface-container-lowest);
-
-    * {
-        margin: 0px;
-        /* border: 1px solid var(--mat-sys-outline); */
+    h3 {
+        margin-left: 1em;
     }
 
-    .counter-name {
-        padding: 10px;
-        font-size: 17px;
-        font-weight: bold;
-        flex-grow: 4;
-        flex-basis: 0;
+    .counter-list-empty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        p.icon {
+            font-size: 100px;
+        }
+
+        a {
+            cursor: pointer;
+            text-decoration: underline;
+            color: var(--mat-sys-primary);
+        }
     }
 
-    .counter-value {
-        padding: 10px;
-        flex-grow: 2;
-        flex-basis: 0;
+    .counter-item {
+        display: flex;
+        flex-direction: row;
+        align-items: first baseline;
 
-        button {
-            @include mat.fab-overrides((
-                container-color: var(--mat-sys-primary-container),
-                foreground-color: var(--mat-sys-primary),
-                container-shape: 50%,
-            ));
-            border: 3px solid var(--mat-sys-primary);
-            font-size: 30px;
+        width: calc(100% - 4em);
+        min-width: calc(100% - 4em);
+        max-width: calc(100% - 4em);
+        margin: 0.5em 1em;
+
+        box-shadow: var(--mat-sys-level2);
+        border-radius: 5px;
+        padding: 0.5em 1em;
+        background-color: var(--mat-sys-surface-container-lowest);
+
+        * {
+            margin: 0px;
+            /* border: 1px solid var(--mat-sys-outline); */
+        }
+
+        .counter-name {
+            padding: 10px;
+            font-size: 18px;
             font-weight: bold;
-            min-width: 80px;
-            min-height: 80px;
+            flex-grow: 4;
+            flex-basis: 0;
         }
-    }
 
-    .increment-button {
-        flex-grow: 1;
-        flex-basis: 0;
+        .counter-value {
+            padding: 10px;
+            flex-grow: 2;
+            flex-basis: 0;
 
-        button {
-            @include mat.fab-overrides((
-                container-color: var(--mat-sys-secondary),
-                foreground-color: var(--mat-sys-on-secondary),
-                container-shape: 50%,
-            ));
-
-            font-size: 18px;
-            font-weight: 600;
+            button {
+                @include mat.fab-overrides((container-color: var(--mat-sys-primary-container),
+                        foreground-color: var(--mat-sys-primary),
+                        container-shape: 50%,
+                    ));
+                border: 3px solid var(--mat-sys-primary);
+                font-size: 30px;
+                font-weight: bold;
+                min-width: 80px;
+                min-height: 80px;
+            }
         }
-    }
 
-    .decrement-button {
-        flex-grow: 1;
-        flex-basis: 0;
+        .increment-button {
+            flex-grow: 1;
+            flex-basis: 0;
 
-        button {
-            @include mat.fab-overrides((
-                small-container-color: var(--mat-sys-surface-container-highest),
-                small-foreground-color: var(--mat-sys-on-surface-container-highest),
-                small-container-shape: 50%,
-            ));
+            button {
+                @include mat.fab-overrides((container-color: var(--mat-sys-secondary),
+                        foreground-color: var(--mat-sys-on-secondary),
+                        container-shape: 50%,
+                    ));
 
-            font-size: 18px;
-            font-weight: 800;
+                font-size: 18px;
+                font-weight: 600;
+            }
+        }
+
+        .decrement-button {
+            flex-grow: 1;
+            flex-basis: 0;
+
+            button {
+                @include mat.fab-overrides((small-container-color: var(--mat-sys-surface-container-highest),
+                        small-foreground-color: var(--mat-sys-on-surface-container-highest),
+                        small-container-shape: 50%,
+                    ));
+
+                font-size: 18px;
+                font-weight: 800;
+            }
         }
     }
 }
@@ -101,9 +115,8 @@
     font-size: 30px;
     font-weight: bold;
 
-    @include mat.fab-overrides((
-        container-color: var(--mat-sys-primary),
-        foreground-color: var(--mat-sys-on-primary),
-        container-shape: 50%,
-    ));
+    @include mat.fab-overrides((container-color: var(--mat-sys-primary),
+            foreground-color: var(--mat-sys-on-primary),
+            container-shape: 50%,
+        ));
 }

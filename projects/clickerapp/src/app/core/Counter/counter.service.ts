@@ -2,6 +2,7 @@ import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
 
 import { v4 as uuidv4 } from 'uuid';
 
+import { StorageService } from '../storage/storage.service';
 import { TransactionService } from '../transaction/transaction.service';
 
 import { Counter, Counters } from './counter.types';
@@ -17,7 +18,12 @@ export class CounterService {
     private counterList$: WritableSignal<Counters> = signal(this.counterList);
     private counter$: Map<string, WritableSignal<number>> = new Map();
 
-    constructor(private transactionService: TransactionService) { }
+    constructor(
+        private transactionService: TransactionService, 
+        private storageService: StorageService) {
+            // initialy load counters from storage
+            this.counterList = this.storageService.loadCounters();
+        }
 
     public createCounter(name: string, defaultIncrement: number, defaultOperation: TransactionOperation, initialValue: number): Counter {
         const counter: Counter = {
@@ -33,6 +39,8 @@ export class CounterService {
 
         this.counterList.push(counter);
         this.counterList$.set(this.counterList);
+
+        this.saveCounters();
 
         return counter;
     }
@@ -72,6 +80,7 @@ export class CounterService {
             counter.transactions.push(transaction);
         }
         this.updateSignal(id);
+        this.saveCounters();
     }
 
     public decrementCounter(id: string): void {
@@ -81,6 +90,7 @@ export class CounterService {
             counter.transactions.push(transaction);
         }
         this.updateSignal(id);
+        this.saveCounters();
     }
 
     private getCounterValueSignal_(id: string): WritableSignal<number> {
@@ -110,5 +120,9 @@ export class CounterService {
         if (value && counter) {
             value.set(this.transactionService.compute(counter.transactions));
         }
+    }
+
+    private saveCounters(): void {
+        this.storageService.saveCounters(this.counterList);
     }
 }
