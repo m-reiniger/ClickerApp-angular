@@ -15,25 +15,32 @@ import { UiCounters } from './types/counters.types';
     styleUrl: './ui-home.component.scss'
 })
 export class UiHomeComponent {
-    
+
     @Input() title: string = 'My Counters';
     @Input() counterList$: Signal<UiCounters> = signal<UiCounters>([]);
 
     incrementCounter = output<string>();
     decrementCounter = output<string>();
+    navigateToDetail = output<string>();
     addCounter = output<void>();
 
     constructor() { }
 
-    public incrementCounterHandle(id: string) {
+    public incrementCounterHandle(event: Event, id: string) {
+        event.stopPropagation();
         this.incrementCounter.emit(id);
     }
 
-    public decrementCounterHandle(id: string) {
+    public decrementCounterHandle(event: Event, id: string) {
+        event.stopPropagation();
         this.decrementCounter.emit(id);
     }
 
     public addCounterHandle() {
         this.addCounter.emit();
+    }
+
+    public navigateToDetailHandle(id: string) {
+        this.navigateToDetail.emit(id);
     }
 }

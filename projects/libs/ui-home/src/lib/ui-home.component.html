@@ -1,13 +1,13 @@
 <article class="counter-list">
     <h3>{{ title }}</h3>
-    <section class="counter-item" *ngFor="let counter of counterList$()">
+    <section class="counter-item" *ngFor="let counter of counterList$()" (click)="navigateToDetailHandle(counter.id)">
         <div class="counter-name">
             <p>{{ counter.name }}</p>
         </div>
-        <div class="decrement-button"><button mat-mini-fab (click)="decrementCounterHandle(counter.id)">-</button>
+        <div class="decrement-button"><button mat-mini-fab (click)="decrementCounterHandle($event,counter.id)">-</button>
         </div>
         <div class="counter-value"><button mat-fab>{{ counter.value() }}</button></div>
-        <div class="increment-button"><button mat-fab (click)="incrementCounterHandle(counter.id)">+{{
+        <div class="increment-button"><button mat-fab (click)="incrementCounterHandle($event, counter.id)">+{{
                 counter.defaultIncrement }}</button></div>
     </section>
     <section class="counter-list-empty" *ngIf="counterList$().length === 0">

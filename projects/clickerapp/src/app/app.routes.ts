@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
 
-import { HomeComponent } from './layout/pages/home/home.component';
-import { CreateComponent } from './layout/pages/create/create/create.component';
+import { CreateComponent } from '@app/layout/pages/create/create.component';
+import { DetailComponent } from '@app/layout/pages/detail/detail.component';
+import { HomeComponent } from '@app/layout/pages/home/home.component';
 
 export const routes: Routes = [
     {
@@ -11,6 +12,10 @@ export const routes: Routes = [
     {
         path: 'create',
         component: CreateComponent
+    },
+    {
+        path: 'detail/:counterId',
+        component: DetailComponent
     },
     {
         path: '**',

@@ -2,11 +2,11 @@ import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
 
 import { v4 as uuidv4 } from 'uuid';
 
-import { StorageService } from '../storage/storage.service';
-import { TransactionService } from '../transaction/transaction.service';
+import { StorageService } from '@app/core/storage/storage.service';
+import { TransactionService } from '@app/core/transaction/transaction.service';
 
 import { Counter, Counters } from './counter.types';
-import { TransactionOperation } from '../transaction/transaction.type';
+import { TransactionOperation } from '@app/core/transaction/transaction.type';
 
 @Injectable({
     providedIn: 'root'
@@ -45,7 +45,7 @@ export class CounterService {
         return counter;
     }
 
-    public getCounters(): Counters {
+    public getCounterList(): Counters {
         return this.counterList;
     }
 
@@ -58,6 +58,10 @@ export class CounterService {
 
     public getCounter(id: string): Counter | undefined {
         return this.counterList.find(counter => counter.id === id);
+    }
+
+    public getCounter$(id: string): Signal<Counter> {
+        return signal(this.counterList.find(counter => counter.id === id) as Counter);
     }
 
     /**

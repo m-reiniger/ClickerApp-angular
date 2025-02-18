@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { CounterService } from './counter.service';
-import { TransactionOperation } from '../transaction/transaction.type';
+import { TransactionOperation } from '@app/core/transaction/transaction.type';
 
 describe('CounterService', () => {
     let service: CounterService;
@@ -44,9 +44,9 @@ describe('CounterService', () => {
             service.deleteCounter(counter2.id);
             
             expect(service.getCounter(counter2.id)).toBeUndefined();
-            expect(service.getCounters().length).toBe(2);
-            expect(service.getCounters()[0].name).toBe('Counter 1');
-            expect(service.getCounters()[1].name).toBe('Counter 3');
+            expect(service.getCounterList().length).toBe(2);
+            expect(service.getCounterList()[0].name).toBe('Counter 1');
+            expect(service.getCounterList()[1].name).toBe('Counter 3');
         });
 
         it('should do nothing when deleting non-existent counter', () => {
@@ -56,9 +56,9 @@ describe('CounterService', () => {
             
             service.deleteCounter('non-existent-id');
             
-            expect(service.getCounters().length).toBe(2);
-            expect(service.getCounters()[0].name).toBe('Counter 1');
-            expect(service.getCounters()[1].name).toBe('Counter 2');
+            expect(service.getCounterList().length).toBe(2);
+            expect(service.getCounterList()[0].name).toBe('Counter 1');
+            expect(service.getCounterList()[1].name).toBe('Counter 2');
         });
     });
 
@@ -67,7 +67,7 @@ describe('CounterService', () => {
             service.createCounter('Counter 1', 1, TransactionOperation.ADD, 0);
             service.createCounter('Counter 2', 2, TransactionOperation.SUBTRACT, 10);
             
-            const counters = service.getCounters();
+            const counters = service.getCounterList();
             expect(counters.length).toBe(2);
             expect(counters[0].name).toBe('Counter 1');
             expect(counters[1].name).toBe('Counter 2');

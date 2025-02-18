@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { LocalStorageService } from './services/local-storage.service';
 
-import { Counters } from '../counter/counter.types';
+import { Counters } from '@app/core/counter/counter.types';
 
 @Injectable({
     providedIn: 'root'

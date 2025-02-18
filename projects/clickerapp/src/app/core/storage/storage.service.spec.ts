@@ -4,8 +4,8 @@ import { MockProvider } from 'ng-mocks';
 import { LocalStorageService } from './services/local-storage.service';
 import { StorageService } from './storage.service';
 
-import { Counters } from '../counter/counter.types';
-import { TransactionOperation } from '../transaction/transaction.type';
+import { Counters } from '@app/core/counter/counter.types';
+import { TransactionOperation } from '@app/core/transaction/transaction.type';
 
 describe('StorageService', () => {
     let service: StorageService;

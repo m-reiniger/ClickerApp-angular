@@ -2,7 +2,8 @@ import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UiHomeComponent, UiCounters } from '@libs/ui-home';
-import { CounterService } from '../../../core/counter/counter.service';
+
+import { CounterService } from '@app/core/counter/counter.service';
 
 @Component({
     selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent implements OnInit {
     constructor(private counterService: CounterService, private router: Router) { }
 
     public ngOnInit() {
-        const counters = this.counterService.getCounters();
+        const counters = this.counterService.getCounterList();
         this.counterList$.set(counters.map(counter => ({
             id: counter.id,
             name: counter.name,
@@ -38,5 +39,9 @@ export class HomeComponent implements OnInit {
 
     public addCounter(): void {
         this.router.navigate(['/create']);
+    }
+
+    public navigateToDetail(id: string): void {
+        this.router.navigate(['/detail', id]);
     }
 }
