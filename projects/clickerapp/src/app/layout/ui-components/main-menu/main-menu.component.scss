@@ -1,0 +1,34 @@
+@use '@angular/material' as mat;
+
+* {
+    @include mat.menu-overrides((
+        item-label-text-size: 1.5em,
+        item-icon-color: var(--mat-sys-primary),
+        divider-bottom-spacing: 1em,
+        container-color: #ffffff, //var(--mat-sys-surface-container-lowest),
+        divider-color: var(--mat-sys-outline),
+    ));
+}
+
+::ng-deep .main-menu-panel {
+    background-color: var(--mat-sys-surface-container-lowest) !important;
+    width: 250px;
+
+    .mat-mdc-menu-content {
+        padding: 0px 20px;
+
+        .mat-mdc-menu-item {
+            // text-align: right;
+            padding: 20px 0px;
+            border-bottom: 1px solid var(--mat-sys-outline);
+
+            .mat-icon {
+                order: 2;
+            }
+        }
+
+        .mat-mdc-menu-item:last-child {
+            border-bottom: none;
+        }
+    }
+}

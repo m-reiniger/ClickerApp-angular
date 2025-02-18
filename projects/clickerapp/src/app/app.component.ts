@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 
 import { CounterService } from './core/counter/counter.service';
-import { TransactionOperation } from './core/transaction/transaction.type';
+// import { TransactionOperation } from './core/transaction/transaction.type';
+
+import { MainMenuComponent } from './layout/ui-components/main-menu/main-menu.component';
 
 
 @Component({
@@ -12,7 +15,8 @@ import { TransactionOperation } from './core/transaction/transaction.type';
     imports: [
         RouterOutlet,
         MatToolbarModule,
-        MatIconModule
+        MatIconModule,
+        MainMenuComponent
     ],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'

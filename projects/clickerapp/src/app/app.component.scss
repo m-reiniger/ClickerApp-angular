@@ -25,5 +25,17 @@ mat-toolbar {
     }
     .app-name {
         font-weight: bold;
+        font-size: 32px;
+    }
+    .app-slogan {
+        position: absolute;
+        left: 125px;
+        top: 0px;
+        font-size: 12px;
+    }
+    main-menu {
+        position: absolute;
+        right: 0px;
+        top: 8px;
     }
 }
