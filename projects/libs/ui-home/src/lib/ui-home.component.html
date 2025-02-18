@@ -1,4 +1,4 @@
-<div class="counter-list">
+<article class="counter-list">
     <h3>{{ title }}</h3>
     <section class="counter-item" *ngFor="let counter of counterList$()">
         <div class="counter-name">
@@ -15,5 +15,5 @@
         <p>You have no counters created yet.</p>
         <a (click)="addCounterHandle()">Create a counter</a>
     </section>
-</div>
-<button mat-fab class="add-counter-button" (click)="addCounterHandle()">+</button>
+    <button mat-fab class="add-counter-button" (click)="addCounterHandle()">+</button>
+</article>

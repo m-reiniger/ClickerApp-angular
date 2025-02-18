@@ -1,13 +1,14 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="main menu">
-    <mat-icon>menu</mat-icon>
-</button>
-<mat-menu #menu="matMenu" backdropClass="main-menu-backdrop" [class]="'main-menu-panel'">
-    <button mat-menu-item class="menu-item">
-        <span>About</span>
-        <mat-icon>groups</mat-icon>
+<nav><button mat-icon-button [matMenuTriggerFor]="menu" aria-label="main menu">
+        <mat-icon>menu</mat-icon>
     </button>
-    <button mat-menu-item class="menu-item">
-        <span>Donate</span>
-        <mat-icon>thumb_up</mat-icon>
-    </button>
-</mat-menu>
+    <mat-menu #menu="matMenu" backdropClass="main-menu-backdrop" [class]="'main-menu-panel'">
+        <button mat-menu-item class="menu-item">
+            <span>About</span>
+            <mat-icon>groups</mat-icon>
+        </button>
+        <button mat-menu-item class="menu-item">
+            <span>Donate</span>
+            <mat-icon>thumb_up</mat-icon>
+        </button>
+    </mat-menu>
+</nav>

@@ -71,6 +71,8 @@ export class CounterService {
         this.counterList = this.counterList.filter(counter => counter.id !== id);
         this.counter$.delete(id);
         this.counterList$.set(this.counterList);
+
+        this.saveCounters();
     }
 
     public incrementCounter(id: string): void {

@@ -11,6 +11,10 @@ describe('CounterService', () => {
         service = TestBed.inject(CounterService);
     });
 
+    afterEach(() => {
+        localStorage.clear();
+    });
+
     it('should be created', () => {
         expect(service).toBeTruthy();
     });

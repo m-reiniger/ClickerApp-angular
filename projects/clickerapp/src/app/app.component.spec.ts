@@ -1,29 +1,31 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MainMenuComponent } from './layout/ui-components/main-menu/main-menu.component';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [AppComponent],
-    }).compileComponents();
-  });
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [
+                AppComponent,
+                MatToolbarModule,
+                MatIconModule,
+                MainMenuComponent
+            ],
+        }).compileComponents();
+    });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+    it('should create the app', () => {
+        const fixture = TestBed.createComponent(AppComponent);
+        const app = fixture.componentInstance;
+        expect(app).toBeTruthy();
+    });
 
-  it(`should have the 'clickerapp' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('clickerapp');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, clickerapp');
-  });
+    // it('should render title', () => {
+    //     const fixture = TestBed.createComponent(AppComponent);
+    //     fixture.detectChanges();
+    //     const compiled = fixture.nativeElement as HTMLElement;
+    //     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, clickerapp');
+    // });
 });

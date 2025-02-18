@@ -22,7 +22,6 @@ import { MainMenuComponent } from './layout/ui-components/main-menu/main-menu.co
     styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-    title = 'clickerapp';
 
     constructor(private counterService: CounterService) { }
 

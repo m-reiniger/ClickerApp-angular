@@ -23,3 +23,6 @@ export class StorageService {
         this.localStorageService.removeItem(LocalStorageService.COUNTERS_KEY);
     }
 }
+
+
+
