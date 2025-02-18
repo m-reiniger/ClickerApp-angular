@@ -21,4 +21,8 @@ export class CreateComponent {
         this.counterService.createCounter(counter.name, counter.defaultIncrement, TransactionOperation.ADD, counter.initialValue);
         this.router.navigate(['/']);
     }
+
+    public closeOverlay() {
+        this.router.navigate(['/']);
+    }
 }
