@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CounterForm, CounterFormComponent } from '@libs/counter-form';
@@ -16,7 +16,8 @@ import { TransactionOperation } from '@app/core/transaction/transaction.type';
 })
 export class CreateComponent {
 
-    constructor(private counterService: CounterService, private router: Router) { }
+    private counterService = inject(CounterService);
+    private router = inject(Router);
 
     public createCounter(counter: CounterForm) {
         this.counterService.createCounter(counter.name, counter.defaultIncrement, TransactionOperation.ADD, counter.initialValue);

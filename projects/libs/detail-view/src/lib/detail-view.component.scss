@@ -1,0 +1,104 @@
+@use "@angular/material" as mat;
+
+.detail-view {
+    width: calc(99% - 2em);
+    // height: 100%;
+    margin: 1em;
+
+    mat-icon.close {
+        position: absolute;
+        right: 0.15em;
+        top: 0.2em;
+        font-size: 50px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
+
+    .counter-name {
+        width: 100%;
+        margin-top: 5em;
+        // text-align: center;
+
+        .counter-value {
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+
+            button {
+                @include mat.fab-overrides(
+                    (
+                        container-color: var(--mat-sys-primary-container),
+                        foreground-color: var(--mat-sys-primary),
+                        container-shape: 50%,
+                    )
+                );
+                border: 3px solid var(--mat-sys-primary);
+
+                margin-left: -1em;
+
+                font-size: 3em;
+                font-weight: bold;
+
+                min-width: 3.5em;
+                min-height: 3.5em;
+            }
+        }
+    }
+
+    .counter-control {
+        width: 100%;
+    
+
+        .increment-button {
+            
+            padding: 10px;
+            text-align: right;
+
+            button {
+                @include mat.fab-overrides(
+                    (
+                        container-color: var(--mat-sys-secondary),
+                        foreground-color: var(--mat-sys-on-secondary),
+                        container-shape: 50%,
+                    )
+                );
+
+                font-size: 4em;
+                font-weight: 600;
+
+                min-width: 4em;
+                min-height: 4em;
+            }
+        }
+
+        .decrement-button {
+            
+            margin-bottom: -3em;
+            margin-left: 2em;
+
+            button {
+                @include mat.fab-overrides((small-container-color: var(--mat-sys-surface-container-highest),
+                        small-foreground-color: var(--mat-sys-on-surface-container-highest),
+                        small-container-shape: 50%,
+                    ));
+
+                font-size: 2em;
+                font-weight: 800;
+
+                min-width: 2em;
+                min-height: 2em;
+            }
+        }
+    }
+
+    .counter-tools {
+        // width: calc(100% - 2em);
+        position: absolute;
+        bottom: 1em;
+
+        button {
+            margin: 10px;
+        }
+    }
+}

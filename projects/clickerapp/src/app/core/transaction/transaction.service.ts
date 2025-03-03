@@ -7,8 +7,6 @@ import { Transaction, TransactionOperation, Transactions } from './transaction.t
 })
 export class TransactionService {
 
-    constructor() { }
-
     public create(operation: TransactionOperation, value = 1): Transaction {
         return {
             value: value,

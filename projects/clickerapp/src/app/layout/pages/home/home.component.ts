@@ -1,4 +1,4 @@
-import { Component, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UiHomeComponent, UiCounters } from '@libs/ui-home';
@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
 
     public counterList$: WritableSignal<UiCounters> = signal<UiCounters>([]);
 
-    constructor(private counterService: CounterService, private router: Router) { }
+    private counterService = inject(CounterService);
+    private router = inject(Router);
 
     public ngOnInit() {
         const counters = this.counterService.getCounterList();

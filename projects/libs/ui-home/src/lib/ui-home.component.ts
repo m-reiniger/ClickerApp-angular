@@ -24,8 +24,6 @@ export class UiHomeComponent {
     navigateToDetail = output<string>();
     addCounter = output<void>();
 
-    constructor() { }
-
     public incrementCounterHandle(event: Event, id: string) {
         event.stopPropagation();
         this.incrementCounter.emit(id);

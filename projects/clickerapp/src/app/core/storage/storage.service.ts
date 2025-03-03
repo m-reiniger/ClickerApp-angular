@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { LocalStorageService } from './services/local-storage.service';
 
@@ -9,7 +9,7 @@ import { Counters } from '@app/core/counter/counter.types';
 })
 export class StorageService {
 
-    constructor(private localStorageService: LocalStorageService) { }
+    private localStorageService = inject(LocalStorageService);
 
     public loadCounters(): Counters {
         return this.localStorageService.getItem(LocalStorageService.COUNTERS_KEY);

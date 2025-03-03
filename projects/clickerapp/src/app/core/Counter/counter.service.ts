@@ -1,4 +1,4 @@
-import { Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 
 import { v4 as uuidv4 } from 'uuid';
 
@@ -18,9 +18,10 @@ export class CounterService {
     private counterList$: WritableSignal<Counters> = signal(this.counterList);
     private counter$: Map<string, WritableSignal<number>> = new Map();
 
-    constructor(
-        private transactionService: TransactionService, 
-        private storageService: StorageService) {
+    private transactionService = inject(TransactionService); 
+    private storageService = inject(StorageService);
+
+    constructor() {
             // initialy load counters from storage
             this.counterList = this.storageService.loadCounters();
         }
