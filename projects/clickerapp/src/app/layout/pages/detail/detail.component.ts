@@ -15,13 +15,13 @@ import { CounterService } from '@app/core/counter/counter.service';
 })
 export class DetailComponent implements OnInit {
 
-    public counter$: Signal<CounterDetail | undefined> = signal<CounterDetail | undefined>(undefined);
-    public counterValue$: Signal<number> = signal(0);
-
-
     private activatedRoute = inject(ActivatedRoute);
     private counterService = inject(CounterService);
     private router = inject(Router);
+
+    public counter$: Signal<CounterDetail | undefined> = signal<CounterDetail | undefined>(undefined);
+    public counterValue$: Signal<number> = signal(0);
+
 
     ngOnInit() {
         const counterId = this.activatedRoute.snapshot.params['counterId'];
@@ -36,6 +36,12 @@ export class DetailComponent implements OnInit {
 
     public closeOverlay() {
         this.router.navigate(['/']);
+    }
+
+    public editCounter(id: string | undefined) {
+        if (id) {
+            this.router.navigate(['edit', id]);
+        }
     }
 
     public incrementCounter(id: string | undefined): void {

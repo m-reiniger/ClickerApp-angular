@@ -18,32 +18,12 @@ export class CounterService {
     private counterList$: WritableSignal<Counters> = signal(this.counterList);
     private counter$: Map<string, WritableSignal<number>> = new Map();
 
-    private transactionService = inject(TransactionService); 
+    private transactionService = inject(TransactionService);
     private storageService = inject(StorageService);
 
     constructor() {
-            // initialy load counters from storage
-            this.counterList = this.storageService.loadCounters();
-        }
-
-    public createCounter(name: string, defaultIncrement: number, defaultOperation: TransactionOperation, initialValue: number): Counter {
-        const counter: Counter = {
-            id: uuidv4(),
-            name,
-            transactions: [],
-            defaultIncrement,
-            defaultOperation
-        }
-
-        const transaction = this.transactionService.create(TransactionOperation.RESET, initialValue);
-        counter.transactions.push(transaction);
-
-        this.counterList.push(counter);
-        this.counterList$.set(this.counterList);
-
-        this.saveCounters();
-
-        return counter;
+        // initialy load counters from storage
+        this.counterList = this.storageService.loadCounters();
     }
 
     public getCounterList(): Counters {
@@ -72,11 +52,41 @@ export class CounterService {
         return this.getCounterValueSignal_(id) as Signal<number>;
     }
 
+    public createCounter(name: string, defaultIncrement: number, defaultOperation: TransactionOperation, initialValue: number): void {
+        const counter: Counter = {
+            id: uuidv4(),
+            name,
+            transactions: [],
+            defaultIncrement,
+            defaultOperation
+        }
+
+        const transaction = this.transactionService.create(TransactionOperation.RESET, initialValue);
+        counter.transactions.push(transaction);
+
+        this.counterList.push(counter);
+        this.counterList$.set(this.counterList);
+
+        this.saveCounters();
+    }
+
+    public updateCounter(id: string, name: string, defaultIncrement: number): void {
+        const counter = this.getCounter(id);
+        if (counter) {
+            counter.name = name;
+            counter.defaultIncrement = defaultIncrement;
+
+            this.counterList$.set(this.counterList);
+            this.saveCounters();
+        }
+
+    }
+
     public deleteCounter(id: string): void {
         this.counterList = this.counterList.filter(counter => counter.id !== id);
         this.counter$.delete(id);
-        this.counterList$.set(this.counterList);
 
+        this.counterList$.set(this.counterList);
         this.saveCounters();
     }
 

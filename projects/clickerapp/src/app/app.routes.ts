@@ -14,6 +14,10 @@ export const routes: Routes = [
         component: CreateComponent
     },
     {
+        path: 'edit/:counterId',
+        component: CreateComponent
+    },
+    {
         path: 'detail/:counterId',
         component: DetailComponent
     },

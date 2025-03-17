@@ -1,1 +1,5 @@
-<counter-form (counter)="createCounter($event)" (closeOverlay)="closeOverlay()"></counter-form>
+<counter-form 
+    (counter)="saveCounter($event)" 
+    (closeOverlay)="closeOverlay($event)"
+    [editCounter]="editCounter">
+</counter-form>

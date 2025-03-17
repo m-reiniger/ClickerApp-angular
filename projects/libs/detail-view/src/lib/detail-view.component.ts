@@ -25,6 +25,7 @@ export class DetailViewComponent {
 
     public incrementCounter = output<string | undefined>();
     public decrementCounter = output<string | undefined>();
+    public editCounter = output<string | undefined>();
     public deleteCounter = output<string>();
 
     public closeOverlay = output<void>();
@@ -41,6 +42,11 @@ export class DetailViewComponent {
     public decrementCounterHandle(event: Event, id: string | undefined) {
         event.stopPropagation();
         this.decrementCounter.emit(id);
+    }
+
+    public editCounterHandle(event: Event, id: string | undefined) {
+        event.stopPropagation();
+        this.editCounter.emit(id);
     }
 
     public confirmDelete() {

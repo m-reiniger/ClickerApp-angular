@@ -27,7 +27,11 @@
         </div>
     </section>
     <section class="counter-tools">
-        <button mat-fab><mat-icon aria-hidden="false" aria-label="delete" fontIcon="delete"(click)="confirmDelete()"></mat-icon></button>
-        <button mat-fab><mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon></button>
+        <button mat-fab (click)="confirmDelete()">
+            <mat-icon aria-hidden="false" aria-label="delete" fontIcon="delete"></mat-icon>
+        </button>
+        <button mat-fab (click)="editCounterHandle($event, counterDetail()?.id)">
+            <mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon>
+        </button>
     </section>
 </article>

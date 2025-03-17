@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, computed, inject, OnInit, signal, Signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { CounterForm, CounterFormComponent } from '@libs/counter-form';
 
@@ -14,17 +14,41 @@ import { TransactionOperation } from '@app/core/transaction/transaction.type';
     templateUrl: './create.component.html',
     styleUrl: './create.component.scss'
 })
-export class CreateComponent {
+export class CreateComponent implements OnInit {
 
+    public editCounter: CounterForm| undefined = undefined;
+
+    private activatedRoute = inject(ActivatedRoute);
     private counterService = inject(CounterService);
     private router = inject(Router);
 
-    public createCounter(counter: CounterForm) {
-        this.counterService.createCounter(counter.name, counter.defaultIncrement, TransactionOperation.ADD, counter.initialValue);
-        this.router.navigate(['/']);
+    ngOnInit() {
+        const counterId = this.activatedRoute.snapshot.params['counterId'];
+        if (counterId) {
+            const counter$ = this.counterService.getCounter$(counterId);
+            this.editCounter = {
+                id: counter$().id,
+                name: counter$().name,
+                defaultIncrement: counter$().defaultIncrement
+            }
+        }
     }
 
-    public closeOverlay() {
-        this.router.navigate(['/']);
+    public saveCounter(counter: CounterForm) {
+        if (counter.id) {
+            this.counterService.updateCounter(counter.id, counter.name, counter.defaultIncrement);
+            this.router.navigate(['detail', counter.id]);
+        } else {
+            this.counterService.createCounter(counter.name, counter.defaultIncrement, TransactionOperation.ADD, counter.initialValue || 0);
+            this.router.navigate(['/']);
+        }
+    }
+
+    public closeOverlay(id: string | undefined) {
+        if (id) {
+            this.router.navigate(['detail', id]);
+        } else {
+            this.router.navigate(['/']);
+        }
     }
 }
