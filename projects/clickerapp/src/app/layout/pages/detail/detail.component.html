@@ -1,5 +1,8 @@
 <detail-view 
     [counterDetail]="counter$" 
-    [counterValue]="counterValue$" 
+    [counterValue]="counterValue$"
+    (incrementCounter)="incrementCounter($event)"
+    (decrementCounter)="decrementCounter($event)"
+    (deleteCounter)="deleteCounter($event)"
     (closeOverlay)="closeOverlay()">
 </detail-view>

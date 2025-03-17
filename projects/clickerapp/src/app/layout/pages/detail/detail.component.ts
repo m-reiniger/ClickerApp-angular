@@ -37,4 +37,22 @@ export class DetailComponent implements OnInit {
     public closeOverlay() {
         this.router.navigate(['/']);
     }
+
+    public incrementCounter(id: string | undefined): void {
+        if (id) {
+            this.counterService.incrementCounter(id);
+        }
+    }
+
+    public decrementCounter(id: string | undefined): void {
+        if (id) {
+            this.counterService.decrementCounter(id);
+        }
+    }
+
+    public deleteCounter(id: string): void {
+        if (id) {
+            this.counterService.deleteCounter(id);
+        }
+    }
 }

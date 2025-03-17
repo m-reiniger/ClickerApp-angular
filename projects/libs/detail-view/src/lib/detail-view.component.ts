@@ -1,9 +1,11 @@
-import { Component, Input, output, Signal, signal } from '@angular/core';
+import { Component, inject, Input, output, Signal, signal } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 import { CounterDetail } from './types/counter-detail.types';
+import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 
 @Component({
     selector: 'detail-view',
@@ -16,8 +18,14 @@ import { CounterDetail } from './types/counter-detail.types';
 })
 export class DetailViewComponent {
 
+    readonly dialog = inject(MatDialog);
+
     @Input() counterDetail: Signal<CounterDetail | undefined> = signal<CounterDetail | undefined>(undefined);
     @Input() counterValue: Signal<number> = signal(0);
+
+    public incrementCounter = output<string | undefined>();
+    public decrementCounter = output<string | undefined>();
+    public deleteCounter = output<string>();
 
     public closeOverlay = output<void>();
 
@@ -27,12 +35,22 @@ export class DetailViewComponent {
 
     public incrementCounterHandle(event: Event, id: string | undefined) {
         event.stopPropagation();
-        // this.incrementCounter.emit(id);
+        this.incrementCounter.emit(id);
     }
 
     public decrementCounterHandle(event: Event, id: string | undefined) {
         event.stopPropagation();
-        // this.decrementCounter.emit(id);
+        this.decrementCounter.emit(id);
+    }
+
+    public confirmDelete() {
+        this.dialog.open(ConfirmDeleteComponent, {
+            data: {
+                closeHandle: this.closeOverlay,
+                deleteCounterHandle: this.deleteCounter,
+                id: this.counterDetail()?.id
+            }
+        });
     }
 
 }
