@@ -31,7 +31,7 @@ export class CounterFormComponent implements OnInit {
     public counter = output<CounterForm>();
     public closeOverlay = output<string | undefined>();
 
-    public editMode = true;
+    public editMode = false;
 
     public counterForm = new FormGroup({
         name: new FormControl('', [Validators.required]),

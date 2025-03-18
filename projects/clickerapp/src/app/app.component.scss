@@ -8,10 +8,10 @@
 }
 
 main {
-    margin-top: 60px;
+    margin-top: 100px;
     position: absolute;
     width: 100%;
-    height: calc(100% - 60px);
+    height: calc(100% - 100px);
 }
 
 mat-toolbar {
@@ -20,6 +20,8 @@ mat-toolbar {
     left: 0;
     right: 0;
     z-index: 1000;
+    padding-top: 40px;
+    height: 100px;
 
     span {
         margin-left: 10px;
@@ -31,12 +33,12 @@ mat-toolbar {
     .app-slogan {
         position: absolute;
         left: 125px;
-        top: 0px;
+        top: 40px;
         font-size: 12px;
     }
     main-menu {
         position: absolute;
         right: 0px;
-        top: 8px;
+        top: 48px;
     }
 }
