@@ -13,18 +13,40 @@ export class LocalStorageService {
     }
 
     public setItem(key: string, value: any): void {
-        this.localStorage.setItem(key, JSON.stringify(value));
+        try {
+            this.localStorage.setItem(key, JSON.stringify(value));
+        } catch (error) {
+            console.error('Error saving to localStorage:', error);
+            // Silently fail for quota exceeded errors
+        }
     }
 
     public getItem(key: string): any {
-        return JSON.parse(this.localStorage.getItem(key) || '[]');
+        try {
+            const item = this.localStorage.getItem(key);
+            if (!item) {
+                return [];
+            }
+            return JSON.parse(item);
+        } catch (error) {
+            console.error('Error reading from localStorage:', error);
+            return [];
+        }
     }
 
     public removeItem(key: string): void {
-        this.localStorage.removeItem(key);
+        try {
+            this.localStorage.removeItem(key);
+        } catch (error) {
+            console.error('Error removing from localStorage:', error);
+        }
     }
 
     public clear(): void {
-        this.localStorage.clear();
+        try {
+            this.localStorage.clear();
+        } catch (error) {
+            console.error('Error clearing localStorage:', error);
+        }
     }
 }

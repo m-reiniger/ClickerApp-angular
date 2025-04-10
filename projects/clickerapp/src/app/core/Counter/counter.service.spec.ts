@@ -100,29 +100,101 @@ describe('CounterService', () => {
     });
 
     describe('incrementCounter', () => {
-        it('should increment counter value', () => {
+        it('should increment counter value by default increment', () => {
             const counter = service.createCounter('Test Counter', 5, TransactionOperation.ADD, 10);
-            const valueSignal = service.getCounterValue$(counter.id);
-
+            const initialValue = service.getCounterValue$(counter.id)();
             service.incrementCounter(counter.id);
+            const newValue = service.getCounterValue$(counter.id)();
+            expect(newValue).toBe(initialValue + 5);
+        });
 
-            expect(valueSignal()).toBe(15);
+        it('should add a new transaction when incrementing', () => {
+            const counter = service.createCounter('Test Counter', 5, TransactionOperation.ADD, 10);
+            const initialTransactionCount = counter.transactions.length;
+            service.incrementCounter(counter.id);
+            const updatedCounter = service.getCounter(counter.id);
+            expect(updatedCounter?.transactions.length).toBe(initialTransactionCount + 1);
+        });
+
+        it('should do nothing when incrementing non-existent counter', () => {
+            const initialCounters = service.getCounterList().length;
+            service.incrementCounter('non-existent-id');
+            expect(service.getCounterList().length).toBe(initialCounters);
         });
     });
 
     describe('decrementCounter', () => {
-        it('should decrement counter value', () => {
-            const counter = service.createCounter(
-                'Test Counter',
-                3,
-                TransactionOperation.SUBTRACT,
-                10
-            );
-            const valueSignal = service.getCounterValue$(counter.id);
+        it('should decrement counter value by default increment', () => {
+            const counter = service.createCounter('Test Counter', 5, TransactionOperation.ADD, 20);
+            const initialValue = service.getCounterValue$(counter.id)();
 
             service.decrementCounter(counter.id);
 
-            expect(valueSignal()).toBe(7);
+            const newValue = service.getCounterValue$(counter.id)();
+            expect(newValue).toBe(initialValue - 5);
+        });
+
+        it('should add a new transaction when decrementing', () => {
+            const counter = service.createCounter(
+                'Test Counter',
+                5,
+                TransactionOperation.SUBTRACT,
+                20
+            );
+            const initialTransactionCount = counter.transactions.length;
+
+            service.decrementCounter(counter.id);
+
+            const updatedCounter = service.getCounter(counter.id);
+            expect(updatedCounter?.transactions.length).toBe(initialTransactionCount + 1);
+        });
+
+        it('should do nothing when decrementing non-existent counter', () => {
+            const initialCounters = service.getCounterList().length;
+            service.decrementCounter('non-existent-id');
+            expect(service.getCounterList().length).toBe(initialCounters);
+        });
+    });
+
+    describe('updateCounter', () => {
+        it('should update counter name and default increment', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 0);
+            const newName = 'Updated Counter';
+            const newIncrement = 10;
+
+            service.updateCounter(counter.id, newName, newIncrement);
+
+            const updatedCounter = service.getCounter(counter.id);
+            expect(updatedCounter?.name).toBe(newName);
+            expect(updatedCounter?.defaultIncrement).toBe(newIncrement);
+        });
+
+        it('should not update non-existent counter', () => {
+            const initialCounters = service.getCounterList().length;
+            service.updateCounter('non-existent-id', 'New Name', 10);
+            expect(service.getCounterList().length).toBe(initialCounters);
+        });
+    });
+
+    describe('signal behavior', () => {
+        it('should update signal when counter list changes', () => {
+            const counterListSignal = service.getCounterList$();
+            const initialValue = counterListSignal();
+
+            service.createCounter('Test Counter', 1, TransactionOperation.ADD, 0);
+
+            expect(counterListSignal()).not.toBe(initialValue);
+            expect(counterListSignal().length).toBe(initialValue.length + 1);
+        });
+
+        it('should update counter value signal when counter changes', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 0);
+            const valueSignal = service.getCounterValue$(counter.id);
+            const initialValue = valueSignal();
+
+            service.incrementCounter(counter.id);
+
+            expect(valueSignal()).toBe(initialValue + 1);
         });
     });
 

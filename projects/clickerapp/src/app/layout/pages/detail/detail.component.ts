@@ -23,13 +23,17 @@ export class DetailComponent implements OnInit {
 
     public ngOnInit(): void {
         const counterId = this.activatedRoute.snapshot.params['counterId'];
-        const counter$ = this.counterService.getCounter$(counterId);
-        this.counter$ = computed(() => ({
-            id: counter$().id,
-            name: counter$().name,
-            defaultIncrement: counter$().defaultIncrement,
-        }));
-        this.counterValue$ = this.counterService.getCounterValue$(counter$().id);
+        if (counterId) {
+            const counter$ = this.counterService.getCounter$(counterId);
+            if (counter$) {
+                this.counter$ = computed(() => ({
+                    id: counter$().id,
+                    name: counter$().name,
+                    defaultIncrement: counter$().defaultIncrement,
+                }));
+                this.counterValue$ = this.counterService.getCounterValue$(counter$().id);
+            }
+        }
     }
 
     public closeOverlay(): void {

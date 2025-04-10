@@ -22,13 +22,12 @@ export class TransactionService {
         switch (transaction.operation) {
             case TransactionOperation.ADD:
                 return accumulator + transaction.value;
-                break;
             case TransactionOperation.SUBTRACT:
                 return accumulator - transaction.value;
-                break;
             case TransactionOperation.RESET:
                 return transaction.value;
-                break;
+            default:
+                return accumulator;
         }
     }
 }

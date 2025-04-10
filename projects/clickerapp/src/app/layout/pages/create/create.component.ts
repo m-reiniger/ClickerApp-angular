@@ -23,11 +23,13 @@ export class CreateComponent implements OnInit {
         const counterId = this.activatedRoute.snapshot.params['counterId'];
         if (counterId) {
             const counter$ = this.counterService.getCounter$(counterId);
-            this.editCounter = {
-                id: counter$().id,
-                name: counter$().name,
-                defaultIncrement: counter$().defaultIncrement,
-            };
+            if (counter$) {
+                this.editCounter = {
+                    id: counter$().id,
+                    name: counter$().name,
+                    defaultIncrement: counter$().defaultIncrement,
+                };
+            }
         }
     }
 

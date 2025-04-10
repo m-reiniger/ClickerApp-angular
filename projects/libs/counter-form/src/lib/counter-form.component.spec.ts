@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ActivatedRoute } from '@angular/router';
+import { MockProvider } from 'ng-mocks';
 
 import { CounterFormComponent } from './counter-form.component';
 
@@ -9,6 +11,7 @@ describe('CounterFormComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CounterFormComponent],
+            providers: [MockProvider(ActivatedRoute)],
         }).compileComponents();
 
         fixture = TestBed.createComponent(CounterFormComponent);

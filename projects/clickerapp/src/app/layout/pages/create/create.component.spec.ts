@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { provideRouter } from '@angular/router';
 
 import { CreateComponent } from './create.component';
 
@@ -11,7 +12,12 @@ describe('CreateComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CreateComponent],
-            providers: [provideAnimations(), provideAnimationsAsync(), provideNoopAnimations()],
+            providers: [
+                provideAnimations(),
+                provideAnimationsAsync(),
+                provideNoopAnimations(),
+                provideRouter([]),
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(CreateComponent);

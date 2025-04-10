@@ -40,15 +40,33 @@ export class CounterService {
         return this.counterList.find((counter) => counter.id === id);
     }
 
-    public getCounter$(id: string): Signal<Counter> {
-        return signal(this.counterList.find((counter) => counter.id === id) as Counter);
+    public getCounter$(id: string): Signal<Counter> | undefined {
+        const counter = this.counterList.find((counter) => counter.id === id) as Counter;
+        if (counter) {
+            return signal(counter);
+        } else {
+            return undefined;
+        }
     }
 
     /**
      * publicly expose a immutable signal of the counter value
      */
     public getCounterValue$(id: string): Signal<number> {
-        return this.getCounterValueSignal_(id) as Signal<number>;
+        return this.getCounterValueSignal(id) as Signal<number>;
+    }
+
+    private getCounterValueSignal(id: string): WritableSignal<number> {
+        if (!this.counter$.has(id)) {
+            const counter = this.getCounter(id);
+            if (counter) {
+                const value = this.transactionService.compute(counter.transactions);
+                this.counter$.set(id, signal(value));
+            } else {
+                this.counter$.set(id, signal(0));
+            }
+        }
+        return this.counter$.get(id) as WritableSignal<number>;
     }
 
     public createCounter(
@@ -102,54 +120,36 @@ export class CounterService {
         const counter = this.getCounter(id);
         if (counter) {
             const transaction = this.transactionService.create(
-                TransactionOperation.ADD,
+                counter.defaultOperation,
                 counter.defaultIncrement
             );
             counter.transactions.push(transaction);
+            this.updateSignal(id);
+            this.saveCounters();
         }
-        this.updateSignal(id);
-        this.saveCounters();
     }
 
     public decrementCounter(id: string): void {
         const counter = this.getCounter(id);
         if (counter) {
             const transaction = this.transactionService.create(
-                TransactionOperation.SUBTRACT,
+                counter.defaultOperation === TransactionOperation.ADD
+                    ? TransactionOperation.SUBTRACT
+                    : TransactionOperation.ADD,
                 counter.defaultIncrement
             );
             counter.transactions.push(transaction);
+            this.updateSignal(id);
+            this.saveCounters();
         }
-        this.updateSignal(id);
-        this.saveCounters();
-    }
-
-    private getCounterValueSignal_(id: string): WritableSignal<number> {
-        const counter = this.getCounter(id);
-        let value = 0;
-        let valueSignal: WritableSignal<number>;
-
-        if (counter) {
-            value = this.transactionService.compute(counter.transactions);
-        }
-
-        if (!this.counter$.has(id)) {
-            valueSignal = signal(value);
-            this.counter$.set(id, valueSignal);
-        } else {
-            valueSignal = this.counter$.get(id) as WritableSignal<number>;
-            valueSignal.set(value);
-        }
-
-        return valueSignal;
     }
 
     private updateSignal(id: string): void {
-        const value = this.getCounterValueSignal_(id);
         const counter = this.getCounter(id);
-
-        if (value && counter) {
-            value.set(this.transactionService.compute(counter.transactions));
+        if (counter) {
+            const value = this.transactionService.compute(counter.transactions);
+            const signal = this.getCounterValueSignal(id);
+            signal.set(value);
         }
     }
 
