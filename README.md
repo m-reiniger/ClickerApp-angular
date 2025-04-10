@@ -10,6 +10,7 @@ A versatile mobile counter application that allows you to create and manage mult
 - Persistent storage of all counters
 - Offline functionality
 - Native mobile app experience
+- Set goals for counters
 
 ## Use Cases
 
