@@ -9,6 +9,15 @@ import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 
 import { CounterForm } from './types/counter-form.types';
 
+/**
+ * Form component for creating and editing counters.
+ *
+ * @Input title - The title to display at the top of the form (default: 'Create a new Counter')
+ * @Input editCounter - Optional counter data to edit. If provided, the form will be pre-filled with counter data
+ *
+ * @Output counter - Emits the form data when the counter is saved
+ * @Output closeOverlay - Emits the counter ID when the form is closed, or undefined if creating a new counter
+ */
 @Component({
     selector: 'lib-counter-form',
     imports: [

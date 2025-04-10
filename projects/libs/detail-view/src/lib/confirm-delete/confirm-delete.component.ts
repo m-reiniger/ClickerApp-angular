@@ -9,6 +9,16 @@ import {
     MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 
+/**
+ * Dialog component for confirming counter deletion.
+ *
+ * @Input data - Dialog data containing:
+ *   - id: string - The ID of the counter to delete
+ *   - closeHandle: Output<void> - Function to close the dialog
+ *   - deleteCounterHandle: Output<string> - Function to trigger counter deletion
+ *
+ * @Output confirmed - Emits when the user confirms the deletion
+ */
 @Component({
     selector: 'lib-confirm-delete',
     imports: [MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],

@@ -4,6 +4,17 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { UiCounters } from './types/counters.types';
 
+/**
+ * Main home screen component that displays a list of counters and their controls.
+ *
+ * @Input title - The title to display at the top of the screen (default: 'My Counters')
+ * @Input counterList$ - A signal containing the list of counters to display
+ *
+ * @Output incrementCounter - Emits the ID of the counter to increment
+ * @Output decrementCounter - Emits the ID of the counter to decrement
+ * @Output navigateToDetail - Emits the ID of the counter to view details
+ * @Output addCounter - Emits when the add counter button is clicked
+ */
 @Component({
     selector: 'lib-ui-home',
     imports: [NgFor, NgIf, MatButtonModule],

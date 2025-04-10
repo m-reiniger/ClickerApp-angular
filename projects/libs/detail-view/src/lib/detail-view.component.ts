@@ -7,6 +7,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { CounterDetail } from './types/counter-detail.types';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 
+/**
+ * Component that displays detailed information about a counter and provides controls for manipulation.
+ *
+ * @Input counterDetail - Signal containing the counter details to display
+ * @Input counterValue - Signal containing the current value of the counter
+ *
+ * @Output incrementCounter - Emits the counter ID when increment button is clicked
+ * @Output decrementCounter - Emits the counter ID when decrement button is clicked
+ * @Output editCounter - Emits the counter ID when edit button is clicked
+ * @Output deleteCounter - Emits the counter ID when delete button is clicked
+ * @Output closeOverlay - Emits when the detail view is closed
+ */
 @Component({
     selector: 'lib-detail-view',
     imports: [MatButtonModule, MatIconModule],
@@ -25,7 +37,6 @@ export class DetailViewComponent {
     public decrementCounter = output<string | undefined>();
     public editCounter = output<string | undefined>();
     public deleteCounter = output<string>();
-
     public closeOverlay = output<void>();
 
     public close(): void {
