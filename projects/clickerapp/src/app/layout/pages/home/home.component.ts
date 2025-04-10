@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
                 name: counter.name,
                 value: this.counterService.getCounterValue$(counter.id),
                 defaultIncrement: counter.defaultIncrement,
+                initialValue: counter.initialValue,
+                goal: counter.goal !== undefined ? counter.goal : null,
             }))
         );
     }

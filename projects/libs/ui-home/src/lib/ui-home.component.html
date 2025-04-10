@@ -17,7 +17,16 @@
             </button>
         </div>
         <div class="counter-value">
-            <button mat-fab>{{ counter.value() }}</button>
+            <div
+                class="value-progress-border"
+                [style.--progress]="
+                    getProgress(counter.initialValue, counter.goal, counter.value())
+                "
+                [class]="{ 'goal-reached': checkGoal(counter, counter.value()) }">
+                <button mat-fab>
+                    {{ counter.value() }}
+                </button>
+            </div>
         </div>
         <div class="increment-button">
             <button mat-fab (click)="incrementCounterHandle($event, counter.id)">

@@ -32,3 +32,8 @@ body {
 * {
     font-family: 'Poppins', 'Helvetica Neue', sans-serif;
 }
+
+// disable double tap zoon
+button {
+    touch-action: manipulation;
+}

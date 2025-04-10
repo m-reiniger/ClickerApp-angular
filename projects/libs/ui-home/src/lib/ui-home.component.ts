@@ -2,7 +2,7 @@ import { Component, Input, output, signal, Signal } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 
-import { UiCounters } from './types/counters.types';
+import { UiCounter, UiCounters } from './types/counters.types';
 
 /**
  * Main home screen component that displays a list of counters and their controls.
@@ -46,5 +46,68 @@ export class UiHomeComponent {
 
     public navigateToDetailHandle(id: string): void {
         this.navigateToDetail.emit(id);
+    }
+
+    public checkGoal(counter: UiCounter, value: number): boolean {
+        return (
+            !!(
+                counter.goal != undefined &&
+                counter.defaultIncrement > 0 &&
+                value >= counter.goal
+            ) ||
+            !!(counter.goal != undefined && counter.defaultIncrement < 0 && value <= counter.goal)
+        );
+    }
+
+    /**
+     * Calculates the progress in degrees (0-360) based on the current value relative to the goal
+     * @param initialValue - The starting value
+     * @param goal - The target value to reach
+     * @param currentValue - The current value
+     * @returns The progress in degrees (0-360)
+     */
+    public getProgress(
+        initialValue: number,
+        goal: number | null | undefined,
+        currentValue: number
+    ): string {
+        if (goal == null || goal == undefined) {
+            return '360deg';
+        }
+
+        // If goal equals initial value, we can't calculate progress
+        if (goal === initialValue) {
+            return '360deg';
+        }
+
+        // Calculate the total distance to cover
+        const totalDistance = Math.abs(goal - initialValue);
+
+        // Calculate how far we've come from the initial value
+        const coveredDistance = Math.abs(currentValue - initialValue);
+
+        // Calculate progress as a percentage (0-1)
+        const progress = coveredDistance / totalDistance;
+
+        // Check if we're moving in the right direction
+        const isMovingTowardsGoal =
+            (goal > initialValue && currentValue > initialValue) ||
+            (goal < initialValue && currentValue < initialValue);
+
+        // If we're moving away from the goal, progress is 0
+        if (!isMovingTowardsGoal) {
+            return '0deg';
+        }
+
+        // If we've reached or exceeded the goal, progress is complete
+        if (
+            (goal > initialValue && currentValue >= goal) ||
+            (goal < initialValue && currentValue <= goal)
+        ) {
+            return '360deg';
+        }
+
+        // Convert progress to degrees (0-360)
+        return `${progress * 360}deg`;
     }
 }

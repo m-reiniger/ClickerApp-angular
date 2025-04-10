@@ -45,6 +45,7 @@ export class CounterFormComponent implements OnInit {
         name: new FormControl('', [Validators.required]),
         defaultIncrement: new FormControl(1, [Validators.required]),
         initialValue: new FormControl(0, [Validators.required]),
+        goal: new FormControl<number | null>(null),
     });
 
     public ngOnInit(): void {
@@ -53,6 +54,7 @@ export class CounterFormComponent implements OnInit {
                 name: this.editCounter.name,
                 defaultIncrement: this.editCounter.defaultIncrement,
                 initialValue: 0,
+                goal: this.editCounter.goal ? this.editCounter.goal : null,
             });
             this.editMode = true;
         }
@@ -65,6 +67,7 @@ export class CounterFormComponent implements OnInit {
                 name: this.counterForm.value.name as string,
                 defaultIncrement: this.counterForm.value.defaultIncrement as number,
                 initialValue: this.counterForm.value.initialValue as number,
+                goal: this.counterForm.value.goal,
             });
         }
     }

@@ -3,4 +3,5 @@ export type CounterForm = {
     name: string;
     defaultIncrement: number;
     initialValue?: number;
+    goal?: number | null;
 };

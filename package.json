@@ -7,6 +7,7 @@
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
+        "all-tests": "ng test & ng test @libs/ui-home & ng test @libs/counter-form & ng test @libs/detail-view",
         "lint": "ng lint",
         "format": "prettier --write \"projects/**/*.{ts,html,scss,json}\"",
         "format:check": "prettier --check \"projects/**/*.{ts,html,scss,json}\"",

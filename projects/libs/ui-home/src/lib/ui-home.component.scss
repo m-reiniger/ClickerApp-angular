@@ -71,11 +71,36 @@
                         container-shape: 50%,
                     )
                 );
-                border: 3px solid var(--mat-sys-primary);
+                // border: 3px solid var(--mat-sys-primary);
                 font-size: 30px;
                 font-weight: bold;
-                min-width: 80px;
-                min-height: 80px;
+                min-width: 72px;
+                min-height: 72px;
+            }
+
+            .value-progress-border {
+                padding: 3px;
+                min-width: 72px;
+                min-height: 72px;
+                background: conic-gradient(var(--mat-sys-primary) var(--progress), transparent 0);
+                // mask: radial-gradient(transparent 55%, black 55%);
+                // -webkit-mask: radial-gradient(transparent 55%, black 55%);
+                border-radius: 50%;
+            }
+
+            .goal-reached {
+                background: conic-gradient(var(--mat-sys-tertiary) var(--progress), transparent 0);
+
+                button {
+                    @include mat.fab-overrides(
+                        (
+                            container-color: var(--mat-sys-tertiary-container),
+                            foreground-color: var(--mat-sys-tertiary),
+                            container-shape: 50%,
+                        )
+                    );
+                    //border: 3px solid var(--mat-sys-tertiary);
+                }
             }
         }
 

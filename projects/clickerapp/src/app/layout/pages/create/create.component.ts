@@ -28,6 +28,7 @@ export class CreateComponent implements OnInit {
                     id: counter$().id,
                     name: counter$().name,
                     defaultIncrement: counter$().defaultIncrement,
+                    goal: counter$().goal || null,
                 };
             }
         }
@@ -35,14 +36,20 @@ export class CreateComponent implements OnInit {
 
     public saveCounter(counter: CounterForm): void {
         if (counter.id) {
-            this.counterService.updateCounter(counter.id, counter.name, counter.defaultIncrement);
+            this.counterService.updateCounter(
+                counter.id,
+                counter.name,
+                counter.defaultIncrement,
+                counter.goal !== undefined && counter.goal !== null ? counter.goal : undefined
+            );
             this.router.navigate(['detail', counter.id]);
         } else {
             this.counterService.createCounter(
                 counter.name,
                 counter.defaultIncrement,
                 TransactionOperation.ADD,
-                counter.initialValue || 0
+                counter.initialValue || 0,
+                counter.goal !== undefined && counter.goal !== null ? counter.goal : undefined
             );
             this.router.navigate(['/']);
         }

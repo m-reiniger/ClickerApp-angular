@@ -32,6 +32,7 @@ describe('StorageService', () => {
                 transactions: [],
                 defaultIncrement: 1,
                 defaultOperation: TransactionOperation.ADD,
+                initialValue: 0,
             },
         ];
         spyOn(localStorageService, 'getItem').and.returnValue(mockCounters);
@@ -50,6 +51,7 @@ describe('StorageService', () => {
                 transactions: [],
                 defaultIncrement: 1,
                 defaultOperation: TransactionOperation.SUBTRACT,
+                initialValue: 0,
             },
         ];
         spyOn(localStorageService, 'setItem');
@@ -96,6 +98,7 @@ describe('StorageService', () => {
                     transactions: [],
                     defaultIncrement: 1,
                     defaultOperation: TransactionOperation.ADD,
+                    initialValue: 0,
                 },
             ];
 
@@ -112,6 +115,7 @@ describe('StorageService', () => {
                     transactions: [],
                     defaultIncrement: 1,
                     defaultOperation: TransactionOperation.ADD,
+                    initialValue: 0,
                 },
             ];
 
@@ -145,6 +149,7 @@ describe('StorageService', () => {
                     ],
                     defaultIncrement: 1,
                     defaultOperation: TransactionOperation.ADD,
+                    initialValue: 0,
                 },
             ];
 

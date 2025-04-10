@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 import { MockProvider } from 'ng-mocks';
 
 import { CounterFormComponent } from './counter-form.component';
@@ -11,7 +14,12 @@ describe('CounterFormComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [CounterFormComponent],
-            providers: [MockProvider(ActivatedRoute)],
+            providers: [
+                provideAnimations(),
+                provideAnimationsAsync(),
+                provideNoopAnimations(),
+                MockProvider(ActivatedRoute),
+            ],
         }).compileComponents();
 
         fixture = TestBed.createComponent(CounterFormComponent);

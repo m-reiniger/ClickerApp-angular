@@ -7,5 +7,7 @@ export type Counter = {
     name: string;
     transactions: Transactions;
     defaultIncrement: number;
+    initialValue: number;
+    goal?: number;
     defaultOperation: TransactionOperation;
 };

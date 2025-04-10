@@ -104,7 +104,7 @@
                 }
             }
         },
-        "lib-ui-home": {
+        "@libs/ui-home": {
             "projectType": "library",
             "root": "projects/libs/ui-home",
             "sourceRoot": "projects/libs/ui-home/src",

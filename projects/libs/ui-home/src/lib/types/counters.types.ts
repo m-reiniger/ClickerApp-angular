@@ -7,6 +7,8 @@ export type UiCounter = {
     name: string;
     value: Signal<number>;
     defaultIncrement: number;
+    initialValue: number;
+    goal?: number | null;
 };
 
 export enum UiTransactionOperation {
