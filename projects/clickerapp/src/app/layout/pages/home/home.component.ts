@@ -7,27 +7,26 @@ import { CounterService } from '@app/core/counter/counter.service';
 
 @Component({
     selector: 'app-home',
-    imports: [
-        UiHomeComponent
-    ],
+    imports: [UiHomeComponent],
     templateUrl: './home.component.html',
-    styleUrl: './home.component.scss'
+    styleUrl: './home.component.scss',
 })
 export class HomeComponent implements OnInit {
-
     public counterList$: WritableSignal<UiCounters> = signal<UiCounters>([]);
 
     private counterService = inject(CounterService);
     private router = inject(Router);
 
-    public ngOnInit() {
+    public ngOnInit(): void {
         const counters = this.counterService.getCounterList();
-        this.counterList$.set(counters.map(counter => ({
-            id: counter.id,
-            name: counter.name,
-            value: this.counterService.getCounterValue$(counter.id),
-            defaultIncrement: counter.defaultIncrement
-        })));
+        this.counterList$.set(
+            counters.map((counter) => ({
+                id: counter.id,
+                name: counter.name,
+                value: this.counterService.getCounterValue$(counter.id),
+                defaultIncrement: counter.defaultIncrement,
+            }))
+        );
     }
 
     public incrementCounter(id: string): void {

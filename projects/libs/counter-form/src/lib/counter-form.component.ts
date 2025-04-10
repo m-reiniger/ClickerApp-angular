@@ -10,7 +10,7 @@ import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { CounterForm } from './types/counter-form.types';
 
 @Component({
-    selector: 'counter-form',
+    selector: 'lib-counter-form',
     imports: [
         MatButtonModule,
         MatInputModule,
@@ -18,15 +18,14 @@ import { CounterForm } from './types/counter-form.types';
         ReactiveFormsModule,
         MatIconModule,
         MatExpansionModule,
-        MatAccordion
+        MatAccordion,
     ],
     templateUrl: './counter-form.component.html',
-    styleUrl: './counter-form.component.scss'
+    styleUrl: './counter-form.component.scss',
 })
 export class CounterFormComponent implements OnInit {
-
-    @Input() title: string = 'Create a new Counter';
-    @Input() editCounter: CounterForm | undefined = undefined;
+    @Input() public title = 'Create a new Counter';
+    @Input() public editCounter: CounterForm | undefined = undefined;
 
     public counter = output<CounterForm>();
     public closeOverlay = output<string | undefined>();
@@ -39,7 +38,7 @@ export class CounterFormComponent implements OnInit {
         initialValue: new FormControl(0, [Validators.required]),
     });
 
-    ngOnInit(): void {
+    public ngOnInit(): void {
         if (this.editCounter && this.editCounter.id) {
             this.counterForm.setValue({
                 name: this.editCounter.name,
@@ -50,7 +49,7 @@ export class CounterFormComponent implements OnInit {
         }
     }
 
-    public saveCounter() {
+    public saveCounter(): void {
         if (this.counterForm.valid) {
             this.counter.emit({
                 id: this.editCounter?.id || undefined,
@@ -61,7 +60,7 @@ export class CounterFormComponent implements OnInit {
         }
     }
 
-    public close() {
+    public close(): void {
         if (this.editCounter && this.editCounter.id) {
             this.closeOverlay.emit(this.editCounter.id);
         } else {

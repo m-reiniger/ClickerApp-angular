@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
 .detail-view {
     width: calc(99% - 2em);
@@ -49,10 +49,8 @@
 
     .counter-control {
         width: 100%;
-    
 
         .increment-button {
-            
             padding: 10px;
             text-align: right;
 
@@ -74,15 +72,17 @@
         }
 
         .decrement-button {
-            
             margin-bottom: -3em;
             margin-left: 2em;
 
             button {
-                @include mat.fab-overrides((small-container-color: var(--mat-sys-surface-container-highest),
+                @include mat.fab-overrides(
+                    (
+                        small-container-color: var(--mat-sys-surface-container-highest),
                         small-foreground-color: var(--mat-sys-on-surface-container-highest),
                         small-container-shape: 50%,
-                    ));
+                    )
+                );
 
                 font-size: 2em;
                 font-weight: 800;

@@ -19,7 +19,7 @@ describe('TransactionService', () => {
         const transaction = service.create(TransactionOperation.ADD, 14);
         expect(transaction.operation).toBe(TransactionOperation.ADD);
         expect(transaction.value).toBe(14);
-    })
+    });
 
     it('should compute the current value of an transaction stack', () => {
         const initialValue = 5;
@@ -48,7 +48,7 @@ describe('TransactionService', () => {
                 value: 1,
                 operation: TransactionOperation.ADD,
                 created: new Date(),
-            }
+            },
         ];
         expect(service.compute(transactions, initialValue)).toBe(7); // should be 7
     });
@@ -75,8 +75,8 @@ describe('TransactionService', () => {
                 value: 1,
                 operation: TransactionOperation.ADD,
                 created: new Date(),
-            }
+            },
         ];
         expect(service.compute(transactions, initialValue)).toBe(8); // should be 8
-    }) 
+    });
 });

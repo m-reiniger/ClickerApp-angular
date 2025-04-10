@@ -8,20 +8,18 @@ import { CounterDetail } from './types/counter-detail.types';
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 
 @Component({
-    selector: 'detail-view',
-    imports: [
-        MatButtonModule,
-        MatIconModule
-    ],
+    selector: 'lib-detail-view',
+    imports: [MatButtonModule, MatIconModule],
     templateUrl: './detail-view.component.html',
-    styleUrl: './detail-view.component.scss'
+    styleUrl: './detail-view.component.scss',
 })
 export class DetailViewComponent {
+    private readonly dialog = inject(MatDialog);
 
-    readonly dialog = inject(MatDialog);
-
-    @Input() counterDetail: Signal<CounterDetail | undefined> = signal<CounterDetail | undefined>(undefined);
-    @Input() counterValue: Signal<number> = signal(0);
+    @Input() public counterDetail: Signal<CounterDetail | undefined> = signal<
+        CounterDetail | undefined
+    >(undefined);
+    @Input() public counterValue: Signal<number> = signal(0);
 
     public incrementCounter = output<string | undefined>();
     public decrementCounter = output<string | undefined>();
@@ -30,33 +28,32 @@ export class DetailViewComponent {
 
     public closeOverlay = output<void>();
 
-    public close() {
+    public close(): void {
         this.closeOverlay.emit();
     }
 
-    public incrementCounterHandle(event: Event, id: string | undefined) {
+    public incrementCounterHandle(event: Event, id: string | undefined): void {
         event.stopPropagation();
         this.incrementCounter.emit(id);
     }
 
-    public decrementCounterHandle(event: Event, id: string | undefined) {
+    public decrementCounterHandle(event: Event, id: string | undefined): void {
         event.stopPropagation();
         this.decrementCounter.emit(id);
     }
 
-    public editCounterHandle(event: Event, id: string | undefined) {
+    public editCounterHandle(event: Event, id: string | undefined): void {
         event.stopPropagation();
         this.editCounter.emit(id);
     }
 
-    public confirmDelete() {
+    public confirmDelete(): void {
         this.dialog.open(ConfirmDeleteComponent, {
             data: {
                 closeHandle: this.closeOverlay,
                 deleteCounterHandle: this.deleteCounter,
-                id: this.counterDetail()?.id
-            }
+                id: this.counterDetail()?.id,
+            },
         });
     }
-
 }

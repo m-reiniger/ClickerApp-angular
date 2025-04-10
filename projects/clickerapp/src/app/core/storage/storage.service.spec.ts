@@ -13,10 +13,7 @@ describe('StorageService', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            providers: [
-                StorageService,
-                MockProvider(LocalStorageService)
-            ]
+            providers: [StorageService, MockProvider(LocalStorageService)],
         });
 
         service = TestBed.inject(StorageService);
@@ -28,7 +25,15 @@ describe('StorageService', () => {
     });
 
     it('should load counters from local storage', () => {
-        const mockCounters: Counters = [{ name: 'Test Counter', id: '1', transactions: [], defaultIncrement: 1, defaultOperation: TransactionOperation.ADD }];
+        const mockCounters: Counters = [
+            {
+                name: 'Test Counter',
+                id: '1',
+                transactions: [],
+                defaultIncrement: 1,
+                defaultOperation: TransactionOperation.ADD,
+            },
+        ];
         spyOn(localStorageService, 'getItem').and.returnValue(mockCounters);
 
         const result = service.loadCounters();
@@ -38,12 +43,23 @@ describe('StorageService', () => {
     });
 
     it('should save counters to local storage', () => {
-        const mockCounters: Counters = [{ name: 'Test Counter', id: '1', transactions: [], defaultIncrement: 1, defaultOperation: TransactionOperation.SUBTRACT }];
+        const mockCounters: Counters = [
+            {
+                name: 'Test Counter',
+                id: '1',
+                transactions: [],
+                defaultIncrement: 1,
+                defaultOperation: TransactionOperation.SUBTRACT,
+            },
+        ];
         spyOn(localStorageService, 'setItem');
 
         service.saveCounters(mockCounters);
 
-        expect(localStorageService.setItem).toHaveBeenCalledWith(LocalStorageService.COUNTERS_KEY, mockCounters);
+        expect(localStorageService.setItem).toHaveBeenCalledWith(
+            LocalStorageService.COUNTERS_KEY,
+            mockCounters
+        );
     });
 
     it('should delete counters from local storage', () => {
@@ -51,6 +67,8 @@ describe('StorageService', () => {
 
         service.deleteCounters();
 
-        expect(localStorageService.removeItem).toHaveBeenCalledWith(LocalStorageService.COUNTERS_KEY);
+        expect(localStorageService.removeItem).toHaveBeenCalledWith(
+            LocalStorageService.COUNTERS_KEY
+        );
     });
 });

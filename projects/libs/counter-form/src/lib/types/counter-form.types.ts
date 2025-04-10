@@ -3,4 +3,4 @@ export type CounterForm = {
     name: string;
     defaultIncrement: number;
     initialValue?: number;
-}
+};

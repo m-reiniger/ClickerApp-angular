@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
 .counter-list {
     display: flex;
@@ -64,10 +64,13 @@
             flex-basis: 0;
 
             button {
-                @include mat.fab-overrides((container-color: var(--mat-sys-primary-container),
+                @include mat.fab-overrides(
+                    (
+                        container-color: var(--mat-sys-primary-container),
                         foreground-color: var(--mat-sys-primary),
                         container-shape: 50%,
-                    ));
+                    )
+                );
                 border: 3px solid var(--mat-sys-primary);
                 font-size: 30px;
                 font-weight: bold;
@@ -81,10 +84,13 @@
             flex-basis: 0;
 
             button {
-                @include mat.fab-overrides((container-color: var(--mat-sys-secondary),
+                @include mat.fab-overrides(
+                    (
+                        container-color: var(--mat-sys-secondary),
                         foreground-color: var(--mat-sys-on-secondary),
                         container-shape: 50%,
-                    ));
+                    )
+                );
 
                 font-size: 18px;
                 font-weight: 600;
@@ -96,10 +102,13 @@
             flex-basis: 0;
 
             button {
-                @include mat.fab-overrides((small-container-color: var(--mat-sys-surface-container-highest),
+                @include mat.fab-overrides(
+                    (
+                        small-container-color: var(--mat-sys-surface-container-highest),
                         small-foreground-color: var(--mat-sys-on-surface-container-highest),
                         small-container-shape: 50%,
-                    ));
+                    )
+                );
 
                 font-size: 18px;
                 font-weight: 800;
@@ -119,8 +128,11 @@
     font-size: 30px;
     font-weight: bold;
 
-    @include mat.fab-overrides((container-color: var(--mat-sys-primary),
+    @include mat.fab-overrides(
+        (
+            container-color: var(--mat-sys-primary),
             foreground-color: var(--mat-sys-on-primary),
             container-shape: 50%,
-        ));
+        )
+    );
 }

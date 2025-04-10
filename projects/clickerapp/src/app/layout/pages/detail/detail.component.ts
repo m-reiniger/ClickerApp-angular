@@ -7,38 +7,36 @@ import { CounterService } from '@app/core/counter/counter.service';
 
 @Component({
     selector: 'app-detail',
-    imports: [
-        DetailViewComponent
-    ],
+    imports: [DetailViewComponent],
     templateUrl: './detail.component.html',
-    styleUrl: './detail.component.scss'
+    styleUrl: './detail.component.scss',
 })
 export class DetailComponent implements OnInit {
-
     private activatedRoute = inject(ActivatedRoute);
     private counterService = inject(CounterService);
     private router = inject(Router);
 
-    public counter$: Signal<CounterDetail | undefined> = signal<CounterDetail | undefined>(undefined);
+    public counter$: Signal<CounterDetail | undefined> = signal<CounterDetail | undefined>(
+        undefined
+    );
     public counterValue$: Signal<number> = signal(0);
 
-
-    ngOnInit() {
+    public ngOnInit(): void {
         const counterId = this.activatedRoute.snapshot.params['counterId'];
         const counter$ = this.counterService.getCounter$(counterId);
         this.counter$ = computed(() => ({
             id: counter$().id,
             name: counter$().name,
-            defaultIncrement: counter$().defaultIncrement
+            defaultIncrement: counter$().defaultIncrement,
         }));
         this.counterValue$ = this.counterService.getCounterValue$(counter$().id);
     }
 
-    public closeOverlay() {
+    public closeOverlay(): void {
         this.router.navigate(['/']);
     }
 
-    public editCounter(id: string | undefined) {
+    public editCounter(id: string | undefined): void {
         if (id) {
             this.router.navigate(['edit', id]);
         }

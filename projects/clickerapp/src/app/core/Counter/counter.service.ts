@@ -9,10 +9,9 @@ import { Counter, Counters } from './counter.types';
 import { TransactionOperation } from '@app/core/transaction/transaction.type';
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class CounterService {
-
     private counterList: Counters = [];
 
     private counterList$: WritableSignal<Counters> = signal(this.counterList);
@@ -38,11 +37,11 @@ export class CounterService {
     }
 
     public getCounter(id: string): Counter | undefined {
-        return this.counterList.find(counter => counter.id === id);
+        return this.counterList.find((counter) => counter.id === id);
     }
 
     public getCounter$(id: string): Signal<Counter> {
-        return signal(this.counterList.find(counter => counter.id === id) as Counter);
+        return signal(this.counterList.find((counter) => counter.id === id) as Counter);
     }
 
     /**
@@ -52,22 +51,32 @@ export class CounterService {
         return this.getCounterValueSignal_(id) as Signal<number>;
     }
 
-    public createCounter(name: string, defaultIncrement: number, defaultOperation: TransactionOperation, initialValue: number): void {
+    public createCounter(
+        name: string,
+        defaultIncrement: number,
+        defaultOperation: TransactionOperation,
+        initialValue: number
+    ): Counter {
         const counter: Counter = {
             id: uuidv4(),
             name,
             transactions: [],
             defaultIncrement,
-            defaultOperation
-        }
+            defaultOperation,
+        };
 
-        const transaction = this.transactionService.create(TransactionOperation.RESET, initialValue);
+        const transaction = this.transactionService.create(
+            TransactionOperation.RESET,
+            initialValue
+        );
         counter.transactions.push(transaction);
 
         this.counterList.push(counter);
         this.counterList$.set(this.counterList);
 
         this.saveCounters();
+
+        return counter;
     }
 
     public updateCounter(id: string, name: string, defaultIncrement: number): void {
@@ -79,11 +88,10 @@ export class CounterService {
             this.counterList$.set(this.counterList);
             this.saveCounters();
         }
-
     }
 
     public deleteCounter(id: string): void {
-        this.counterList = this.counterList.filter(counter => counter.id !== id);
+        this.counterList = this.counterList.filter((counter) => counter.id !== id);
         this.counter$.delete(id);
 
         this.counterList$.set(this.counterList);
@@ -93,7 +101,10 @@ export class CounterService {
     public incrementCounter(id: string): void {
         const counter = this.getCounter(id);
         if (counter) {
-            const transaction = this.transactionService.create(TransactionOperation.ADD, counter.defaultIncrement);
+            const transaction = this.transactionService.create(
+                TransactionOperation.ADD,
+                counter.defaultIncrement
+            );
             counter.transactions.push(transaction);
         }
         this.updateSignal(id);
@@ -103,7 +114,10 @@ export class CounterService {
     public decrementCounter(id: string): void {
         const counter = this.getCounter(id);
         if (counter) {
-            const transaction = this.transactionService.create(TransactionOperation.SUBTRACT, counter.defaultIncrement);
+            const transaction = this.transactionService.create(
+                TransactionOperation.SUBTRACT,
+                counter.defaultIncrement
+            );
             counter.transactions.push(transaction);
         }
         this.updateSignal(id);

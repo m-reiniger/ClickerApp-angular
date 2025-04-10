@@ -1,4 +1,4 @@
-@use "@angular/material" as mat;
+@use '@angular/material' as mat;
 
 .counter-form {
     width: calc(100% - 2em);
@@ -18,10 +18,12 @@
         text-align: right;
 
         button {
-            @include mat.button-overrides((
-                filled-container-color: var(--mat-sys-secondary),
-                filled-label-text-color: var(--mat-sys-on-secondary),
-            ));
+            @include mat.button-overrides(
+                (
+                    filled-container-color: var(--mat-sys-secondary),
+                    filled-label-text-color: var(--mat-sys-on-secondary),
+                )
+            );
 
             margin-top: 1em;
         }

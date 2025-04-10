@@ -7,12 +7,7 @@ import { MainMenuComponent } from './layout/ui-components/main-menu/main-menu.co
 describe('AppComponent', () => {
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                AppComponent,
-                MatToolbarModule,
-                MatIconModule,
-                MainMenuComponent
-            ],
+            imports: [AppComponent, MatToolbarModule, MatIconModule, MainMenuComponent],
         }).compileComponents();
     });
 

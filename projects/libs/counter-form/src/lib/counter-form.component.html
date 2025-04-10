@@ -2,7 +2,6 @@
     <mat-icon aria-hidden="false" aria-label="close" fontIcon="close" (click)="close()"></mat-icon>
     <h3>{{ title }}</h3>
     <form [formGroup]="counterForm" class="counter-form-form">
-
         <mat-accordion class="example-headers-align" multi>
             <mat-expansion-panel expanded hideToggle>
                 <mat-expansion-panel-header>
@@ -12,7 +11,6 @@
                     <mat-label>Name</mat-label>
                     <input matInput formControlName="name" />
                 </mat-form-field>
-
             </mat-expansion-panel>
 
             <mat-expansion-panel>
@@ -32,10 +30,8 @@
                     <input matInput formControlName="defaultIncrement" type="number" />
                     <!-- <mat-hint>The amount that the counter will increment by each time it is clicked</mat-hint> -->
                 </mat-form-field>
-
             </mat-expansion-panel>
         </mat-accordion>
-
 
         <button mat-flat-button (click)="saveCounter()" type="button">
             @if (editMode) {

@@ -7,22 +7,22 @@ import { HomeComponent } from '@app/layout/pages/home/home.component';
 export const routes: Routes = [
     {
         path: '',
-        component: HomeComponent
+        component: HomeComponent,
     },
     {
         path: 'create',
-        component: CreateComponent
+        component: CreateComponent,
     },
     {
         path: 'edit/:counterId',
-        component: CreateComponent
+        component: CreateComponent,
     },
     {
         path: 'detail/:counterId',
-        component: DetailComponent
+        component: DetailComponent,
     },
     {
         path: '**',
-        redirectTo: ''
-    }
+        redirectTo: '',
+    },
 ];

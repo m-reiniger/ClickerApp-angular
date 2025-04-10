@@ -5,40 +5,35 @@ import { MatButtonModule } from '@angular/material/button';
 import { UiCounters } from './types/counters.types';
 
 @Component({
-    selector: 'ui-home',
-    imports: [
-        NgFor,
-        NgIf,
-        MatButtonModule
-    ],
+    selector: 'lib-ui-home',
+    imports: [NgFor, NgIf, MatButtonModule],
     templateUrl: './ui-home.component.html',
-    styleUrl: './ui-home.component.scss'
+    styleUrl: './ui-home.component.scss',
 })
 export class UiHomeComponent {
+    @Input() public title = 'My Counters';
+    @Input() public counterList$: Signal<UiCounters> = signal<UiCounters>([]);
 
-    @Input() title: string = 'My Counters';
-    @Input() counterList$: Signal<UiCounters> = signal<UiCounters>([]);
+    public incrementCounter = output<string>();
+    public decrementCounter = output<string>();
+    public navigateToDetail = output<string>();
+    public addCounter = output<void>();
 
-    incrementCounter = output<string>();
-    decrementCounter = output<string>();
-    navigateToDetail = output<string>();
-    addCounter = output<void>();
-
-    public incrementCounterHandle(event: Event, id: string) {
+    public incrementCounterHandle(event: Event, id: string): void {
         event.stopPropagation();
         this.incrementCounter.emit(id);
     }
 
-    public decrementCounterHandle(event: Event, id: string) {
+    public decrementCounterHandle(event: Event, id: string): void {
         event.stopPropagation();
         this.decrementCounter.emit(id);
     }
 
-    public addCounterHandle() {
+    public addCounterHandle(): void {
         this.addCounter.emit();
     }
 
-    public navigateToDetailHandle(id: string) {
+    public navigateToDetailHandle(id: string): void {
         this.navigateToDetail.emit(id);
     }
 }

@@ -84,6 +84,21 @@ npx cap sync
 npx cap open android
 ```
 
+## Code Style and Formatting
+
+The project uses ESLint and Prettier for code style enforcement and formatting. The configuration follows Angular's style guide and best practices.
+
+### Available Commands
+
+- `npm run lint` - Run ESLint to check for code style issues
+- `npm run lint:fix` - Run ESLint and automatically fix issues
+- `npm run format` - Run Prettier to format all files
+- `npm run format:check` - Check if files are properly formatted
+
+### Pre-commit Hooks
+
+The project uses Husky and lint-staged to automatically run code style checks and formatting on staged files before each commit. This ensures consistent code style across the project.
+
 ## Technologies Used
 
 - Angular

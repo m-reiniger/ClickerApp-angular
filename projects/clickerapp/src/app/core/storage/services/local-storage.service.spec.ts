@@ -73,8 +73,8 @@ describe('LocalStorageService', () => {
             name: 'Test',
             numbers: [1, 2, 3],
             nested: {
-                property: 'value'
-            }
+                property: 'value',
+            },
         };
 
         service.setItem(testKey, testObject);
@@ -82,6 +82,4 @@ describe('LocalStorageService', () => {
 
         expect(retrievedObject).toEqual(testObject);
     });
-
-
 });

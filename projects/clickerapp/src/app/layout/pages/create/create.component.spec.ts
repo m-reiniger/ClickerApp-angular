@@ -10,14 +10,8 @@ describe('CreateComponent', () => {
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [
-                CreateComponent
-            ],
-            providers: [
-                provideAnimations(),
-                provideAnimationsAsync(),
-                provideNoopAnimations()
-            ]
+            imports: [CreateComponent],
+            providers: [provideAnimations(), provideAnimationsAsync(), provideNoopAnimations()],
         }).compileComponents();
 
         fixture = TestBed.createComponent(CreateComponent);

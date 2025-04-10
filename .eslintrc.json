@@ -1,0 +1,76 @@
+{
+    "root": true,
+    "ignorePatterns": ["**/dist/**/*", "**/node_modules/**/*"],
+    "overrides": [
+        {
+            "files": ["*.ts"],
+            "parserOptions": {
+                "project": ["tsconfig.json", "e2e/tsconfig.json"],
+                "createDefaultProgram": true
+            },
+            "extends": [
+                "plugin:@angular-eslint/recommended",
+                "plugin:@angular-eslint/template/process-inline-templates",
+                "plugin:@typescript-eslint/recommended",
+                "plugin:prettier/recommended"
+            ],
+            "rules": {
+                "@angular-eslint/component-selector": [
+                    "error",
+                    {
+                        "prefix": ["app", "lib"],
+                        "style": "kebab-case",
+                        "type": "element"
+                    }
+                ],
+                "@angular-eslint/directive-selector": [
+                    "error",
+                    {
+                        "prefix": ["app", "lib"],
+                        "style": "camelCase",
+                        "type": "attribute"
+                    }
+                ],
+                "@typescript-eslint/explicit-function-return-type": "error",
+                "@typescript-eslint/explicit-member-accessibility": [
+                    "error",
+                    {
+                        "accessibility": "explicit",
+                        "overrides": {
+                            "constructors": "no-public"
+                        }
+                    }
+                ],
+                "@typescript-eslint/no-explicit-any": "error",
+                "@typescript-eslint/no-unused-vars": "error",
+                "@typescript-eslint/no-empty-function": "error",
+                "@typescript-eslint/no-empty-interface": "error",
+                "@typescript-eslint/no-inferrable-types": "error",
+                "@typescript-eslint/no-non-null-assertion": "error",
+                "@typescript-eslint/no-var-requires": "error",
+                "@typescript-eslint/prefer-for-of": "error",
+                "@typescript-eslint/prefer-function-type": "error",
+                "@typescript-eslint/unified-signatures": "error",
+                "no-console": ["error", { "allow": ["warn", "error"] }],
+                "no-debugger": "error",
+                "no-duplicate-imports": "error",
+                "no-empty": "error",
+                "no-eval": "error",
+                "no-extra-semi": "error",
+                "no-new-wrappers": "error",
+                "no-redeclare": "error",
+                "no-throw-literal": "error",
+                "no-unsafe-finally": "error",
+                "no-unused-labels": "error",
+                "no-var": "error",
+                "prefer-const": "error",
+                "radix": "error"
+            }
+        },
+        {
+            "files": ["*.html"],
+            "extends": ["plugin:@angular-eslint/template/recommended"],
+            "rules": {}
+        }
+    ]
+}

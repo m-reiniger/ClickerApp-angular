@@ -3,21 +3,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UiHomeComponent } from './ui-home.component';
 
 describe('UiHomeComponent', () => {
-  let component: UiHomeComponent;
-  let fixture: ComponentFixture<UiHomeComponent>;
+    let component: UiHomeComponent;
+    let fixture: ComponentFixture<UiHomeComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [UiHomeComponent]
-    })
-    .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [UiHomeComponent],
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(UiHomeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(UiHomeComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

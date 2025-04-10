@@ -1,4 +1,4 @@
-import { TransactionOperation, Transactions } from "../transaction/transaction.type";
+import { TransactionOperation, Transactions } from '../transaction/transaction.type';
 
 export type Counters = Array<Counter>;
 
@@ -8,4 +8,4 @@ export type Counter = {
     transactions: Transactions;
     defaultIncrement: number;
     defaultOperation: TransactionOperation;
-}
+};

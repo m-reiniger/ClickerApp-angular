@@ -9,6 +9,5 @@ export type Transaction = {
 export enum TransactionOperation {
     ADD,
     SUBTRACT,
-    RESET
+    RESET,
 }
-

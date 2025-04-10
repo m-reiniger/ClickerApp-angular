@@ -1,4 +1,4 @@
-import { Signal } from "@angular/core";
+import { Signal } from '@angular/core';
 
 export type UiCounters = Array<UiCounter>;
 
@@ -11,5 +11,5 @@ export type UiCounter = {
 
 export enum UiTransactionOperation {
     ADD = 'ADD',
-    SUBTRACT = 'SUBTRACT'
-};
+    SUBTRACT = 'SUBTRACT',
+}

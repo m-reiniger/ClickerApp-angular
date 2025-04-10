@@ -7,10 +7,10 @@ import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
     providers: [
-        provideZoneChangeDetection({ eventCoalescing: true }), 
-        provideRouter(routes, withViewTransitions()), 
+        provideZoneChangeDetection({ eventCoalescing: true }),
+        provideRouter(routes, withViewTransitions()),
         provideAnimations(),
         provideAnimationsAsync(),
-        provideNoopAnimations()
-    ]
+        provideNoopAnimations(),
+    ],
 };
