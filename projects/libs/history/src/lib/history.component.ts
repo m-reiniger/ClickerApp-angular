@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, output, Signal, signal, HostListener } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe } from '@angular/common';
 
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
     selector: 'lib-history',
     standalone: true,
-    imports: [CommonModule, MatListModule, MatIconModule, MatButtonModule],
+    imports: [CommonModule, MatListModule, MatIconModule, MatButtonModule, DecimalPipe],
     templateUrl: './history.component.html',
     styleUrl: './history.component.scss',
 })
@@ -38,6 +38,9 @@ export class HistoryComponent implements OnInit {
         this.sortedTransactions = signal(
             this.transactions.map((transaction, index, array) => {
                 if (index === 0) {
+                    return { ...transaction, timeSincePrevious: 'Creation' };
+                }
+                if (index === 1) {
                     return { ...transaction, timeSincePrevious: 'First transaction' };
                 }
                 const previousTimestamp = array[index - 1].timestamp;

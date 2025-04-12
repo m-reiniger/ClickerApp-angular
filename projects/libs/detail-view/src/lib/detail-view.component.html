@@ -19,7 +19,7 @@
                 "
                 [class]="{ 'goal-reached': checkGoal(counterDetail()!, counterValue()) }">
                 <button mat-fab>
-                    {{ counterValue() }}
+                    {{ counterValue() | number: '1.0-2' }}
                     @if (counterDetail()!.goal !== null && counterDetail()!.goal !== undefined) {
                         <span class="goal">/{{ counterDetail()!.goal }}</span>
                     }

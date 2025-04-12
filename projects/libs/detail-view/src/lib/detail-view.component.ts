@@ -1,4 +1,5 @@
 import { Component, inject, Input, output, Signal, signal } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -21,7 +22,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
  */
 @Component({
     selector: 'lib-detail-view',
-    imports: [MatButtonModule, MatIconModule],
+    imports: [MatButtonModule, MatIconModule, DecimalPipe],
     templateUrl: './detail-view.component.html',
     styleUrl: './detail-view.component.scss',
 })

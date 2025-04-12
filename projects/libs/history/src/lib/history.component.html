@@ -17,10 +17,9 @@
                         {{ getOperationIcon(transaction.operation, transaction.value) }}
                     </mat-icon>
                     <div matListItemTitle>
-                        <button mat-fab>{{ transaction.currentValue }}</button>
+                        <button mat-fab>{{ transaction.currentValue | number: '1.0-2' }}</button>
                         {{ formatTitleText(transaction.operation, transaction.value) }}
                     </div>
-                    <!-- <div matListItemLine>{{ formatTitleText(transaction.operation, transaction.value) }}</div> -->
                     <div matListItemLine class="timestamp">
                         {{ transaction.timestamp | date: 'medium' }}
                         <span class="time-difference">({{ transaction.timeSincePrevious }})</span>
