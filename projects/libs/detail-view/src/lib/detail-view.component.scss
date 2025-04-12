@@ -4,6 +4,7 @@
     width: calc(99% - 2em);
     // height: 100%;
     margin: 1em;
+    padding-bottom: 110px;
 
     mat-icon.close {
         position: absolute;
@@ -17,7 +18,7 @@
 
     .counter-name {
         width: 100%;
-        margin-top: 3em;
+        margin-top: 2em;
         margin-bottom: 2em;
 
         .counter-value {
@@ -94,8 +95,8 @@
                 font-size: 4em;
                 font-weight: 600;
 
-                min-width: 4em;
-                min-height: 4em;
+                min-width: 3em;
+                min-height: 3em;
             }
         }
 
@@ -124,7 +125,7 @@
     .counter-tools {
         // width: calc(100% - 2em);
         position: absolute;
-        bottom: 1em;
+        bottom: 110px;
 
         button {
             margin: 10px;

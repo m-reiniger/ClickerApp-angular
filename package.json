@@ -4,7 +4,8 @@
     "scripts": {
         "ng": "ng",
         "start": "ng serve",
-        "build": "ng build clickerapp",
+        "build": "ng build clickerapp --configuration development",
+        "build:prod": "ng build clickerapp --configuration production",
         "watch": "ng build --watch --configuration development",
         "test": "ng test",
         "all-tests": "ng test & ng test @libs/ui-home & ng test @libs/counter-form & ng test @libs/detail-view",
@@ -25,6 +26,7 @@
         "@angular/platform-browser": "^19.1.0",
         "@angular/platform-browser-dynamic": "^19.1.0",
         "@angular/router": "^19.1.0",
+        "@capacitor-community/admob": "^7.0.2",
         "@capacitor/core": "^7.1.0",
         "@capacitor/ios": "^7.1.0",
         "ng-mocks": "^14.13.2",

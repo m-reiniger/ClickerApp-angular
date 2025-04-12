@@ -27,7 +27,7 @@
     }
 
     .counter-item:last-of-type {
-        margin-bottom: 150px;
+        margin-bottom: 200px;
     }
 
     .counter-item {
@@ -144,8 +144,10 @@
 
 .add-counter-button {
     position: fixed;
-    bottom: 1em;
+    bottom: 110px;
     right: 1em;
+
+    z-index: 1000;
 
     min-width: 80px;
     min-height: 80px;

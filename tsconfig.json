@@ -19,6 +19,7 @@
         "module": "ES2022",
         "paths": {
             "@app/*": ["./projects/clickerapp/src/app/*"],
+            "@app/environments/*": ["./projects/clickerapp/src/environments/*"],
             "libs": ["./projects/libs"],
             "@libs/counter-form": ["./projects/libs/counter-form/src/public-api"],
             "@libs/ui-home": ["./projects/libs/ui-home/src/public-api"],
