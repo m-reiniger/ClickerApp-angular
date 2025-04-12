@@ -48,6 +48,8 @@ export class TransactionService {
                 return accumulator - transaction.value;
             case TransactionOperation.RESET:
                 return transaction.value;
+            case TransactionOperation.SNAPSHOT:
+                return transaction.value;
             default:
                 return accumulator;
         }

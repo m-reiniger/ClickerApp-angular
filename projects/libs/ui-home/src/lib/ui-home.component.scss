@@ -33,7 +33,7 @@
     .counter-item {
         display: flex;
         flex-direction: row;
-        align-items: first baseline;
+        align-items: center;
 
         width: calc(100% - 4em);
         min-width: calc(100% - 4em);
@@ -56,6 +56,7 @@
             font-weight: bold;
             flex-grow: 4;
             flex-basis: 0;
+            justify-content: center;
         }
 
         .counter-value {

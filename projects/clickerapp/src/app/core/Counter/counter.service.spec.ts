@@ -220,4 +220,70 @@ describe('CounterService', () => {
             expect(valueSignal()).toBe(5);
         });
     });
+
+    describe('transaction limit and snapshot', () => {
+        it('should not create snapshot when transactions are below limit', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 0);
+
+            // Add transactions up to the limit (excluding the initial RESET)
+            for (let i = 0; i < service['TRANSACTION_LIMIT'] - 1; i++) {
+                service.incrementCounter(counter.id);
+            }
+
+            const updatedCounter = service.getCounter(counter.id);
+            expect(updatedCounter?.transactions.length).toBe(service['TRANSACTION_LIMIT']); // including RESET
+            expect(
+                updatedCounter?.transactions.every(
+                    (t) => t.operation !== TransactionOperation.SNAPSHOT
+                )
+            ).toBeTrue();
+        });
+
+        it('should create snapshot when transactions exceed limit', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 0);
+
+            // Add transactions exceeding the limit (excluding the initial RESET)
+            for (let i = 0; i < service['TRANSACTION_LIMIT'] + 4; i++) {
+                service.incrementCounter(counter.id);
+            }
+
+            const updatedCounter = service.getCounter(counter.id);
+            expect(updatedCounter?.transactions.length).toBe(service['TRANSACTION_LIMIT']); // snapshot + remaining transactions + RESET
+            expect(updatedCounter?.transactions[0].operation).toBe(TransactionOperation.SNAPSHOT);
+            expect(updatedCounter?.transactions[0].value).toBe(5); // value of the first 5 transactions
+        });
+
+        it('should maintain correct value after snapshot', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 0);
+
+            // Add transactions exceeding the limit (excluding the initial RESET)
+            for (let i = 0; i < service['TRANSACTION_LIMIT'] + 4; i++) {
+                service.incrementCounter(counter.id);
+            }
+
+            const valueSignal = service.getCounterValue$(counter.id);
+            expect(valueSignal()).toBe(service['TRANSACTION_LIMIT'] + 4); // total value should be preserved
+        });
+
+        it('should keep most recent transactions after snapshot', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 0);
+
+            // Add transactions exceeding the limit (excluding the initial RESET)
+            for (let i = 0; i < service['TRANSACTION_LIMIT'] + 4; i++) {
+                service.incrementCounter(counter.id);
+            }
+
+            const updatedCounter = service.getCounter(counter.id);
+            // Should have snapshot + remaining transactions
+            expect(updatedCounter?.transactions.length).toBe(service['TRANSACTION_LIMIT']);
+            // First transaction should be SNAPSHOT
+            expect(updatedCounter?.transactions[0].operation).toBe(TransactionOperation.SNAPSHOT);
+            // All transactions after snapshot should be ADD operations
+            expect(
+                updatedCounter?.transactions
+                    .slice(1)
+                    .every((t) => t.operation === TransactionOperation.ADD)
+            ).toBeTrue();
+        });
+    });
 });

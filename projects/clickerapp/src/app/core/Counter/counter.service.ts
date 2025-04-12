@@ -6,7 +6,7 @@ import { StorageService } from '@app/core/storage/storage.service';
 import { TransactionService } from '@app/core/transaction/transaction.service';
 
 import { Counter, Counters } from './counter.types';
-import { TransactionOperation } from '@app/core/transaction/transaction.type';
+import { TransactionOperation, Transactions } from '@app/core/transaction/transaction.type';
 
 /**
  * Service responsible for managing counters and their operations.
@@ -17,6 +17,7 @@ import { TransactionOperation } from '@app/core/transaction/transaction.type';
     providedIn: 'root',
 })
 export class CounterService {
+    private readonly TRANSACTION_LIMIT = 100;
     private counterList: Counters = [];
 
     private counterList$: WritableSignal<Counters> = signal(this.counterList);
@@ -151,6 +152,49 @@ export class CounterService {
     }
 
     /**
+     * Creates a snapshot of transactions that exceed the limit
+     * @param transactions - The array of transactions to process
+     * @returns The processed transactions array with snapshot
+     */
+    private createSnapshot(transactions: Transactions): Transactions {
+        // Calculate how many transactions exceed the limit
+        const excessCount = transactions.length - this.TRANSACTION_LIMIT + 1;
+
+        // Only process if there are excess transactions
+        if (excessCount <= 0) {
+            return transactions;
+        }
+
+        // Get the transactions that need to be snapshotted (the oldest ones)
+        const transactionsToSnapshot = transactions.slice(0, excessCount);
+        const remainingTransactions = transactions.slice(excessCount);
+
+        // Compute the value of the transactions to be snapshotted
+        const snapshotValue = this.transactionService.compute(transactionsToSnapshot);
+
+        // Create the snapshot transaction
+        const snapshotTransaction = this.transactionService.create(
+            TransactionOperation.SNAPSHOT,
+            snapshotValue
+        );
+
+        // Return the processed transactions with snapshot and remaining transactions
+        return [snapshotTransaction, ...remainingTransactions];
+    }
+
+    /**
+     * Handles transaction limit for a transactions array
+     * @param transactions - The array of transactions to process
+     * @returns The processed transactions array
+     */
+    private handleTransactionLimit(transactions: Transactions): Transactions {
+        if (transactions.length > this.TRANSACTION_LIMIT) {
+            return this.createSnapshot(transactions);
+        }
+        return transactions;
+    }
+
+    /**
      * Increments a counter's value by its default increment
      * @param id - The ID of the counter to increment
      */
@@ -162,6 +206,7 @@ export class CounterService {
                 counter.defaultIncrement
             );
             counter.transactions.push(transaction);
+            counter.transactions = this.handleTransactionLimit(counter.transactions);
             this.updateSignal(id);
             this.saveCounters();
         }
@@ -181,6 +226,7 @@ export class CounterService {
                 counter.defaultIncrement
             );
             counter.transactions.push(transaction);
+            counter.transactions = this.handleTransactionLimit(counter.transactions);
             this.updateSignal(id);
             this.saveCounters();
         }
