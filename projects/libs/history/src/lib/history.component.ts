@@ -69,48 +69,93 @@ export class HistoryComponent implements OnInit {
         return `${diffInDays} days ${restHours} hours`;
     }
 
-    public getOperationIcon(operation: TransactionOperation): string {
-        switch (operation) {
-            case 'add':
-                return 'add';
-            case 'subtract':
-                return 'remove';
-            case 'reset':
-                return 'restart_alt';
-            case 'snapshot':
-                return 'photo_camera';
-            default:
-                return 'help';
+    public getOperationIcon(operation: TransactionOperation, value: number): string {
+        if (value >= 0) {
+            switch (operation) {
+                case 'add':
+                    return 'add';
+                case 'subtract':
+                    return 'remove';
+                case 'reset':
+                    return 'restart_alt';
+                case 'snapshot':
+                    return 'photo_camera';
+                default:
+                    return 'help';
+            }
+        } else {
+            switch (operation) {
+                case 'add':
+                    return 'remove';
+                case 'subtract':
+                    return 'add';
+                case 'reset':
+                    return 'restart_alt';
+                case 'snapshot':
+                    return 'photo_camera';
+                default:
+                    return 'help';
+            }
         }
     }
 
-    public getOperationColor(operation: TransactionOperation): string {
-        switch (operation) {
-            case 'add':
-                return 'add';
-            case 'subtract':
-                return 'substract';
-            case 'reset':
-                return 'reset';
-            case 'snapshot':
-                return 'snapshot';
-            default:
-                return '';
+    public getOperationColor(operation: TransactionOperation, value: number): string {
+        if (value >= 0) {
+            switch (operation) {
+                case 'add':
+                    return 'add';
+                case 'subtract':
+                    return 'substract';
+                case 'reset':
+                    return 'reset';
+                case 'snapshot':
+                    return 'snapshot';
+                default:
+                    return '';
+            }
+        } else {
+            switch (operation) {
+                case 'add':
+                    return 'substract';
+                case 'subtract':
+                    return 'add';
+                case 'reset':
+                    return 'reset';
+                case 'snapshot':
+                    return 'snapshot';
+                default:
+                    return '';
+            }
         }
     }
 
     public formatTitleText(operation: TransactionOperation, value: number): string {
-        switch (operation) {
-            case 'add':
-                return `added ${value}`;
-            case 'subtract':
-                return `subtracted ${value}`;
-            case 'reset':
-                return `reset to ${value}`;
-            case 'snapshot':
-                return `snapshot value ${value}`;
-            default:
-                return '';
+        if (value >= 0) {
+            switch (operation) {
+                case 'add':
+                    return `added ${value}`;
+                case 'subtract':
+                    return `subtracted ${value}`;
+                case 'reset':
+                    return `reset to ${value}`;
+                case 'snapshot':
+                    return `snapshot value ${value}`;
+                default:
+                    return '';
+            }
+        } else {
+            switch (operation) {
+                case 'add':
+                    return `substracted ${Math.abs(value)}`;
+                case 'subtract':
+                    return `added ${Math.abs(value)}`;
+                case 'reset':
+                    return `reset to ${value}`;
+                case 'snapshot':
+                    return `snapshot value ${value}`;
+                default:
+                    return '';
+            }
         }
     }
 }

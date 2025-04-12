@@ -9,9 +9,12 @@
     <section class="history-list">
         <mat-list>
             @for (transaction of sortedTransactions(); track transaction.timestamp) {
-                <mat-list-item class="{{ getOperationColor(transaction.operation) }}">
-                    <mat-icon matListItemIcon [color]="getOperationColor(transaction.operation)">
-                        {{ getOperationIcon(transaction.operation) }}
+                <mat-list-item
+                    class="{{ getOperationColor(transaction.operation, transaction.value) }}">
+                    <mat-icon
+                        matListItemIcon
+                        [color]="getOperationColor(transaction.operation, transaction.value)">
+                        {{ getOperationIcon(transaction.operation, transaction.value) }}
                     </mat-icon>
                     <div matListItemTitle>
                         <button mat-fab>{{ transaction.currentValue }}</button>
