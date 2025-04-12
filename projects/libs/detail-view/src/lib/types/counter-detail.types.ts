@@ -3,4 +3,5 @@ export type CounterDetail = {
     name: string;
     defaultIncrement: number;
     initialValue: number;
+    goal: number | null | undefined;
 };

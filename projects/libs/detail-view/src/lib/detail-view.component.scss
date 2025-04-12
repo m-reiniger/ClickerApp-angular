@@ -17,14 +17,14 @@
 
     .counter-name {
         width: 100%;
-        margin-top: 5em;
+        margin-top: 3em;
         margin-bottom: 2em;
-        // text-align: center;
 
         .counter-value {
-            width: 100%;
+            max-width: 174px;
             padding: 10px;
             text-align: center;
+            margin: 0 auto;
 
             button {
                 @include mat.fab-overrides(
@@ -34,15 +34,43 @@
                         container-shape: 50%,
                     )
                 );
-                border: 3px solid var(--mat-sys-primary);
-
-                margin-left: -1em;
 
                 font-size: 3em;
                 font-weight: bold;
 
-                min-width: 3.5em;
-                min-height: 3.5em;
+                width: 168px;
+                height: 168px;
+            }
+
+            .goal {
+                font-size: 0.4em;
+                font-weight: normal;
+                color: var(--mat-sys-surface-tint);
+                margin-left: -0.5em;
+            }
+
+            .value-progress-border {
+                padding: 5px;
+                width: 168px;
+                height: 168px;
+                background: conic-gradient(var(--mat-sys-primary) var(--progress), transparent 0);
+                // mask: radial-gradient(transparent 55%, black 55%);
+                // -webkit-mask: radial-gradient(transparent 55%, black 55%);
+                border-radius: 50%;
+            }
+
+            .goal-reached {
+                background: conic-gradient(var(--mat-sys-tertiary) var(--progress), transparent 0);
+
+                button {
+                    @include mat.fab-overrides(
+                        (
+                            container-color: var(--mat-sys-tertiary-container),
+                            foreground-color: var(--mat-sys-tertiary),
+                            container-shape: 50%,
+                        )
+                    );
+                }
             }
         }
     }

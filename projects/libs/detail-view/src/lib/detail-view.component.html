@@ -8,7 +8,23 @@
     <h3>{{ counterDetail()?.name }}</h3>
     <section class="counter-name">
         <div class="counter-value">
-            <button mat-fab>{{ counterValue() }}</button>
+            <div
+                class="value-progress-border"
+                [style.--progress]="
+                    getProgress(
+                        counterDetail()!.initialValue,
+                        counterDetail()!.goal,
+                        counterValue()
+                    )
+                "
+                [class]="{ 'goal-reached': checkGoal(counterDetail()!, counterValue()) }">
+                <button mat-fab>
+                    {{ counterValue() }}
+                    @if (counterDetail()!.goal !== null && counterDetail()!.goal !== undefined) {
+                        <span class="goal">/{{ counterDetail()!.goal }}</span>
+                    }
+                </button>
+            </div>
         </div>
     </section>
     <section class="counter-control">

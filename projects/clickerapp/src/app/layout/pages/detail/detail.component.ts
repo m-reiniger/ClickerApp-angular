@@ -31,6 +31,7 @@ export class DetailComponent implements OnInit {
                     name: counter$().name,
                     defaultIncrement: counter$().defaultIncrement,
                     initialValue: counter$().initialValue,
+                    goal: counter$().goal,
                 }));
                 this.counterValue$ = this.counterService.getCounterValue$(counter$().id);
             }
