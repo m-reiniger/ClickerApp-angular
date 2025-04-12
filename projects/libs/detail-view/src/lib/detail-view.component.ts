@@ -38,6 +38,7 @@ export class DetailViewComponent {
     public editCounter = output<string | undefined>();
     public deleteCounter = output<string>();
     public resetCounter = output<string>();
+    public showHistory = output<string | undefined>();
     public closeOverlay = output<void>();
 
     public close(): void {
@@ -81,5 +82,10 @@ export class DetailViewComponent {
                 id: this.counterDetail()?.id,
             },
         });
+    }
+
+    public showHistoryHandle(event: Event, id: string | undefined): void {
+        event.stopPropagation();
+        this.showHistory.emit(id);
     }
 }

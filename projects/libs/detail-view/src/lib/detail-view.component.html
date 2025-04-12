@@ -47,5 +47,11 @@
             <span><mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon></span>
             <span class="counter-tools-label">edit</span>
         </button>
+        <button mat-fab (click)="showHistoryHandle($event, counterDetail()?.id)">
+            <span
+                ><mat-icon aria-hidden="false" aria-label="history" fontIcon="history"></mat-icon
+            ></span>
+            <span class="counter-tools-label">history</span>
+        </button>
     </section>
 </article>

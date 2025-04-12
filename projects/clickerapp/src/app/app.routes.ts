@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { CreateComponent } from '@app/layout/pages/create/create.component';
 import { DetailComponent } from '@app/layout/pages/detail/detail.component';
+import { HistoryComponent } from '@app/layout/pages/history/history.component';
 import { HomeComponent } from '@app/layout/pages/home/home.component';
 
 export const routes: Routes = [
@@ -20,6 +21,10 @@ export const routes: Routes = [
     {
         path: 'detail/:counterId',
         component: DetailComponent,
+    },
+    {
+        path: 'history/:counterId',
+        component: HistoryComponent,
     },
     {
         path: '**',

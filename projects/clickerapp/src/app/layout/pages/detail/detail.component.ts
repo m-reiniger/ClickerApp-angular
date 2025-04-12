@@ -70,4 +70,10 @@ export class DetailComponent implements OnInit {
             this.counterService.resetCounter(id);
         }
     }
+
+    public showHistory(id: string | undefined): void {
+        if (id) {
+            this.router.navigate(['history', id]);
+        }
+    }
 }

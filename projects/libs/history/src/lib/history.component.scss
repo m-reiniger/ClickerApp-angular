@@ -1,0 +1,80 @@
+@use '@angular/material' as mat;
+
+.history {
+    mat-icon.close {
+        position: absolute;
+        right: 0.15em;
+        top: 0.2em;
+        font-size: 50px;
+        width: 50px;
+        height: 50px;
+        cursor: pointer;
+    }
+
+    h3 {
+        margin: 1em;
+    }
+
+    mat-list {
+        overflow-y: auto;
+    }
+
+    .timestamp {
+        // color: rgba(0, 0, 0, 0.6);
+        font-size: 0.875rem;
+    }
+
+    .time-difference {
+        // color: rgba(0, 0, 0, 0.4);
+        font-size: 0.75rem;
+        margin-left: 0.5rem;
+    }
+
+    mat-list-item {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+        min-height: 80px;
+
+        .mat-mdc-list-item-title {
+            font-size: 1em;
+            font-weight: 600;
+            margin-bottom: -5px;
+        }
+
+        &.add {
+            background-color: var(--mat-sys-tertiary-container);
+
+            div.mat-mdc-list-item-title {
+                color: var(--mat-sys-tertiary);
+            }
+        }
+
+        &.substract {
+            background-color: var(--mat-sys-secondary-container);
+
+            div.mat-mdc-list-item-title {
+                color: var(--mat-sys-secondary);
+            }
+        }
+
+        button {
+            @include mat.fab-overrides(
+                (
+                    container-color: var(--mat-sys-primary-container),
+                    foreground-color: var(--mat-sys-primary),
+                    container-shape: 50%,
+                    container-elevation-shadow: 0,
+                )
+            );
+            border: 2px solid var(--mat-sys-primary);
+            font-size: 1em;
+            font-weight: bold;
+            width: 35px;
+            height: 35px;
+            margin-right: 0.5em;
+        }
+    }
+
+    mat-list-item:last-child {
+        border-bottom: none;
+    }
+}
