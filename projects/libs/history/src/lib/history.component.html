@@ -1,0 +1,21 @@
+<mat-list>
+    @for (transaction of sortedTransactions(); track transaction.id) {
+        <mat-list-item>
+            <mat-icon matListItemIcon [color]="getOperationColor(transaction.operation)">
+                {{ getOperationIcon(transaction.operation) }}
+            </mat-icon>
+            <div matListItemTitle>
+                {{ transaction.operation | titlecase }}: {{ transaction.value }}
+            </div>
+            <div matListItemLine>Current value: {{ transaction.currentValue }}</div>
+            <div matListItemLine class="timestamp">
+                {{ transaction.timestamp | date: 'medium' }}
+                <span class="time-difference">({{ transaction.timeSincePrevious }})</span>
+            </div>
+        </mat-list-item>
+    } @empty {
+        <mat-list-item>
+            <div matListItemTitle>No transactions yet</div>
+        </mat-list-item>
+    }
+</mat-list>

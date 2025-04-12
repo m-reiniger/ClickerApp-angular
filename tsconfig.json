@@ -18,21 +18,12 @@
         "target": "ES2022",
         "module": "ES2022",
         "paths": {
-            "@app/*": [
-                "./projects/clickerapp/src/app/*"
-            ],
-            "libs": [
-                "./projects/libs"
-            ],
-            "@libs/counter-form": [
-                "./projects/libs/counter-form/src/public-api"
-            ],
-            "@libs/ui-home": [
-                "./projects/libs/ui-home/src/public-api"
-            ],
-            "@libs/detail-view": [
-                "./projects/libs/detail-view/src/public-api"
-            ]
+            "@app/*": ["./projects/clickerapp/src/app/*"],
+            "libs": ["./projects/libs"],
+            "@libs/counter-form": ["./projects/libs/counter-form/src/public-api"],
+            "@libs/ui-home": ["./projects/libs/ui-home/src/public-api"],
+            "@libs/history": ["./projects/libs/history/src/public-api"],
+            "@libs/detail-view": ["./projects/libs/detail-view/src/public-api"]
         }
     },
     "angularCompilerOptions": {
