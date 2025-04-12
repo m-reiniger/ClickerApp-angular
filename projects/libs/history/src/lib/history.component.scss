@@ -77,4 +77,19 @@
     mat-list-item:last-child {
         border-bottom: none;
     }
+
+    .scroll-to-top {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1000;
+        @include mat.fab-overrides(
+            (
+                container-color: var(--mat-sys-primary-container),
+                foreground-color: var(--mat-sys-primary),
+                container-shape: 50%,
+            )
+        );
+        transition: opacity 0.3s ease-in-out;
+    }
 }

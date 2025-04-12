@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, output, Signal, signal } from '@angular/core';
+import { Component, Input, OnInit, output, Signal, signal, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatListModule } from '@angular/material/list';
@@ -21,6 +21,18 @@ export class HistoryComponent implements OnInit {
     public closeOverlay = output<void>();
 
     public sortedTransactions: Signal<Transaction[]> = signal([]);
+
+    public showScrollToTop = signal(false);
+    private readonly SCROLL_THRESHOLD = 100;
+
+    @HostListener('window:scroll', [])
+    private onWindowScroll(): void {
+        this.showScrollToTop.set(window.scrollY > this.SCROLL_THRESHOLD);
+    }
+
+    public scrollToTop(): void {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
     public ngOnInit(): void {
         this.sortedTransactions = signal(

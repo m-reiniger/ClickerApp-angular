@@ -33,4 +33,9 @@
             }
         </mat-list>
     </section>
+    @if (showScrollToTop()) {
+        <button mat-fab class="scroll-to-top" (click)="scrollToTop()" aria-label="Scroll to top">
+            <mat-icon>arrow_upward</mat-icon>
+        </button>
+    }
 </article>
