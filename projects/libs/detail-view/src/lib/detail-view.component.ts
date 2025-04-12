@@ -5,7 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
 import { CounterDetail } from './types/counter-detail.types';
-import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 /**
  * Component that displays detailed information about a counter and provides controls for manipulation.
@@ -37,6 +37,7 @@ export class DetailViewComponent {
     public decrementCounter = output<string | undefined>();
     public editCounter = output<string | undefined>();
     public deleteCounter = output<string>();
+    public resetCounter = output<string>();
     public closeOverlay = output<void>();
 
     public close(): void {
@@ -59,10 +60,24 @@ export class DetailViewComponent {
     }
 
     public confirmDelete(): void {
-        this.dialog.open(ConfirmDeleteComponent, {
+        this.dialog.open(ConfirmComponent, {
             data: {
+                title: 'Delete Counter',
+                message: 'Are you sure you want to delete this counter?',
                 closeHandle: this.closeOverlay,
-                deleteCounterHandle: this.deleteCounter,
+                actionHandle: this.deleteCounter,
+                id: this.counterDetail()?.id,
+            },
+        });
+    }
+
+    public confirmReset(): void {
+        this.dialog.open(ConfirmComponent, {
+            data: {
+                title: 'Reset Counter',
+                message: `Are you sure you want to reset this counter to its initial value ${this.counterDetail()?.initialValue}?`,
+                closeHandle: undefined,
+                actionHandle: this.resetCounter,
                 id: this.counterDetail()?.id,
             },
         });

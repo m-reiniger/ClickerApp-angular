@@ -100,6 +100,14 @@
 
         button {
             margin: 10px;
+
+            display: 'flex';
+            flex-direction: 'column';
+
+            .counter-tools-label {
+                font-size: 0.75em;
+                padding: 0 1em;
+            }
         }
     }
 }

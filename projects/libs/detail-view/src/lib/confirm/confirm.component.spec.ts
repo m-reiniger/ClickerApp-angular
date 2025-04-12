@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConfirmDeleteComponent } from './confirm-delete.component';
+import { ConfirmComponent } from './confirm.component';
 import { MatButtonModule } from '@angular/material/button';
 import {
     MAT_DIALOG_DATA,
@@ -10,14 +10,14 @@ import {
     MatDialogTitle,
 } from '@angular/material/dialog';
 
-describe('ConfirmDeleteComponent', () => {
-    let component: ConfirmDeleteComponent;
-    let fixture: ComponentFixture<ConfirmDeleteComponent>;
+describe('ConfirmComponent', () => {
+    let component: ConfirmComponent;
+    let fixture: ComponentFixture<ConfirmComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
             imports: [
-                ConfirmDeleteComponent,
+                ConfirmComponent,
                 MatButtonModule,
                 MatDialogActions,
                 MatDialogClose,
@@ -27,7 +27,7 @@ describe('ConfirmDeleteComponent', () => {
             ],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(ConfirmDeleteComponent);
+        fixture = TestBed.createComponent(ConfirmComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -32,10 +32,20 @@
     </section>
     <section class="counter-tools">
         <button mat-fab (click)="confirmDelete()">
-            <mat-icon aria-hidden="false" aria-label="delete" fontIcon="delete"></mat-icon>
+            <span
+                ><mat-icon aria-hidden="false" aria-label="delete" fontIcon="delete"></mat-icon
+            ></span>
+            <span class="counter-tools-label">delete</span>
+        </button>
+        <button mat-fab (click)="confirmReset()">
+            <span
+                ><mat-icon aria-hidden="false" aria-label="reset" fontIcon="restart_alt"></mat-icon
+            ></span>
+            <span class="counter-tools-label">reset</span>
         </button>
         <button mat-fab (click)="editCounterHandle($event, counterDetail()?.id)">
-            <mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon>
+            <span><mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon></span>
+            <span class="counter-tools-label">edit</span>
         </button>
     </section>
 </article>

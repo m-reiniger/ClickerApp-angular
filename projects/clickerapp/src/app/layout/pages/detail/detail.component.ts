@@ -30,6 +30,7 @@ export class DetailComponent implements OnInit {
                     id: counter$().id,
                     name: counter$().name,
                     defaultIncrement: counter$().defaultIncrement,
+                    initialValue: counter$().initialValue,
                 }));
                 this.counterValue$ = this.counterService.getCounterValue$(counter$().id);
             }
@@ -61,6 +62,12 @@ export class DetailComponent implements OnInit {
     public deleteCounter(id: string): void {
         if (id) {
             this.counterService.deleteCounter(id);
+        }
+    }
+
+    public resetCounter(id: string | undefined): void {
+        if (id) {
+            this.counterService.resetCounter(id);
         }
     }
 }

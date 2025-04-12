@@ -286,4 +286,77 @@ describe('CounterService', () => {
             ).toBeTrue();
         });
     });
+
+    describe('resetCounter', () => {
+        it('should reset counter to initial value', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 10);
+
+            // Add some transactions to change the value
+            service.incrementCounter(counter.id);
+            service.incrementCounter(counter.id);
+
+            // Reset the counter
+            service.resetCounter(counter.id);
+
+            const valueSignal = service.getCounterValue$(counter.id);
+            expect(valueSignal()).toBe(10); // Should be back to initial value
+        });
+
+        it('should add a RESET transaction when resetting', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 10);
+            const initialTransactionCount = counter.transactions.length;
+
+            service.resetCounter(counter.id);
+
+            const updatedCounter = service.getCounter(counter.id);
+            expect(updatedCounter?.transactions.length).toBe(initialTransactionCount + 1);
+            expect(
+                updatedCounter?.transactions[updatedCounter.transactions.length - 1].operation
+            ).toBe(TransactionOperation.RESET);
+            expect(updatedCounter?.transactions[updatedCounter.transactions.length - 1].value).toBe(
+                10
+            );
+        });
+
+        it('should handle transaction limit when resetting', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 10);
+
+            // Add transactions up to the limit
+            for (let i = 0; i < service['TRANSACTION_LIMIT']; i++) {
+                service.incrementCounter(counter.id);
+            }
+
+            // Reset the counter
+            service.resetCounter(counter.id);
+
+            const updatedCounter = service.getCounter(counter.id);
+            expect(updatedCounter?.transactions.length).toBe(service['TRANSACTION_LIMIT']);
+            expect(updatedCounter?.transactions[0].operation).toBe(TransactionOperation.SNAPSHOT);
+            expect(updatedCounter?.transactions[service['TRANSACTION_LIMIT'] - 1].operation).toBe(
+                TransactionOperation.RESET
+            );
+        });
+
+        it('should do nothing when resetting non-existent counter', () => {
+            const initialCounters = service.getCounterList().length;
+            service.resetCounter('non-existent-id');
+            expect(service.getCounterList().length).toBe(initialCounters);
+        });
+
+        it('should maintain correct value after multiple resets', () => {
+            const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 10);
+
+            // Add some transactions
+            service.incrementCounter(counter.id);
+            service.incrementCounter(counter.id);
+
+            // Reset multiple times
+            service.resetCounter(counter.id);
+            service.resetCounter(counter.id);
+            service.resetCounter(counter.id);
+
+            const valueSignal = service.getCounterValue$(counter.id);
+            expect(valueSignal()).toBe(10); // Should always be initial value
+        });
+    });
 });
