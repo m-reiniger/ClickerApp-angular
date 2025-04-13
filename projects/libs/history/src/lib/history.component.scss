@@ -113,7 +113,6 @@
                         border-radius: 12px;
                         transition: all 0.2s ease;
                         width: calc(100% - 2rem);
-
                         &:first-child {
                             margin-top: 0.25rem;
                         }
@@ -134,7 +133,7 @@
                             display: grid;
                             grid-template-columns: auto 1fr;
                             grid-template-rows: auto auto;
-                            gap: 8px;
+                            // gap: 8px;
                             align-items: center;
                             overflow: visible;
 

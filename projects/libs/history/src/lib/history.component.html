@@ -32,9 +32,9 @@
                                         <mat-icon>photo_camera</mat-icon>
                                     }
                                 </span>
-                                <span class="timestamp">
-                                    {{ transaction.timestamp | date: 'dd.MM. HH:mm' }}
-                                </span>
+                                <span class="timestamp">{{
+                                    transaction.timestamp | date: 'medium'
+                                }}</span>
                                 <span class="time-difference">
                                     ({{ transaction.timeSincePrevious }})
                                 </span>
