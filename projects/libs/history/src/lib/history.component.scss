@@ -1,10 +1,31 @@
 @use '@angular/material' as mat;
 
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 .history {
     padding: 1rem;
     max-width: 800px;
     margin: 0 auto;
     position: relative;
+    animation: slideInFromRight 0.3s ease-out;
 
     .close {
         position: absolute;
@@ -25,80 +46,200 @@
     }
 
     .history-card {
-        height: 100%;
-        min-height: 100%;
+        background: linear-gradient(
+            145deg,
+            var(--mat-sys-surface-container-lowest) 0%,
+            color-mix(in srgb, var(--mat-sys-surface-container-lowest) 97%, white) 100%
+        );
+        border-radius: 24px;
+        box-shadow: var(--mat-sys-level2);
+        transition: all 0.3s ease;
+        overflow: hidden;
+        animation: fadeIn 0.3s ease-out 0.1s backwards;
 
-        position: relative;
-        z-index: 1;
+        &:hover {
+            background: linear-gradient(
+                145deg,
+                var(--mat-sys-surface-container-lowest) 0%,
+                color-mix(in srgb, var(--mat-sys-surface-container-lowest) 95%, white) 100%
+            );
+            box-shadow: var(--mat-sys-level3);
+        }
 
         mat-card-header {
-            font-weight: 600;
-            padding: 12px 16px;
-        }
+            padding: 1.2rem 1.2rem 0.8rem;
 
-        mat-list {
-            overflow-y: auto;
-        }
-
-        .timestamp {
-            // color: rgba(0, 0, 0, 0.6);
-            font-size: 0.875rem;
-        }
-
-        .time-difference {
-            // color: rgba(0, 0, 0, 0.4);
-            font-size: 0.75rem;
-        }
-
-        mat-list-item {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-            border-left: 1px solid rgba(0, 0, 0, 0.12);
-            border-right: 1px solid rgba(0, 0, 0, 0.12);
-
-            min-height: 100px;
-
-            .mat-mdc-list-item-title {
-                font-size: 1em;
+            h3 {
+                margin: 0;
+                font-size: 1.5rem;
                 font-weight: 600;
-                margin-bottom: -5px;
-            }
+                color: var(--mat-sys-on-surface);
+                position: relative;
+                display: inline-block;
 
-            &.add {
-                background-color: var(--mat-sys-tertiary-container);
-
-                div.mat-mdc-list-item-title {
-                    color: var(--mat-sys-tertiary);
+                &::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    bottom: -0.25rem;
+                    width: 2rem;
+                    height: 0.2rem;
+                    background: linear-gradient(
+                        to right,
+                        var(--mat-sys-primary),
+                        color-mix(in srgb, var(--mat-sys-primary) 70%, transparent)
+                    );
+                    border-radius: 3px;
                 }
-            }
-
-            &.substract {
-                background-color: var(--mat-sys-secondary-container);
-
-                div.mat-mdc-list-item-title {
-                    color: var(--mat-sys-secondary);
-                }
-            }
-
-            button {
-                @include mat.fab-overrides(
-                    (
-                        container-color: var(--mat-sys-primary-container),
-                        foreground-color: var(--mat-sys-primary),
-                        container-shape: 50%,
-                        container-elevation-shadow: 0,
-                    )
-                );
-                border: 2px solid var(--mat-sys-primary);
-                font-size: 1em;
-                font-weight: bold;
-                width: 35px;
-                height: 35px;
-                margin-right: 0.5em;
             }
         }
 
-        mat-list-item:last-child {
-            border-bottom: none;
+        mat-card-content {
+            padding: 0;
+            animation: fadeIn 0.3s ease-out 0.3s backwards;
+
+            .history-list {
+                mat-list {
+                    padding: 0;
+                    overflow-y: auto;
+                    width: 100%;
+
+                    mat-list-item {
+                        --mdc-list-list-item-container-height: 120px;
+                        height: 120px;
+                        margin: 0.5rem 1rem;
+                        padding: 1rem;
+                        border-radius: 12px;
+                        transition: all 0.2s ease;
+                        width: calc(100% - 2rem);
+
+                        &:first-child {
+                            margin-top: 0.5rem;
+                        }
+
+                        &:last-child {
+                            margin-bottom: 1rem;
+                        }
+
+                        ::ng-deep .mdc-list-item__content {
+                            height: 100%;
+                            // display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                        }
+
+                        .mat-mdc-list-item-title {
+                            font-size: 1.1rem;
+                            font-weight: 500;
+                            display: flex;
+                            align-items: center;
+                            margin-bottom: 0;
+                            padding: 0;
+                            color: var(--mat-sys-on-surface);
+
+                            button {
+                                margin-right: 0.5rem;
+                            }
+                        }
+
+                        &.add {
+                            background-color: color-mix(
+                                in srgb,
+                                var(--mat-sys-tertiary-container) 30%,
+                                transparent
+                            );
+
+                            div.mat-mdc-list-item-title {
+                                color: var(--mat-sys-tertiary);
+                            }
+
+                            &:hover {
+                                background-color: color-mix(
+                                    in srgb,
+                                    var(--mat-sys-tertiary-container) 50%,
+                                    transparent
+                                );
+                            }
+                        }
+
+                        &.substract {
+                            background-color: color-mix(
+                                in srgb,
+                                var(--mat-sys-error-container) 30%,
+                                transparent
+                            );
+
+                            div.mat-mdc-list-item-title {
+                                color: var(--mat-sys-error);
+                            }
+
+                            &:hover {
+                                background-color: color-mix(
+                                    in srgb,
+                                    var(--mat-sys-error-container) 50%,
+                                    transparent
+                                );
+                            }
+                        }
+
+                        button {
+                            @include mat.fab-overrides(
+                                (
+                                    container-color: var(--mat-sys-primary-container),
+                                    foreground-color: var(--mat-sys-on-primary-container),
+                                    container-shape: 50%,
+                                )
+                            );
+                            font-size: 1rem;
+                            font-weight: 600;
+                            width: 36px;
+                            height: 36px;
+                            min-width: 36px;
+                            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                            transition: all 0.2s ease;
+                            padding: 0;
+                            line-height: 36px;
+
+                            &:hover {
+                                transform: translateY(-1px);
+                                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+                            }
+                        }
+
+                        mat-icon {
+                            width: 20px;
+                            height: 20px;
+                            font-size: 20px;
+                            margin: 0 20px 0 0;
+                            padding: 0;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            align-self: center;
+                        }
+
+                        ::ng-deep .mat-mdc-list-item-unscoped-content {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.75rem;
+                        }
+
+                        .timestamp {
+                            font-size: 0.9rem;
+                            color: var(--mat-sys-on-surface-variant);
+                            margin-top: 0.25rem;
+                            padding: 0;
+                        }
+
+                        .time-difference {
+                            font-size: 0.8rem;
+                            color: var(--mat-sys-on-surface-variant);
+                            font-style: italic;
+                            padding: 0;
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -114,6 +255,21 @@
                 container-shape: 50%,
             )
         );
-        transition: opacity 0.3s ease-in-out;
+        transition: all 0.3s ease;
+        opacity: 0.8;
+
+        &:hover {
+            opacity: 1;
+            transform: translateY(-2px);
+        }
+    }
+}
+
+@keyframes expandWidth {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 40px;
     }
 }
