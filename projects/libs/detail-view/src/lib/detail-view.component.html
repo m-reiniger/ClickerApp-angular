@@ -1,4 +1,11 @@
 <article class="detail-view">
+    @if (shouldShowCelebration()) {
+        <div class="celebration-container">
+            @for (item of [].constructor(50); track $index) {
+                <div class="confetti"></div>
+            }
+        </div>
+    }
     <mat-icon
         class="close"
         aria-hidden="false"
@@ -7,13 +14,13 @@
         (click)="close()"></mat-icon>
     <mat-card class="detail-view-card">
         <mat-card-header>
-            {{ counterDetail()?.name }}
+            <h3>{{ counterDetail()?.name }}</h3>
         </mat-card-header>
         <mat-card-content>
             <section class="counter-value">
                 <div class="counter-value">
-                    <div
-                        class="value-progress-border"
+                    <button
+                        mat-fab
                         [style.--progress]="
                             getProgress(
                                 counterDetail()!.initialValue,
@@ -21,24 +28,19 @@
                                 counterValue()
                             )
                         "
-                        [class]="{ 'goal-reached': checkGoal(counterDetail()!, counterValue()) }">
-                        <button mat-fab>
-                            {{ counterValue() | number: '1.0-2' }}
-                            @if (
-                                counterDetail()!.goal !== null &&
-                                counterDetail()!.goal !== undefined
-                            ) {
-                                <span class="goal">/{{ counterDetail()!.goal }}</span>
-                            }
-                        </button>
-                    </div>
+                        [class.goal-reached]="checkGoal(counterDetail()!, counterValue())">
+                        {{ counterValue() | number: '1.0-2' }}
+                        @if (
+                            counterDetail()!.goal !== null && counterDetail()!.goal !== undefined
+                        ) {
+                            <span class="goal">/{{ counterDetail()!.goal }}</span>
+                        }
+                    </button>
                 </div>
             </section>
             <section class="counter-control">
                 <div class="decrement-button">
-                    <button
-                        mat-mini-fab
-                        (click)="decrementCounterHandle($event, counterDetail()?.id)">
+                    <button mat-fab (click)="decrementCounterHandle($event, counterDetail()?.id)">
                         @if (counterDetail()!.defaultIncrement > 0) {
                             -
                         } @else {
@@ -78,7 +80,7 @@
                     <span
                         ><mat-icon aria-hidden="false" aria-label="edit" fontIcon="edit"></mat-icon
                     ></span>
-                    <span class="counter-tools-label">edit</span>
+                    <span class="counter-tools-label">&nbsp;edit&nbsp;</span>
                 </button>
                 <button mat-fab (click)="showHistoryHandle($event, counterDetail()?.id)">
                     <span

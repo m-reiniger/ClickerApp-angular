@@ -1,4 +1,4 @@
-import { Component, inject, Input, output, Signal, signal } from '@angular/core';
+import { Component, inject, Input, output, Signal, signal, computed, effect } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -29,6 +29,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
 })
 export class DetailViewComponent {
     private readonly dialog = inject(MatDialog);
+    private readonly showingCelebration = signal(false);
 
     @Input() public counterDetail: Signal<CounterDetail | undefined> = signal<
         CounterDetail | undefined
@@ -42,6 +43,24 @@ export class DetailViewComponent {
     public resetCounter = output<string>();
     public showHistory = output<string | undefined>();
     public closeOverlay = output<void>();
+
+    public readonly hasReachedGoal = computed(() => {
+        const counterDetail = this.counterDetail();
+        return counterDetail && this.checkGoal(counterDetail, this.counterValue());
+    });
+
+    public readonly shouldShowCelebration = computed(() => this.showingCelebration());
+
+    constructor() {
+        effect(() => {
+            if (this.hasReachedGoal() && !this.showingCelebration()) {
+                this.showingCelebration.set(true);
+                setTimeout(() => {
+                    this.showingCelebration.set(false);
+                }, 3000);
+            }
+        });
+    }
 
     public close(): void {
         this.closeOverlay.emit();

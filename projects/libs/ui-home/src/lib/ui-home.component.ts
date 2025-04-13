@@ -1,6 +1,7 @@
 import { Component, Input, output, signal, Signal } from '@angular/core';
 import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 import { UiCounter, UiCounters } from './types/counters.types';
 
@@ -17,7 +18,7 @@ import { UiCounter, UiCounters } from './types/counters.types';
  */
 @Component({
     selector: 'lib-ui-home',
-    imports: [NgFor, NgIf, MatButtonModule, DecimalPipe],
+    imports: [NgFor, NgIf, MatButtonModule, MatIconModule, DecimalPipe],
     templateUrl: './ui-home.component.html',
     styleUrl: './ui-home.component.scss',
 })

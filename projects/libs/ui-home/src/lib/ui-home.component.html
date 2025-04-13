@@ -38,9 +38,37 @@
         </div>
     </section>
     <section class="counter-list-empty" *ngIf="counterList$().length === 0">
-        <p class="icon">🥺</p>
-        <p>You have no counters created yet.</p>
-        <a (click)="addCounterHandle()">Create a counter</a>
+        <div class="empty-state-content">
+            <p class="icon">📊</p>
+            <h4>No Counters Yet</h4>
+            <p class="message">
+                Start tracking anything you want to count - workouts, habits, goals, or anything
+                else!
+            </p>
+            <div class="suggestions">
+                <p>Try counting:</p>
+                <ul>
+                    <li>🏃‍♂️ Workouts</li>
+                    <li>💧 Water glasses</li>
+                    <li>📚 Books read</li>
+                    <li>✨ Good habits</li>
+                </ul>
+            </div>
+            <button
+                mat-raised-button
+                color="primary"
+                class="create-button"
+                (click)="addCounterHandle()">
+                <mat-icon>add</mat-icon>
+                Create Your First Counter
+            </button>
+        </div>
     </section>
-    <button mat-fab class="add-counter-button" (click)="addCounterHandle()">+</button>
+    <button
+        mat-fab
+        class="add-counter-button"
+        [class.animate-pulse]="counterList$().length === 0"
+        (click)="addCounterHandle()">
+        +
+    </button>
 </article>
