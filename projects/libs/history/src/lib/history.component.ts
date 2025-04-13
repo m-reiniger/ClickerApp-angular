@@ -49,7 +49,7 @@ export class HistoryComponent implements OnInit {
                     return { ...transaction, timeSincePrevious: 'Creation' };
                 }
                 if (index === 1) {
-                    return { ...transaction, timeSincePrevious: 'First transaction' };
+                    return { ...transaction, timeSincePrevious: 'First action' };
                 }
                 const previousTimestamp = array[index - 1].timestamp;
                 const timeDiff = this.getTimeDifference(

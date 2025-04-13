@@ -32,9 +32,9 @@
                             </div>
                             <div matListItemLine class="timestamp">
                                 {{ transaction.timestamp | date: 'medium' }}
-                                <span class="time-difference"
-                                    >({{ transaction.timeSincePrevious }})</span
-                                >
+                            </div>
+                            <div matListItemLine class="time-difference">
+                                ({{ transaction.timeSincePrevious }})
                             </div>
                         </mat-list-item>
                     } @empty {
