@@ -296,7 +296,7 @@ describe('CounterService', () => {
             service.incrementCounter(counter.id);
 
             // Reset the counter
-            service.resetCounter(counter.id);
+            service.resetCounter(counter.id, true);
 
             const valueSignal = service.getCounterValue$(counter.id);
             expect(valueSignal()).toBe(10); // Should be back to initial value
@@ -306,7 +306,7 @@ describe('CounterService', () => {
             const counter = service.createCounter('Test Counter', 1, TransactionOperation.ADD, 10);
             const initialTransactionCount = counter.transactions.length;
 
-            service.resetCounter(counter.id);
+            service.resetCounter(counter.id, true);
 
             const updatedCounter = service.getCounter(counter.id);
             expect(updatedCounter?.transactions.length).toBe(initialTransactionCount + 1);
@@ -327,7 +327,7 @@ describe('CounterService', () => {
             }
 
             // Reset the counter
-            service.resetCounter(counter.id);
+            service.resetCounter(counter.id, true);
 
             const updatedCounter = service.getCounter(counter.id);
             expect(updatedCounter?.transactions.length).toBe(service['TRANSACTION_LIMIT']);
@@ -339,7 +339,7 @@ describe('CounterService', () => {
 
         it('should do nothing when resetting non-existent counter', () => {
             const initialCounters = service.getCounterList().length;
-            service.resetCounter('non-existent-id');
+            service.resetCounter('non-existent-id', true);
             expect(service.getCounterList().length).toBe(initialCounters);
         });
 
@@ -351,9 +351,9 @@ describe('CounterService', () => {
             service.incrementCounter(counter.id);
 
             // Reset multiple times
-            service.resetCounter(counter.id);
-            service.resetCounter(counter.id);
-            service.resetCounter(counter.id);
+            service.resetCounter(counter.id, true);
+            service.resetCounter(counter.id, true);
+            service.resetCounter(counter.id, true);
 
             const valueSignal = service.getCounterValue$(counter.id);
             expect(valueSignal()).toBe(10); // Should always be initial value

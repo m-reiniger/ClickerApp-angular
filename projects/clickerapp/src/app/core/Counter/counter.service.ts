@@ -236,9 +236,12 @@ export class CounterService {
      * Resets a counter to its initial value
      * @param id - The ID of the counter to reset
      */
-    public resetCounter(id: string): void {
+    public resetCounter(id: string, keepHistory: boolean): void {
         const counter = this.getCounter(id);
         if (counter) {
+            if (!keepHistory) {
+                counter.transactions = [];
+            }
             const transaction = this.transactionService.create(
                 TransactionOperation.RESET,
                 counter.initialValue

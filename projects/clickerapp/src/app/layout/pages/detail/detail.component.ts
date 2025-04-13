@@ -66,9 +66,9 @@ export class DetailComponent implements OnInit {
         }
     }
 
-    public resetCounter(id: string | undefined): void {
-        if (id) {
-            this.counterService.resetCounter(id);
+    public resetCounter(options: { id: string | undefined; keepHistory: boolean }): void {
+        if (options.id) {
+            this.counterService.resetCounter(options.id, options.keepHistory);
         }
     }
 

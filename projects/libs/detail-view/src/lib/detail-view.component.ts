@@ -40,7 +40,7 @@ export class DetailViewComponent {
     public decrementCounter = output<string | undefined>();
     public editCounter = output<string | undefined>();
     public deleteCounter = output<string>();
-    public resetCounter = output<string>();
+    public resetCounter = output<{ id: string; keepHistory: boolean }>();
     public showHistory = output<string | undefined>();
     public closeOverlay = output<void>();
 
@@ -89,6 +89,7 @@ export class DetailViewComponent {
                 closeHandle: this.closeOverlay,
                 actionHandle: this.deleteCounter,
                 id: this.counterDetail()?.id,
+                askToKeepHistory: false,
             },
         });
     }
@@ -101,6 +102,7 @@ export class DetailViewComponent {
                 closeHandle: undefined,
                 actionHandle: this.resetCounter,
                 id: this.counterDetail()?.id,
+                askToKeepHistory: true,
             },
         });
     }
