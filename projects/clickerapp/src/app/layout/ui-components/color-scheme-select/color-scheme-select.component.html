@@ -7,6 +7,6 @@
     </mat-radio-group>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button (click)="onCancel()">Cancel</button>
-    <button mat-button color="primary" (click)="onApply()">Apply</button>
+    <button mat-button mat-dialog-close (click)="onCancel()">Cancel</button>
+    <button mat-flat-button mat-dialog-close cdkFocusInitial (click)="onApply()">Apply</button>
 </mat-dialog-actions>

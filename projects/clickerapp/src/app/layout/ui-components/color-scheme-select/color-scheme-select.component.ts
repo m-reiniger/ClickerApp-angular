@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +9,7 @@ import { ColorSchemeService } from '@app/util/color-scheme/color-scheme.service'
 @Component({
     selector: 'app-color-scheme-select',
     standalone: true,
-    imports: [CommonModule, FormsModule, MatDialogModule, MatButtonModule, MatRadioModule],
+    imports: [MatButtonModule, FormsModule, MatDialogModule, MatRadioModule],
     templateUrl: './color-scheme-select.component.html',
     styleUrl: './color-scheme-select.component.scss',
 })
