@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+
+import { ColorSchemeSelectService } from '@app/layout/ui-components/color-scheme-select/color-scheme-select.service';
 
 @Component({
     selector: 'app-main-menu',
@@ -10,4 +12,10 @@ import { MatButtonModule } from '@angular/material/button';
     templateUrl: './main-menu.component.html',
     styleUrl: './main-menu.component.scss',
 })
-export class MainMenuComponent {}
+export class MainMenuComponent {
+    private colorSchemeSelectService = inject(ColorSchemeSelectService);
+
+    public openColorSchemeSelect(): void {
+        this.colorSchemeSelectService.openDialog();
+    }
+}

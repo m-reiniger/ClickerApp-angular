@@ -36,6 +36,11 @@
                             {
                                 "glob": "**/*",
                                 "input": "projects/clickerapp/public"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "projects/clickerapp/assets",
+                                "output": "assets"
                             }
                         ],
                         "styles": [
@@ -99,6 +104,11 @@
                             {
                                 "glob": "**/*",
                                 "input": "projects/clickerapp/public"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "projects/clickerapp/assets",
+                                "output": "assets"
                             }
                         ],
                         "styles": [
