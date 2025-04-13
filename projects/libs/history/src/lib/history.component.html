@@ -17,24 +17,27 @@
                             class="{{
                                 getOperationColor(transaction.operation, transaction.value)
                             }}">
-                            <mat-icon
-                                matListItemIcon
-                                [color]="
-                                    getOperationColor(transaction.operation, transaction.value)
-                                ">
-                                {{ getOperationIcon(transaction.operation, transaction.value) }}
-                            </mat-icon>
                             <div matListItemTitle>
                                 <button mat-fab>
                                     {{ transaction.currentValue | number: '1.0-2' }}
                                 </button>
-                                {{ formatTitleText(transaction.operation, transaction.value) }}
-                            </div>
-                            <div matListItemLine class="timestamp">
-                                {{ transaction.timestamp | date: 'medium' }}
-                            </div>
-                            <div matListItemLine class="time-difference">
-                                ({{ transaction.timeSincePrevious }})
+                                <span class="operation">
+                                    @if (transaction.operation === 'add') {
+                                        +{{ transaction.value }}
+                                    } @else if (transaction.operation === 'subtract') {
+                                        -{{ transaction.value }}
+                                    } @else if (transaction.operation === 'reset') {
+                                        <mat-icon>restart_alt</mat-icon>
+                                    } @else {
+                                        <mat-icon>photo_camera</mat-icon>
+                                    }
+                                </span>
+                                <span class="timestamp">
+                                    {{ transaction.timestamp | date: 'dd.MM. HH:mm' }}
+                                </span>
+                                <span class="time-difference">
+                                    ({{ transaction.timeSincePrevious }})
+                                </span>
                             </div>
                         </mat-list-item>
                     } @empty {

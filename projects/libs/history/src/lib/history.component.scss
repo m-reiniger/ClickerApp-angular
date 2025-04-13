@@ -55,6 +55,7 @@
         box-shadow: var(--mat-sys-level2);
         transition: all 0.3s ease;
         overflow: hidden;
+        margin-bottom: 100px;
         animation: fadeIn 0.3s ease-out 0.1s backwards;
 
         &:hover {
@@ -105,40 +106,79 @@
                     width: 100%;
 
                     mat-list-item {
-                        --mdc-list-list-item-container-height: 120px;
-                        height: 120px;
-                        margin: 0.5rem 1rem;
-                        padding: 1rem;
+                        --mdc-list-list-item-container-height: 100px;
+                        height: auto;
+                        margin: 0.25rem 1rem;
+                        padding: 0.75rem;
                         border-radius: 12px;
                         transition: all 0.2s ease;
                         width: calc(100% - 2rem);
 
                         &:first-child {
-                            margin-top: 0.5rem;
+                            margin-top: 0.25rem;
                         }
 
                         &:last-child {
-                            margin-bottom: 1rem;
+                            margin-bottom: 0.75rem;
                         }
 
                         ::ng-deep .mdc-list-item__content {
                             height: 100%;
-                            // display: flex;
+                            display: flex;
                             flex-direction: column;
                             justify-content: center;
+                            gap: 0.25rem;
                         }
 
                         .mat-mdc-list-item-title {
-                            font-size: 1.1rem;
-                            font-weight: 500;
-                            display: flex;
+                            display: grid;
+                            grid-template-columns: auto 1fr;
+                            grid-template-rows: auto auto;
+                            gap: 8px;
                             align-items: center;
-                            margin-bottom: 0;
-                            padding: 0;
-                            color: var(--mat-sys-on-surface);
+                            overflow: visible;
 
                             button {
-                                margin-right: 0.5rem;
+                                grid-row: 1 / span 2;
+                                grid-column: 1;
+                                width: 60px;
+                                height: 60px;
+                                font-size: 1.2rem;
+                                font-weight: 500;
+                                margin-right: 16px;
+                            }
+
+                            .operation {
+                                grid-row: 1 / span 2;
+                                grid-column: 2;
+                                font-size: 1.3rem;
+                                font-weight: 500;
+                                color: var(--primary-color);
+                                display: flex;
+                                align-items: center;
+                                gap: 4px;
+                                height: 100%;
+
+                                mat-icon {
+                                    font-size: 24px;
+                                    width: 24px;
+                                    height: 24px;
+                                }
+                            }
+
+                            .timestamp {
+                                grid-row: 1;
+                                grid-column: 2;
+                                justify-self: end;
+                                color: var(--mat-sys-on-surface-variant);
+                            }
+
+                            .time-difference {
+                                grid-row: 2;
+                                grid-column: 2;
+                                color: var(--mat-sys-on-surface-variant);
+                                font-size: 0.9rem;
+                                justify-self: end;
                             }
                         }
 
@@ -149,7 +189,7 @@
                                 transparent
                             );
 
-                            div.mat-mdc-list-item-title {
+                            .operation {
                                 color: var(--mat-sys-tertiary);
                             }
 
@@ -169,7 +209,7 @@
                                 transparent
                             );
 
-                            div.mat-mdc-list-item-title {
+                            .operation {
                                 color: var(--mat-sys-error);
                             }
 
@@ -222,20 +262,6 @@
                             display: flex;
                             align-items: center;
                             gap: 0.75rem;
-                        }
-
-                        .timestamp {
-                            font-size: 0.9rem;
-                            color: var(--mat-sys-on-surface-variant);
-                            margin-top: 0.25rem;
-                            padding: 0;
-                        }
-
-                        .time-difference {
-                            font-size: 0.8rem;
-                            color: var(--mat-sys-on-surface-variant);
-                            font-style: italic;
-                            padding: 0;
                         }
                     }
                 }
