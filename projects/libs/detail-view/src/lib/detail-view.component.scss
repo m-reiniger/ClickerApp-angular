@@ -54,23 +54,21 @@
     position: relative;
     animation: fadeIn 0.3s ease-out;
 
-    mat-icon.close {
+    .close {
         position: absolute;
-        right: 0.15em;
-        top: 0.15em;
-        font-size: 50px;
-        width: 50px;
-        height: 50px;
+        top: 1rem;
+        right: 1rem;
         cursor: pointer;
-        z-index: 2;
-        background-color: var(--mat-sys-surface-container-highest);
-        border-radius: 50%;
+        z-index: 1000;
         transition: all 0.2s ease;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        padding: 0.5rem;
         animation: fadeIn 0.3s ease-out 0.2s backwards;
 
         &:hover {
-            background-color: var(--mat-sys-surface-container-highest-hover);
-            transform: scale(1.05);
+            background: rgba(0, 0, 0, 0.1);
+            transform: rotate(90deg);
         }
     }
 
@@ -220,21 +218,21 @@
     margin: 0 auto;
     position: relative;
 
-    mat-icon.close {
+    .close {
         position: absolute;
-        right: 0.15em;
-        top: 0.15em;
-        font-size: 50px;
-        width: 50px;
-        height: 50px;
+        top: 1rem;
+        right: 1rem;
         cursor: pointer;
-        z-index: 2;
-        background-color: var(--mat-sys-surface-container-highest);
+        z-index: 1000;
+        transition: all 0.2s ease;
+        background: rgba(255, 255, 255, 0.1);
         border-radius: 50%;
-        transition: background-color 0.2s ease;
+        padding: 0.5rem;
+        animation: fadeIn 0.3s ease-out 0.2s backwards;
 
         &:hover {
-            background-color: var(--mat-sys-surface-container-highest-hover);
+            background: rgba(0, 0, 0, 0.1);
+            transform: rotate(90deg);
         }
     }
 
