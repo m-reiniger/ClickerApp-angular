@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
+import { MatCardModule } from '@angular/material/card';
 
 import { CounterForm } from './types/counter-form.types';
 
@@ -28,6 +29,7 @@ import { CounterForm } from './types/counter-form.types';
         MatIconModule,
         MatExpansionModule,
         MatAccordion,
+        MatCardModule,
     ],
     templateUrl: './counter-form.component.html',
     styleUrl: './counter-form.component.scss',

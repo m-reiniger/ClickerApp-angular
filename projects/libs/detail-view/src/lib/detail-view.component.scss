@@ -1,141 +1,168 @@
 @use '@angular/material' as mat;
 
 .detail-view {
-    width: calc(99% - 2em);
-    // height: 100%;
-    margin: 1em;
-    padding-bottom: 110px;
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
 
     mat-icon.close {
         position: absolute;
         right: 0.15em;
-        top: 0.2em;
+        top: 0.15em;
         font-size: 50px;
         width: 50px;
         height: 50px;
         cursor: pointer;
+
+        z-index: 2;
+
+        background-color: var(--mat-sys-surface-container-highest);
+        border-radius: 50%;
     }
 
-    .counter-name {
-        width: 100%;
-        margin-top: 2em;
-        margin-bottom: 2em;
+    .detail-view-card {
+        height: 100%;
+        min-height: 100%;
 
-        .counter-value {
-            max-width: 174px;
-            padding: 10px;
-            text-align: center;
-            margin: 0 auto;
+        position: relative;
+        z-index: 1;
 
-            button {
-                @include mat.fab-overrides(
-                    (
-                        container-color: var(--mat-sys-primary-container),
-                        foreground-color: var(--mat-sys-primary),
-                        container-shape: 50%,
-                    )
-                );
+        mat-card-header {
+            font-weight: 600;
+            padding: 12px 16px;
+        }
 
-                font-size: 3em;
-                font-weight: bold;
+        section.counter-value {
+            width: 100%;
+            margin-top: 2em;
+            margin-bottom: 2em;
 
-                width: 168px;
-                height: 168px;
-            }
-
-            .goal {
-                font-size: 0.4em;
-                font-weight: normal;
-                color: var(--mat-sys-surface-tint);
-                margin-left: -0.5em;
-            }
-
-            .value-progress-border {
-                padding: 5px;
-                width: 168px;
-                height: 168px;
-                background: conic-gradient(var(--mat-sys-primary) var(--progress), transparent 0);
-                // mask: radial-gradient(transparent 55%, black 55%);
-                // -webkit-mask: radial-gradient(transparent 55%, black 55%);
-                border-radius: 50%;
-            }
-
-            .goal-reached {
-                background: conic-gradient(var(--mat-sys-tertiary) var(--progress), transparent 0);
+            .counter-value {
+                max-width: 154px;
+                padding: 10px;
+                text-align: center;
+                margin: 0 auto;
 
                 button {
                     @include mat.fab-overrides(
                         (
-                            container-color: var(--mat-sys-tertiary-container),
-                            foreground-color: var(--mat-sys-tertiary),
+                            container-color: var(--mat-sys-primary-container),
+                            foreground-color: var(--mat-sys-primary),
                             container-shape: 50%,
                         )
                     );
+
+                    font-size: 3em;
+                    font-weight: bold;
+
+                    width: 148px;
+                    height: 148px;
+                }
+
+                .goal {
+                    font-size: 0.4em;
+                    font-weight: normal;
+                    color: var(--mat-sys-surface-tint);
+                    margin-left: -0.5em;
+                }
+
+                .value-progress-border {
+                    padding: 5px;
+                    width: 148px;
+                    height: 148px;
+                    background: conic-gradient(
+                        var(--mat-sys-primary) var(--progress),
+                        transparent 0
+                    );
+                    // mask: radial-gradient(transparent 55%, black 55%);
+                    // -webkit-mask: radial-gradient(transparent 55%, black 55%);
+                    border-radius: 50%;
+                }
+
+                .goal-reached {
+                    background: conic-gradient(
+                        var(--mat-sys-tertiary) var(--progress),
+                        transparent 0
+                    );
+
+                    button {
+                        @include mat.fab-overrides(
+                            (
+                                container-color: var(--mat-sys-tertiary-container),
+                                foreground-color: var(--mat-sys-tertiary),
+                                container-shape: 50%,
+                            )
+                        );
+                    }
                 }
             }
         }
-    }
 
-    .counter-control {
-        width: 100%;
+        .counter-control {
+            width: 100%;
 
-        .increment-button {
-            padding: 10px;
-            text-align: right;
+            .increment-button {
+                padding: 10px;
+                text-align: right;
 
-            button {
-                @include mat.fab-overrides(
-                    (
-                        container-color: var(--mat-sys-secondary),
-                        foreground-color: var(--mat-sys-on-secondary),
-                        container-shape: 50%,
-                    )
-                );
+                button {
+                    @include mat.fab-overrides(
+                        (
+                            container-color: var(--mat-sys-secondary),
+                            foreground-color: var(--mat-sys-on-secondary),
+                            container-shape: 50%,
+                        )
+                    );
 
-                font-size: 4em;
-                font-weight: 600;
+                    font-size: 4em;
+                    font-weight: 600;
 
-                min-width: 3em;
-                min-height: 3em;
+                    min-width: 3em;
+                    min-height: 3em;
+                }
+            }
+
+            .decrement-button {
+                margin-bottom: -3em;
+                margin-top: -1em;
+                margin-left: 2em;
+
+                button {
+                    @include mat.fab-overrides(
+                        (
+                            small-container-color: var(--mat-sys-surface-container-highest),
+                            small-foreground-color: var(--mat-sys-on-surface-container-highest),
+                            small-container-shape: 50%,
+                        )
+                    );
+
+                    font-size: 2em;
+                    font-weight: 800;
+
+                    min-width: 2em;
+                    min-height: 2em;
+                }
             }
         }
 
-        .decrement-button {
-            margin-bottom: -3em;
-            margin-left: 2em;
+        .counter-tools {
+            // width: calc(100% - 2em);
+            // position: absolute;
+            // bottom: 110px;
+
+            margin-top: 1.2em;
 
             button {
-                @include mat.fab-overrides(
-                    (
-                        small-container-color: var(--mat-sys-surface-container-highest),
-                        small-foreground-color: var(--mat-sys-on-surface-container-highest),
-                        small-container-shape: 50%,
-                    )
-                );
+                margin: 10px;
 
-                font-size: 2em;
-                font-weight: 800;
+                display: 'flex';
+                flex-direction: 'column';
 
-                min-width: 2em;
-                min-height: 2em;
-            }
-        }
-    }
-
-    .counter-tools {
-        // width: calc(100% - 2em);
-        position: absolute;
-        bottom: 110px;
-
-        button {
-            margin: 10px;
-
-            display: 'flex';
-            flex-direction: 'column';
-
-            .counter-tools-label {
-                font-size: 0.75em;
-                padding: 0 1em;
+                .counter-tools-label {
+                    font-size: 0.75em;
+                    padding: 0 1em;
+                }
             }
         }
     }

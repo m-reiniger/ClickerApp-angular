@@ -5,33 +5,47 @@
         aria-label="close"
         fontIcon="close"
         (click)="close()"></mat-icon>
-    <h3>{{ counterName }}</h3>
-    <section class="history-list">
-        <mat-list>
-            @for (transaction of sortedTransactions(); track transaction.timestamp) {
-                <mat-list-item
-                    class="{{ getOperationColor(transaction.operation, transaction.value) }}">
-                    <mat-icon
-                        matListItemIcon
-                        [color]="getOperationColor(transaction.operation, transaction.value)">
-                        {{ getOperationIcon(transaction.operation, transaction.value) }}
-                    </mat-icon>
-                    <div matListItemTitle>
-                        <button mat-fab>{{ transaction.currentValue | number: '1.0-2' }}</button>
-                        {{ formatTitleText(transaction.operation, transaction.value) }}
-                    </div>
-                    <div matListItemLine class="timestamp">
-                        {{ transaction.timestamp | date: 'medium' }}
-                        <span class="time-difference">({{ transaction.timeSincePrevious }})</span>
-                    </div>
-                </mat-list-item>
-            } @empty {
-                <mat-list-item>
-                    <div matListItemTitle>No transactions yet</div>
-                </mat-list-item>
-            }
-        </mat-list>
-    </section>
+    <mat-card class="history-card">
+        <mat-card-header>
+            {{ counterName }}
+        </mat-card-header>
+        <mat-card-content>
+            <section class="history-list">
+                <mat-list>
+                    @for (transaction of sortedTransactions(); track transaction.timestamp) {
+                        <mat-list-item
+                            class="{{
+                                getOperationColor(transaction.operation, transaction.value)
+                            }}">
+                            <mat-icon
+                                matListItemIcon
+                                [color]="
+                                    getOperationColor(transaction.operation, transaction.value)
+                                ">
+                                {{ getOperationIcon(transaction.operation, transaction.value) }}
+                            </mat-icon>
+                            <div matListItemTitle>
+                                <button mat-fab>
+                                    {{ transaction.currentValue | number: '1.0-2' }}
+                                </button>
+                                {{ formatTitleText(transaction.operation, transaction.value) }}
+                            </div>
+                            <div matListItemLine class="timestamp">
+                                {{ transaction.timestamp | date: 'medium' }}
+                                <span class="time-difference"
+                                    >({{ transaction.timeSincePrevious }})</span
+                                >
+                            </div>
+                        </mat-list-item>
+                    } @empty {
+                        <mat-list-item>
+                            <div matListItemTitle>No transactions yet</div>
+                        </mat-list-item>
+                    }
+                </mat-list>
+            </section>
+        </mat-card-content>
+    </mat-card>
     @if (showScrollToTop()) {
         <button mat-fab class="scroll-to-top" (click)="scrollToTop()" aria-label="Scroll to top">
             <mat-icon>arrow_upward</mat-icon>

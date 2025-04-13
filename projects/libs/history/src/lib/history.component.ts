@@ -1,16 +1,24 @@
-import { Component, Input, OnInit, output, Signal, signal, HostListener } from '@angular/core';
+import { Component, Input, OnInit, output, Signal, signal } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 
 import { Transaction, TransactionOperation } from './types/transaction.types';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'lib-history',
     standalone: true,
-    imports: [CommonModule, MatListModule, MatIconModule, MatButtonModule, DecimalPipe],
+    imports: [
+        CommonModule,
+        MatListModule,
+        MatIconModule,
+        MatButtonModule,
+        DecimalPipe,
+        MatCardModule,
+    ],
     templateUrl: './history.component.html',
     styleUrl: './history.component.scss',
 })
@@ -25,13 +33,13 @@ export class HistoryComponent implements OnInit {
     public showScrollToTop = signal(false);
     private readonly SCROLL_THRESHOLD = 100;
 
-    @HostListener('window:scroll', [])
-    private onWindowScroll(): void {
-        this.showScrollToTop.set(window.scrollY > this.SCROLL_THRESHOLD);
-    }
+    public onWindowScroll = (): void => {
+        const scrollPosition = document.querySelector('main')?.scrollTop || 0;
+        this.showScrollToTop.set(scrollPosition > this.SCROLL_THRESHOLD);
+    };
 
     public scrollToTop(): void {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.querySelector('main')?.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     public ngOnInit(): void {
@@ -51,6 +59,8 @@ export class HistoryComponent implements OnInit {
                 return { ...transaction, timeSincePrevious: timeDiff };
             })
         );
+
+        document.querySelector('main')?.addEventListener('scroll', this.onWindowScroll);
     }
 
     public close(): void {

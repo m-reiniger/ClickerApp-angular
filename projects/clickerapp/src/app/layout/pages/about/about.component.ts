@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import packageJson from '../../../../../../../package.json';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+
+import packageJson from '../../../../../../../package.json';
 
 @Component({
     selector: 'app-about',

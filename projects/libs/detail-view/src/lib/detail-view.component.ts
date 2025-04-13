@@ -4,6 +4,7 @@ import { DecimalPipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
 
 import { CounterDetail } from './types/counter-detail.types';
 import { ConfirmComponent } from './confirm/confirm.component';
@@ -22,7 +23,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
  */
 @Component({
     selector: 'lib-detail-view',
-    imports: [MatButtonModule, MatIconModule, DecimalPipe],
+    imports: [MatButtonModule, MatIconModule, DecimalPipe, MatCardModule],
     templateUrl: './detail-view.component.html',
     styleUrl: './detail-view.component.scss',
 })
