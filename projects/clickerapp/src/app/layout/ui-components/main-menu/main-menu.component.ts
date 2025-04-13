@@ -24,4 +24,8 @@ export class MainMenuComponent {
     public navigateToAbout(): void {
         this.router.navigate(['/about']);
     }
+
+    public navigateToDonations(): void {
+        this.router.navigate(['/donate']);
+    }
 }

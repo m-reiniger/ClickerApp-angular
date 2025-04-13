@@ -5,15 +5,20 @@ import { DetailComponent } from '@app/layout/pages/detail/detail.component';
 import { HistoryComponent } from '@app/layout/pages/history/history.component';
 import { HomeComponent } from '@app/layout/pages/home/home.component';
 import { AboutComponent } from '@app/layout/pages/about/about.component';
+import { DonationsComponent } from '@app/layout/pages/donations/donations.component';
 
 export const routes: Routes = [
+    {
+        path: '',
+        component: HomeComponent,
+    },
     {
         path: 'about',
         component: AboutComponent,
     },
     {
-        path: '',
-        component: HomeComponent,
+        path: 'donate',
+        component: DonationsComponent,
     },
     {
         path: 'create',
