@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -14,8 +15,13 @@ import { ColorSchemeSelectService } from '@app/layout/ui-components/color-scheme
 })
 export class MainMenuComponent {
     private colorSchemeSelectService = inject(ColorSchemeSelectService);
+    private router = inject(Router);
 
     public openColorSchemeSelect(): void {
         this.colorSchemeSelectService.openDialog();
+    }
+
+    public navigateToAbout(): void {
+        this.router.navigate(['/about']);
     }
 }

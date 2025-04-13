@@ -1,0 +1,65 @@
+<div class="about-container">
+    <mat-icon
+        class="close"
+        aria-hidden="false"
+        aria-label="close"
+        fontIcon="close"
+        (click)="onClose()"></mat-icon>
+
+    <mat-card class="about-card">
+        <mat-card-header>
+            <mat-card-title>About Clicker</mat-card-title>
+            <mat-card-subtitle>The Counter App</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <section class="author">
+                <h2>Author</h2>
+                <p>Michael Reiniger</p>
+                <p>Software Developer and Creator of Clicker</p>
+            </section>
+
+            <section class="version">
+                <h2>Version</h2>
+                <p>{{ version }}</p>
+            </section>
+
+            <section class="contact">
+                <h2>Contact</h2>
+                <p>
+                    If you have any questions, suggestions, or would like to contribute to the
+                    project, please feel free to reach out:
+                </p>
+                <ul>
+                    <li>
+                        Email:
+                        <a href="mailto:codewald.dev@gmail.com">codewald.dev&#64;gmail.com</a>
+                    </li>
+                    <li>
+                        GitHub:
+                        <a href="https://github.com/m-reiniger/ClickerApp-angular" target="_blank"
+                            >github.com/m-reiniger/ClickerApp-angular</a
+                        >
+                    </li>
+                </ul>
+            </section>
+
+            <section class="issues">
+                <h2>Report Issues</h2>
+                <p>
+                    Found a bug or have a feature request? Please report it on our GitHub
+                    repository:
+                </p>
+                <ul>
+                    <li>
+                        <a
+                            href="https://github.com/m-reiniger/ClickerApp-angular/issues"
+                            target="_blank"
+                            >View and create issues on GitHub</a
+                        >
+                    </li>
+                </ul>
+            </section>
+        </mat-card-content>
+    </mat-card>
+</div>

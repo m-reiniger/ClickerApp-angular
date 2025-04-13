@@ -1,0 +1,84 @@
+.about-container {
+    padding: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+}
+
+mat-icon.close {
+    position: absolute;
+    right: 0.15em;
+    top: 0.2em;
+    font-size: 50px;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    z-index: 2;
+    background-color: var(--mat-sys-surface-container-highest);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.about-card {
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+section {
+    margin-bottom: 2rem;
+
+    h2 {
+        color: var(--mat-sys-primary);
+        margin-bottom: 1rem;
+        font-size: 1.25rem;
+    }
+
+    p {
+        margin: 0.5rem 0;
+        line-height: 1.5;
+    }
+
+    ul {
+        padding-left: 1rem;
+        margin: 0.5rem 0;
+
+        li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+    }
+}
+
+.features {
+    ul {
+        list-style-type: disc;
+    }
+}
+
+.suggestions {
+    ul {
+        list-style-type: circle;
+    }
+}
+
+.contact,
+.issues {
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+    a {
+        color: var(--mat-sys-primary);
+        text-decoration: none;
+        transition: color 0.2s ease;
+
+        &:hover {
+            color: var(--mat-sys-primary-dark);
+            text-decoration: underline;
+        }
+    }
+}
