@@ -32,9 +32,13 @@
                                         <mat-icon>photo_camera</mat-icon>
                                     }
                                 </span>
-                                <span class="timestamp">{{
-                                    transaction.timestamp | date: 'medium'
-                                }}</span>
+                                <span class="timestamp">
+                                    @if (isCurrentYear(transaction.timestamp)) {
+                                        {{ transaction.timestamp | date: 'MMM d, HH:mm' }}
+                                    } @else {
+                                        {{ transaction.timestamp | date: 'MMM d, yyyy, HH:mm' }}
+                                    }
+                                </span>
                                 <span class="time-difference">
                                     ({{ transaction.timeSincePrevious }})
                                 </span>

@@ -30,6 +30,11 @@ export class HistoryComponent implements OnInit {
 
     public sortedTransactions: Signal<Transaction[]> = signal([]);
 
+    public currentYear = new Date().getFullYear();
+    public isCurrentYear = (timestamp: Date): boolean => {
+        return new Date(timestamp).getFullYear() === this.currentYear;
+    };
+
     public showScrollToTop = signal(false);
     private readonly SCROLL_THRESHOLD = 100;
 
