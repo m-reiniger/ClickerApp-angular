@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 
 import { UiCounter, UiCounters } from './types/counters.types';
 import { ViewModeService, ViewMode } from './services/view-mode.service';
+import { LongPressDirective, PressType } from './directives/long-press.directive';
 
 /**
  * Main home screen component that displays a list of counters and their controls.
@@ -29,6 +30,7 @@ import { ViewModeService, ViewMode } from './services/view-mode.service';
         DecimalPipe,
         MatButtonToggleModule,
         FormsModule,
+        LongPressDirective,
     ],
     templateUrl: './ui-home.component.html',
     styleUrl: './ui-home.component.scss',
@@ -42,6 +44,7 @@ export class UiHomeComponent implements OnInit {
     public decrementCounter = output<string>();
     public navigateToDetail = output<string>();
     public addCounter = output<void>();
+    public pressedTileId: string | null = null;
 
     constructor(private viewModeService: ViewModeService) {}
 
@@ -52,6 +55,22 @@ export class UiHomeComponent implements OnInit {
     public toggleViewMode(mode: ViewMode): void {
         this.viewMode = mode;
         this.viewModeService.saveViewMode(mode);
+    }
+
+    public handlePress(type: PressType, id: string): void {
+        if (type === 'click') {
+            this.navigateToDetail.emit(id);
+        } else if (type === 'longpress') {
+            this.incrementCounter.emit(id);
+        }
+    }
+
+    public handlePressState(isPressed: boolean, id: string): void {
+        this.pressedTileId = isPressed ? id : null;
+    }
+
+    public isTilePressed(id: string): boolean {
+        return this.pressedTileId === id;
     }
 
     public incrementCounterHandle(event: Event, id: string): void {

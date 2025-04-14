@@ -369,7 +369,7 @@
 
         .counter-tile {
             cursor: pointer;
-            transition: transform 0.2s ease;
+            transition: all 0.2s ease;
             background: linear-gradient(
                 145deg,
                 var(--mat-sys-surface-container-lowest) 0%,
@@ -381,6 +381,41 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
+            overflow: hidden;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+
+            &.pressed {
+                transform: scale(0.95);
+                background: linear-gradient(
+                    145deg,
+                    var(--mat-sys-surface-container-highest) 0%,
+                    color-mix(in srgb, var(--mat-sys-surface-container-highest) 95%, white) 100%
+                );
+                box-shadow: var(--mat-sys-level1);
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: linear-gradient(
+                        145deg,
+                        var(--mat-sys-primary) 0%,
+                        color-mix(in srgb, var(--mat-sys-primary) 30%, transparent) 100%
+                    );
+                    opacity: 0.1;
+                    transition: opacity 0.2s ease;
+                }
+            }
 
             &:hover {
                 transform: translateY(-2px);
