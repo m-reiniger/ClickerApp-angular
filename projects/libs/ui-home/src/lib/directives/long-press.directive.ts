@@ -1,4 +1,5 @@
 import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 export type PressType = 'click' | 'longpress';
 
@@ -47,15 +48,13 @@ export class LongPressDirective {
         this.endPress();
     }
 
-    private startPress(): void {
+    private async startPress(): Promise<void> {
         // Emit press start
         this.pressState.emit(true);
 
-        this.pressTimer = setTimeout(() => {
-            // Trigger haptic feedback
-            if (window.navigator.vibrate) {
-                window.navigator.vibrate(50); // 50ms vibration
-            }
+        this.pressTimer = setTimeout(async () => {
+            // Trigger haptic feedback using Capacitor Haptics
+            await Haptics.impact({ style: ImpactStyle.Medium });
 
             // Emit long press event
             this.press.emit('longpress');
@@ -65,7 +64,7 @@ export class LongPressDirective {
     private endPress(): void {
         if (this.pressTimer) {
             clearTimeout(this.pressTimer);
-            this.pressTimer = null;
+            this.pressTimer = undefined;
 
             // If the press was shorter than the long press duration, emit click
             if (Date.now() - this.touchStartTime < this.LONG_PRESS_DURATION) {
