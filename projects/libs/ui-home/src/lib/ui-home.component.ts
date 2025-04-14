@@ -8,6 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { UiCounter, UiCounters } from './types/counters.types';
 import { ViewModeService, ViewMode } from './services/view-mode.service';
 import { LongPressDirective, PressType } from './directives/long-press.directive';
+import hints from './hints.json';
+
+interface HintData {
+    hints: string[];
+}
 
 /**
  * Main home screen component that displays a list of counters and their controls.
@@ -45,16 +50,46 @@ export class UiHomeComponent implements OnInit {
     public navigateToDetail = output<string>();
     public addCounter = output<void>();
     public pressedTileId: string | null = null;
+    public currentHint = '';
+    public showHint = true;
+    public isHintAnimating = false;
 
     constructor(private viewModeService: ViewModeService) {}
 
     public ngOnInit(): void {
         this.viewMode = this.viewModeService.getViewMode();
+        this.updateHint();
+    }
+
+    public updateHint(): void {
+        if (this.isHintAnimating) return;
+
+        this.isHintAnimating = true;
+        const hintData = hints as HintData;
+        const randomIndex = Math.floor(Math.random() * hintData.hints.length);
+
+        // Ensure we don't show the same hint twice in a row
+        let newHint = hintData.hints[randomIndex];
+        while (newHint === this.currentHint && hintData.hints.length > 1) {
+            newHint = hintData.hints[Math.floor(Math.random() * hintData.hints.length)];
+        }
+
+        this.currentHint = newHint;
+
+        // Reset animation flag after a short delay
+        setTimeout(() => {
+            this.isHintAnimating = false;
+        }, 300);
+    }
+
+    public toggleHint(): void {
+        this.showHint = !this.showHint;
     }
 
     public toggleViewMode(mode: ViewMode): void {
         this.viewMode = mode;
         this.viewModeService.saveViewMode(mode);
+        this.updateHint();
     }
 
     public handlePress(type: PressType, id: string): void {

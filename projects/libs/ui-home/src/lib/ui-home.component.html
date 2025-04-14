@@ -11,6 +11,20 @@
         </div>
     </div>
 
+    @if (counterList$().length > 0 && showHint) {
+        <div class="hint-container" (click)="updateHint()">
+            <mat-icon class="hint-icon">lightbulb</mat-icon>
+            <p class="hint-text">{{ currentHint }}</p>
+            <button
+                mat-icon-button
+                class="hint-close"
+                (click)="toggleHint()"
+                (click)="$event.stopPropagation()">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+    }
+
     @if (viewMode === 'list') {
         <section
             class="counter-item"
