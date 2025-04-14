@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 
-import { CounterDetail } from './types/counter-detail.types';
+import { DetailViewCounter } from './types/detail-view.types';
 import { ConfirmComponent } from './confirm/confirm.component';
 
 /**
@@ -31,8 +31,8 @@ export class DetailViewComponent {
     private readonly dialog = inject(MatDialog);
     private readonly showingCelebration = signal(false);
 
-    @Input() public counterDetail: Signal<CounterDetail | undefined> = signal<
-        CounterDetail | undefined
+    @Input() public counterDetail: Signal<DetailViewCounter | undefined> = signal<
+        DetailViewCounter | undefined
     >(undefined);
     @Input() public counterValue: Signal<number> = signal(0);
 
@@ -112,7 +112,7 @@ export class DetailViewComponent {
         this.showHistory.emit(id);
     }
 
-    public checkGoal(counter: CounterDetail, value: number): boolean {
+    public checkGoal(counter: DetailViewCounter, value: number): boolean {
         return (
             !!(
                 counter.goal != undefined &&

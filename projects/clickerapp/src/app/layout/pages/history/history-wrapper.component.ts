@@ -6,8 +6,8 @@ import { TransactionService } from '@app/core/transaction/transaction.service';
 import { Transaction, TransactionOperation } from '@app/core/transaction/transaction.type';
 import {
     HistoryViewComponent as HistoryLibComponent,
-    Transaction as HistoryTransaction,
-    TransactionOperation as HistoryTransactionOperation,
+    HistoryViewTransaction as HistoryTransaction,
+    HistoryViewTransactionOperation as HistoryTransactionOperation,
 } from '@libs/history-view';
 
 @Component({

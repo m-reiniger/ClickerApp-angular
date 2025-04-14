@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal, computed, Signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { CounterDetail, DetailViewComponent } from '@libs/detail-view';
+import { DetailViewCounter, DetailViewComponent } from '@libs/detail-view';
 
 import { CounterService } from '@app/core/counter/counter.service';
 
@@ -16,7 +16,7 @@ export class DetailComponent implements OnInit {
     private counterService = inject(CounterService);
     private router = inject(Router);
 
-    public counter$: Signal<CounterDetail | undefined> = signal<CounterDetail | undefined>(
+    public counter$: Signal<DetailViewCounter | undefined> = signal<DetailViewCounter | undefined>(
         undefined
     );
     public counterValue$: Signal<number> = signal(0);

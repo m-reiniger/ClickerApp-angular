@@ -6,7 +6,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
-import { Transaction, TransactionOperation } from './types/transaction.types';
+import {
+    HistoryViewTransaction,
+    HistoryViewTransactionOperation,
+} from './types/history-view.types';
 
 @Component({
     selector: 'lib-history-view',
@@ -23,12 +26,12 @@ import { Transaction, TransactionOperation } from './types/transaction.types';
     styleUrl: './history-view.component.scss',
 })
 export class HistoryViewComponent implements OnInit {
-    @Input() public transactions: Transaction[] = [];
+    @Input() public transactions: HistoryViewTransaction[] = [];
     @Input() public counterName = 'Counter Name';
 
     public closeOverlay = output<void>();
 
-    public sortedTransactions: Signal<Transaction[]> = signal([]);
+    public sortedTransactions: Signal<HistoryViewTransaction[]> = signal([]);
 
     public currentYear = new Date().getFullYear();
     public isCurrentYear = (timestamp: Date): boolean => {
@@ -99,7 +102,7 @@ export class HistoryViewComponent implements OnInit {
         return `${diffInDays} days ${restHours} hours`;
     }
 
-    public getOperationIcon(operation: TransactionOperation, value: number): string {
+    public getOperationIcon(operation: HistoryViewTransactionOperation, value: number): string {
         if (value >= 0) {
             switch (operation) {
                 case 'add':
@@ -129,7 +132,7 @@ export class HistoryViewComponent implements OnInit {
         }
     }
 
-    public getOperationColor(operation: TransactionOperation, value: number): string {
+    public getOperationColor(operation: HistoryViewTransactionOperation, value: number): string {
         if (value >= 0) {
             switch (operation) {
                 case 'add':
@@ -159,7 +162,7 @@ export class HistoryViewComponent implements OnInit {
         }
     }
 
-    public formatTitleText(operation: TransactionOperation, value: number): string {
+    public formatTitleText(operation: HistoryViewTransactionOperation, value: number): string {
         if (value >= 0) {
             switch (operation) {
                 case 'add':

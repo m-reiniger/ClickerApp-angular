@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { HomeViewComponent, UiCounters } from '@libs/home-view';
+import { HomeViewComponent, HomeViewCounters } from '@libs/home-view';
 
 import { CounterService } from '@app/core/counter/counter.service';
 
@@ -13,7 +13,7 @@ import { CounterService } from '@app/core/counter/counter.service';
     styleUrl: './home-wrapper.component.scss',
 })
 export class HomeWrapperComponent implements OnInit {
-    public counterList$: WritableSignal<UiCounters> = signal<UiCounters>([]);
+    public counterList$: WritableSignal<HomeViewCounters> = signal<HomeViewCounters>([]);
 
     private counterService = inject(CounterService);
     private router = inject(Router);

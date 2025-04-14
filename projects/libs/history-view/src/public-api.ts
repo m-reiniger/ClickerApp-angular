@@ -3,4 +3,4 @@
  */
 
 export * from './lib/history-view.component';
-export * from './lib/types/transaction.types';
+export * from './lib/types/history-view.types';

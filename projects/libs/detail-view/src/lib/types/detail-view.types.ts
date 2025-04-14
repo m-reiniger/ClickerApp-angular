@@ -1,4 +1,4 @@
-export type CounterDetail = {
+export type DetailViewCounter = {
     id: string;
     name: string;
     defaultIncrement: number;

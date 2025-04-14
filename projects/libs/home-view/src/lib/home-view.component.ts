@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 
-import { UiCounter, UiCounters } from './types/counters.types';
+import { HomeViewCounter, HomeViewCounters } from './types/home-view.types';
 import { ViewModeService, ViewMode } from './services/view-mode.service';
 import { LongPressDirective, PressType } from './directives/long-press.directive';
 import hints from './hints.json';
@@ -42,7 +42,7 @@ interface HintData {
 })
 export class HomeViewComponent implements OnInit {
     @Input() public title = 'My Counters';
-    @Input() public counterList$: Signal<UiCounters> = signal<UiCounters>([]);
+    @Input() public counterList$: Signal<HomeViewCounters> = signal<HomeViewCounters>([]);
 
     public viewMode: ViewMode = 'list';
     public incrementCounter = output<string>();
@@ -126,7 +126,7 @@ export class HomeViewComponent implements OnInit {
         this.navigateToDetail.emit(id);
     }
 
-    public checkGoal(counter: UiCounter, value: number): boolean {
+    public checkGoal(counter: HomeViewCounter, value: number): boolean {
         return (
             !!(
                 counter.goal != undefined &&

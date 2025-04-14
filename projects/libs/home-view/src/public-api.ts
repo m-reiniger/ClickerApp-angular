@@ -3,4 +3,4 @@
  */
 
 export * from './lib/home-view.component';
-export * from './lib/types/counters.types';
+export * from './lib/types/home-view.types';

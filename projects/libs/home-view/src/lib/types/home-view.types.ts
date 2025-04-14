@@ -1,8 +1,8 @@
 import { Signal } from '@angular/core';
 
-export type UiCounters = Array<UiCounter>;
+export type HomeViewCounters = Array<HomeViewCounter>;
 
-export type UiCounter = {
+export type HomeViewCounter = {
     id: string;
     name: string;
     value: Signal<number>;
@@ -11,7 +11,7 @@ export type UiCounter = {
     goal?: number | null;
 };
 
-export enum UiTransactionOperation {
+export enum HomeViewTransactionOperation {
     ADD = 'ADD',
     SUBTRACT = 'SUBTRACT',
 }
