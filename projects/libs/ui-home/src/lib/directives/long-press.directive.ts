@@ -14,7 +14,6 @@ export class LongPressDirective {
     private readonly LONG_PRESS_DURATION = 500; // 500ms for long press
     private touchStartTime = 0;
 
-    private touching = false;
     private hasEmitted = false;
 
     constructor(private elementRef: ElementRef) {}
@@ -35,7 +34,6 @@ export class LongPressDirective {
 
     @HostListener('touchend', ['$event'])
     public onTouchEnd(event: TouchEvent): void {
-        this.touching = false;
         event.stopPropagation();
         this.endPress();
     }
@@ -66,7 +64,6 @@ export class LongPressDirective {
 
     private startPress(): void {
         // Emit press start
-        this.touching = true;
         this.hasEmitted = false;
         this.pressState.emit(true);
         this.pressTimer = setTimeout(async () => {
