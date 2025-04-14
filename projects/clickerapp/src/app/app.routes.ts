@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { CreateComponent } from '@app/layout/pages/create/create.component';
 import { DetailComponent } from '@app/layout/pages/detail/detail.component';
-import { HistoryComponent } from '@app/layout/pages/history/history.component';
+import { HistoryWrapperComponent } from '@app/layout/pages/history/history-wrapper.component';
 import { HomeWrapperComponent } from '@app/layout/pages/home/home-wrapper.component';
 import { AboutComponent } from '@app/layout/pages/about/about.component';
 import { DonationsComponent } from '@app/layout/pages/donations/donations.component';
@@ -34,7 +34,7 @@ export const routes: Routes = [
     },
     {
         path: 'history/:counterId',
-        component: HistoryComponent,
+        component: HistoryWrapperComponent,
     },
     {
         path: '**',

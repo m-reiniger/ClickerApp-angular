@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
-import { HistoryComponent } from './history.component';
+import { HistoryWrapperComponent } from './history-wrapper.component';
 
-describe('HistoryComponent', () => {
-    let component: HistoryComponent;
-    let fixture: ComponentFixture<HistoryComponent>;
+describe('HistoryWrapperComponent', () => {
+    let component: HistoryWrapperComponent;
+    let fixture: ComponentFixture<HistoryWrapperComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [HistoryComponent],
+            imports: [HistoryWrapperComponent],
             providers: [provideRouter([])],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(HistoryComponent);
+        fixture = TestBed.createComponent(HistoryWrapperComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

@@ -5,18 +5,18 @@ import { CounterService } from '@app/core/counter/counter.service';
 import { TransactionService } from '@app/core/transaction/transaction.service';
 import { Transaction, TransactionOperation } from '@app/core/transaction/transaction.type';
 import {
-    HistoryComponent as HistoryLibComponent,
+    HistoryViewComponent as HistoryLibComponent,
     Transaction as HistoryTransaction,
     TransactionOperation as HistoryTransactionOperation,
-} from '@libs/history';
+} from '@libs/history-view';
 
 @Component({
-    selector: 'app-history',
+    selector: 'app-history-wrapper',
     imports: [HistoryLibComponent],
-    templateUrl: './history.component.html',
-    styleUrl: './history.component.scss',
+    templateUrl: './history-wrapper.component.html',
+    styleUrl: './history-wrapper.component.scss',
 })
-export class HistoryComponent implements OnInit {
+export class HistoryWrapperComponent implements OnInit {
     private router = inject(Router);
     private activatedRoute = inject(ActivatedRoute);
 
@@ -60,7 +60,7 @@ export class HistoryComponent implements OnInit {
 
     private transformTransaction(transaction: Transaction): HistoryTransaction {
         return {
-            operation: HistoryComponent.transformTransactionOperation(transaction.operation),
+            operation: HistoryWrapperComponent.transformTransactionOperation(transaction.operation),
             value: transaction.value,
             currentValue: 0, // TODO: get current value
             timestamp: transaction.created,

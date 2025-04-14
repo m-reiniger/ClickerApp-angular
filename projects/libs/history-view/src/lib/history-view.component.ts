@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { Transaction, TransactionOperation } from './types/transaction.types';
 
 @Component({
-    selector: 'lib-history',
+    selector: 'lib-history-view',
     standalone: true,
     imports: [
         CommonModule,
@@ -19,10 +19,10 @@ import { Transaction, TransactionOperation } from './types/transaction.types';
         DecimalPipe,
         MatCardModule,
     ],
-    templateUrl: './history.component.html',
-    styleUrl: './history.component.scss',
+    templateUrl: './history-view.component.html',
+    styleUrl: './history-view.component.scss',
 })
-export class HistoryComponent implements OnInit {
+export class HistoryViewComponent implements OnInit {
     @Input() public transactions: Transaction[] = [];
     @Input() public counterName = 'Counter Name';
 
