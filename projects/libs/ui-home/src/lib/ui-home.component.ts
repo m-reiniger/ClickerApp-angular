@@ -2,8 +2,12 @@ import { Component, Input, output, signal, Signal } from '@angular/core';
 import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { FormsModule } from '@angular/forms';
 
 import { UiCounter, UiCounters } from './types/counters.types';
+
+type ViewMode = 'list' | 'tile';
 
 /**
  * Main home screen component that displays a list of counters and their controls.
@@ -18,7 +22,15 @@ import { UiCounter, UiCounters } from './types/counters.types';
  */
 @Component({
     selector: 'lib-ui-home',
-    imports: [NgFor, NgIf, MatButtonModule, MatIconModule, DecimalPipe],
+    imports: [
+        NgFor,
+        NgIf,
+        MatButtonModule,
+        MatIconModule,
+        DecimalPipe,
+        MatButtonToggleModule,
+        FormsModule,
+    ],
     templateUrl: './ui-home.component.html',
     styleUrl: './ui-home.component.scss',
 })
@@ -26,10 +38,15 @@ export class UiHomeComponent {
     @Input() public title = 'My Counters';
     @Input() public counterList$: Signal<UiCounters> = signal<UiCounters>([]);
 
+    public viewMode: ViewMode = 'list';
     public incrementCounter = output<string>();
     public decrementCounter = output<string>();
     public navigateToDetail = output<string>();
     public addCounter = output<void>();
+
+    public toggleViewMode(mode: ViewMode): void {
+        this.viewMode = mode;
+    }
 
     public incrementCounterHandle(event: Event, id: string): void {
         event.stopPropagation();

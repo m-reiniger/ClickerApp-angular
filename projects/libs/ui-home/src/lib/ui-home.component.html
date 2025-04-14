@@ -1,42 +1,77 @@
 <article class="counter-list">
-    <h3>{{ title }}</h3>
-    <section
-        class="counter-item"
-        *ngFor="let counter of counterList$()"
-        (click)="navigateToDetailHandle(counter.id)">
-        <div class="counter-name">
-            <p>{{ counter.name }}</p>
-        </div>
-        <div class="decrement-button">
-            <button mat-mini-fab (click)="decrementCounterHandle($event, counter.id)">
-                @if (counter.defaultIncrement > 0) {
-                    -
-                } @else {
-                    +
-                }
+    <div class="header">
+        <h3>{{ title }}</h3>
+        <div class="view-mode-selector">
+            <button mat-icon-button (click)="toggleViewMode('list')">
+                <mat-icon>view_list</mat-icon>
+            </button>
+            <button mat-icon-button (click)="toggleViewMode('tile')">
+                <mat-icon>grid_view</mat-icon>
             </button>
         </div>
-        <div class="counter-value">
-            <div
-                class="value-progress-border"
-                [style.--progress]="
-                    getProgress(counter.initialValue, counter.goal, counter.value())
-                "
-                [class]="{ 'goal-reached': checkGoal(counter, counter.value()) }">
-                <button mat-fab>
-                    {{ counter.value() | number: '1.0-2' }}
+    </div>
+
+    @if (viewMode === 'list') {
+        <section
+            class="counter-item"
+            *ngFor="let counter of counterList$()"
+            (click)="navigateToDetailHandle(counter.id)">
+            <div class="counter-name">
+                <p>{{ counter.name }}</p>
+            </div>
+            <div class="decrement-button">
+                <button mat-mini-fab (click)="decrementCounterHandle($event, counter.id)">
+                    @if (counter.defaultIncrement > 0) {
+                        -
+                    } @else {
+                        +
+                    }
                 </button>
             </div>
+            <div class="counter-value">
+                <div
+                    class="value-progress-border"
+                    [style.--progress]="
+                        getProgress(counter.initialValue, counter.goal, counter.value())
+                    "
+                    [class]="{ 'goal-reached': checkGoal(counter, counter.value()) }">
+                    <button mat-fab>
+                        {{ counter.value() | number: '1.0-2' }}
+                    </button>
+                </div>
+            </div>
+            <div class="increment-button">
+                <button mat-fab (click)="incrementCounterHandle($event, counter.id)">
+                    @if (counter.defaultIncrement > 0) {
+                        +
+                    }
+                    {{ counter.defaultIncrement }}
+                </button>
+            </div>
+        </section>
+    } @else {
+        <div class="tile-grid">
+            <section
+                class="counter-tile"
+                *ngFor="let counter of counterList$()"
+                (click)="navigateToDetailHandle(counter.id)">
+                <div class="tile-content">
+                    <div
+                        class="value-progress-border"
+                        [style.--progress]="
+                            getProgress(counter.initialValue, counter.goal, counter.value())
+                        "
+                        [class]="{ 'goal-reached': checkGoal(counter, counter.value()) }">
+                        <button mat-fab>
+                            {{ counter.value() | number: '1.0-2' }}
+                        </button>
+                    </div>
+                    <p class="tile-name">{{ counter.name }}</p>
+                </div>
+            </section>
         </div>
-        <div class="increment-button">
-            <button mat-fab (click)="incrementCounterHandle($event, counter.id)">
-                @if (counter.defaultIncrement > 0) {
-                    +
-                }
-                {{ counter.defaultIncrement }}
-            </button>
-        </div>
-    </section>
+    }
+
     <section class="counter-list-empty" *ngIf="counterList$().length === 0">
         <div class="empty-state-content">
             <p class="icon">📊</p>
@@ -48,27 +83,16 @@
             <div class="suggestions">
                 <p>Try counting:</p>
                 <ul>
-                    <li>🏃‍♂️ Workouts</li>
-                    <li>💧 Water glasses</li>
-                    <li>📚 Books read</li>
-                    <li>✨ Good habits</li>
+                    <li>Daily steps</li>
+                    <li>Workout sets</li>
+                    <li>Books read</li>
+                    <li>Water glasses</li>
                 </ul>
             </div>
-            <button
-                mat-raised-button
-                color="primary"
-                class="create-button"
-                (click)="addCounterHandle()">
+            <button mat-flat-button (click)="addCounterHandle()">
                 <mat-icon>add</mat-icon>
-                Create Your First Counter
+                <span>Create Counter</span>
             </button>
         </div>
     </section>
-    <button
-        mat-fab
-        class="add-counter-button"
-        [class.animate-pulse]="counterList$().length === 0"
-        (click)="addCounterHandle()">
-        +
-    </button>
 </article>
