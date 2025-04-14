@@ -1,4 +1,4 @@
-import { Component, Input, output, signal, Signal } from '@angular/core';
+import { Component, Input, OnInit, output, signal, Signal } from '@angular/core';
 import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,8 +6,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
 
 import { UiCounter, UiCounters } from './types/counters.types';
-
-type ViewMode = 'list' | 'tile';
+import { ViewModeService, ViewMode } from './services/view-mode.service';
 
 /**
  * Main home screen component that displays a list of counters and their controls.
@@ -34,7 +33,7 @@ type ViewMode = 'list' | 'tile';
     templateUrl: './ui-home.component.html',
     styleUrl: './ui-home.component.scss',
 })
-export class UiHomeComponent {
+export class UiHomeComponent implements OnInit {
     @Input() public title = 'My Counters';
     @Input() public counterList$: Signal<UiCounters> = signal<UiCounters>([]);
 
@@ -44,8 +43,15 @@ export class UiHomeComponent {
     public navigateToDetail = output<string>();
     public addCounter = output<void>();
 
+    constructor(private viewModeService: ViewModeService) {}
+
+    public ngOnInit(): void {
+        this.viewMode = this.viewModeService.getViewMode();
+    }
+
     public toggleViewMode(mode: ViewMode): void {
         this.viewMode = mode;
+        this.viewModeService.saveViewMode(mode);
     }
 
     public incrementCounterHandle(event: Event, id: string): void {
