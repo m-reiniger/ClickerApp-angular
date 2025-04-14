@@ -17,35 +17,47 @@ export class LongPressDirective {
     constructor(private elementRef: ElementRef) {}
 
     @HostListener('touchstart', ['$event'])
-    public onTouchStart(): void {
+    public onTouchStart(event: TouchEvent): void {
+        event.stopPropagation();
         this.touchStartTime = Date.now();
         this.startPress();
     }
 
     @HostListener('mousedown', ['$event'])
-    public onMouseDown(): void {
+    public onMouseDown(event: MouseEvent): void {
+        event.stopPropagation();
         this.touchStartTime = Date.now();
         this.startPress();
     }
 
-    @HostListener('touchend')
-    public onTouchEnd(): void {
+    @HostListener('touchend', ['$event'])
+    public onTouchEnd(event: TouchEvent): void {
+        event.stopPropagation();
         this.endPress();
     }
 
-    @HostListener('mouseup')
-    public onMouseUp(): void {
+    @HostListener('mouseup', ['$event'])
+    public onMouseUp(event: MouseEvent): void {
+        event.stopPropagation();
         this.endPress();
     }
 
-    @HostListener('mouseleave')
-    public onMouseLeave(): void {
+    @HostListener('mouseleave', ['$event'])
+    public onMouseLeave(event: MouseEvent): void {
+        event.stopPropagation();
         this.endPress();
     }
 
-    @HostListener('touchcancel')
-    public onTouchCancel(): void {
+    @HostListener('touchcancel', ['$event'])
+    public onTouchCancel(event: TouchEvent): void {
+        event.stopPropagation();
         this.endPress();
+    }
+
+    @HostListener('click', ['$event'])
+    public onClick(event: MouseEvent): void {
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     private async startPress(): Promise<void> {
@@ -66,7 +78,7 @@ export class LongPressDirective {
             clearTimeout(this.pressTimer);
             this.pressTimer = undefined;
 
-            // If the press was shorter than the long press duration, emit click
+            // If we cleared the timer before it triggered, emit click
             if (Date.now() - this.touchStartTime < this.LONG_PRESS_DURATION) {
                 this.press.emit('click');
             }
