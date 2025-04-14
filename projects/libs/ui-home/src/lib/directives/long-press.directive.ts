@@ -14,6 +14,9 @@ export class LongPressDirective {
     private readonly LONG_PRESS_DURATION = 500; // 500ms for long press
     private touchStartTime = 0;
 
+    private touching = false;
+    private hasEmitted = false;
+
     constructor(private elementRef: ElementRef) {}
 
     @HostListener('touchstart', ['$event'])
@@ -27,11 +30,12 @@ export class LongPressDirective {
     public onMouseDown(event: MouseEvent): void {
         event.stopPropagation();
         this.touchStartTime = Date.now();
-        this.startPress();
+        // this.startPress();
     }
 
     @HostListener('touchend', ['$event'])
     public onTouchEnd(event: TouchEvent): void {
+        this.touching = false;
         event.stopPropagation();
         this.endPress();
     }
@@ -39,19 +43,19 @@ export class LongPressDirective {
     @HostListener('mouseup', ['$event'])
     public onMouseUp(event: MouseEvent): void {
         event.stopPropagation();
-        this.endPress();
+        // this.endPress();
     }
 
     @HostListener('mouseleave', ['$event'])
     public onMouseLeave(event: MouseEvent): void {
         event.stopPropagation();
-        this.endPress();
+        // this.endPress();
     }
 
     @HostListener('touchcancel', ['$event'])
     public onTouchCancel(event: TouchEvent): void {
         event.stopPropagation();
-        this.endPress();
+        // this.endPress();
     }
 
     @HostListener('click', ['$event'])
@@ -60,16 +64,19 @@ export class LongPressDirective {
         event.stopPropagation();
     }
 
-    private async startPress(): Promise<void> {
+    private startPress(): void {
         // Emit press start
+        this.touching = true;
+        this.hasEmitted = false;
         this.pressState.emit(true);
-
         this.pressTimer = setTimeout(async () => {
-            // Trigger haptic feedback using Capacitor Haptics
-            await Haptics.impact({ style: ImpactStyle.Medium });
-
+            Haptics.impact({ style: ImpactStyle.Medium });
             // Emit long press event
-            this.press.emit('longpress');
+            if (!this.hasEmitted) {
+                this.hasEmitted = true;
+                this.press.emit('longpress');
+            }
+            // Trigger haptic feedback using Capacitor Haptics
         }, this.LONG_PRESS_DURATION);
     }
 
@@ -79,7 +86,8 @@ export class LongPressDirective {
             this.pressTimer = undefined;
 
             // If we cleared the timer before it triggered, emit click
-            if (Date.now() - this.touchStartTime < this.LONG_PRESS_DURATION) {
+            if (!this.hasEmitted && Date.now() - this.touchStartTime < this.LONG_PRESS_DURATION) {
+                this.hasEmitted = true;
                 this.press.emit('click');
             }
         }

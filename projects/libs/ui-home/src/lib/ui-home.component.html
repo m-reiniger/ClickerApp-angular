@@ -54,10 +54,12 @@
             <section
                 class="counter-tile"
                 *ngFor="let counter of counterList$()"
-                libLongPress
-                (press)="handlePress($event, counter.id)"
-                (pressState)="handlePressState($event, counter.id)"
                 [class.pressed]="isTilePressed(counter.id)">
+                <div
+                    class="tile-overlay"
+                    libLongPress
+                    (press)="handlePress($event, counter.id)"
+                    (pressState)="handlePressState($event, counter.id)"></div>
                 <div class="tile-content">
                     <div
                         class="value-progress-border"
