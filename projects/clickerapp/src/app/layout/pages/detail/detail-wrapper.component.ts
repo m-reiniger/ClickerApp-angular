@@ -6,12 +6,12 @@ import { DetailViewCounter, DetailViewComponent } from '@libs/detail-view';
 import { CounterService } from '@app/core/counter/counter.service';
 
 @Component({
-    selector: 'app-detail',
+    selector: 'app-detail-wrapper',
     imports: [DetailViewComponent],
-    templateUrl: './detail.component.html',
-    styleUrl: './detail.component.scss',
+    templateUrl: './detail-wrapper.component.html',
+    styleUrl: './detail-wrapper.component.scss',
 })
-export class DetailComponent implements OnInit {
+export class DetailWrapperComponent implements OnInit {
     private activatedRoute = inject(ActivatedRoute);
     private counterService = inject(CounterService);
     private router = inject(Router);

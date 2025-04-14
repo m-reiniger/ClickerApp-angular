@@ -3,21 +3,21 @@ import { provideRouter } from '@angular/router';
 
 import { MockComponent } from 'ng-mocks';
 
-import { DetailComponent } from './detail.component';
+import { DetailWrapperComponent } from './detail-wrapper.component';
 import { DetailViewComponent } from '@libs/detail-view';
 
-describe('DetailComponent', () => {
-    let component: DetailComponent;
-    let fixture: ComponentFixture<DetailComponent>;
+describe('DetailWrapperComponent', () => {
+    let component: DetailWrapperComponent;
+    let fixture: ComponentFixture<DetailWrapperComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [DetailComponent],
+            imports: [DetailWrapperComponent],
             declarations: [MockComponent(DetailViewComponent)],
             providers: [provideRouter([])],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(DetailComponent);
+        fixture = TestBed.createComponent(DetailWrapperComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
