@@ -96,3 +96,11 @@
         </div>
     </section>
 </article>
+
+<button
+    mat-fab
+    class="add-counter-button"
+    (click)="addCounterHandle()"
+    [class.animate-pulse]="counterList$().length === 0">
+    <mat-icon>add</mat-icon>
+</button>
