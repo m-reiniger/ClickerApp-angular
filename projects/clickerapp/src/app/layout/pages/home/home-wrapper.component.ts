@@ -1,17 +1,18 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UiHomeComponent, UiCounters } from '@libs/ui-home';
+import { HomeViewComponent, UiCounters } from '@libs/home-view';
 
 import { CounterService } from '@app/core/counter/counter.service';
 
 @Component({
-    selector: 'app-home',
-    imports: [UiHomeComponent],
-    templateUrl: './home.component.html',
-    styleUrl: './home.component.scss',
+    selector: 'app-home-wrapper',
+    standalone: true,
+    imports: [HomeViewComponent],
+    templateUrl: './home-wrapper.component.html',
+    styleUrl: './home-wrapper.component.scss',
 })
-export class HomeComponent implements OnInit {
+export class HomeWrapperComponent implements OnInit {
     public counterList$: WritableSignal<UiCounters> = signal<UiCounters>([]);
 
     private counterService = inject(CounterService);
