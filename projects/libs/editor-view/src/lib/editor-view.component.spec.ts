@@ -5,15 +5,15 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 
 import { MockProvider } from 'ng-mocks';
 
-import { CounterFormComponent } from './counter-form.component';
+import { EditorViewComponent } from './editor-view.component';
 
-describe('CounterFormComponent', () => {
-    let component: CounterFormComponent;
-    let fixture: ComponentFixture<CounterFormComponent>;
+describe('EditorViewComponent', () => {
+    let component: EditorViewComponent;
+    let fixture: ComponentFixture<EditorViewComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CounterFormComponent],
+            imports: [EditorViewComponent],
             providers: [
                 provideAnimations(),
                 provideAnimationsAsync(),
@@ -22,7 +22,7 @@ describe('CounterFormComponent', () => {
             ],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(CounterFormComponent);
+        fixture = TestBed.createComponent(EditorViewComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

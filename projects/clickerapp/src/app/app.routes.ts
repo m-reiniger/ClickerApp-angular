@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { CreateComponent } from '@app/layout/pages/create/create.component';
+import { EditorWrapperComponent } from '@app/layout/pages/editor/editor-wrapper.component';
 import { DetailWrapperComponent } from '@app/layout/pages/detail/detail-wrapper.component';
 import { HistoryWrapperComponent } from '@app/layout/pages/history/history-wrapper.component';
 import { HomeWrapperComponent } from '@app/layout/pages/home/home-wrapper.component';
@@ -22,11 +22,11 @@ export const routes: Routes = [
     },
     {
         path: 'create',
-        component: CreateComponent,
+        component: EditorWrapperComponent,
     },
     {
         path: 'edit/:counterId',
-        component: CreateComponent,
+        component: EditorWrapperComponent,
     },
     {
         path: 'detail/:counterId',

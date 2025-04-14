@@ -1,4 +1,4 @@
-export type CounterForm = {
+export type EditorViewCounter = {
     id?: string;
     name: string;
     defaultIncrement: number;

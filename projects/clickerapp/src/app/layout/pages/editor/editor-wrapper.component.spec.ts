@@ -3,15 +3,15 @@ import { provideAnimations, provideNoopAnimations } from '@angular/platform-brow
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 
-import { CreateComponent } from './create.component';
+import { EditorWrapperComponent } from './editor-wrapper.component';
 
-describe('CreateComponent', () => {
-    let component: CreateComponent;
-    let fixture: ComponentFixture<CreateComponent>;
+describe('EditorWrapperComponent', () => {
+    let component: EditorWrapperComponent;
+    let fixture: ComponentFixture<EditorWrapperComponent>;
 
     beforeEach(async () => {
         await TestBed.configureTestingModule({
-            imports: [CreateComponent],
+            imports: [EditorWrapperComponent],
             providers: [
                 provideAnimations(),
                 provideAnimationsAsync(),
@@ -20,7 +20,7 @@ describe('CreateComponent', () => {
             ],
         }).compileComponents();
 
-        fixture = TestBed.createComponent(CreateComponent);
+        fixture = TestBed.createComponent(EditorWrapperComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

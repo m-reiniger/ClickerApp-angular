@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 
-import { CounterForm } from './types/counter-form.types';
+import { EditorViewCounter } from './types/editor-view.types';
 
 /**
  * Form component for creating and editing counters.
@@ -20,7 +20,7 @@ import { CounterForm } from './types/counter-form.types';
  * @Output closeOverlay - Emits the counter ID when the form is closed, or undefined if creating a new counter
  */
 @Component({
-    selector: 'lib-counter-form',
+    selector: 'lib-editor-view',
     imports: [
         MatButtonModule,
         MatInputModule,
@@ -31,14 +31,14 @@ import { CounterForm } from './types/counter-form.types';
         MatAccordion,
         MatCardModule,
     ],
-    templateUrl: './counter-form.component.html',
-    styleUrl: './counter-form.component.scss',
+    templateUrl: './editor-view.component.html',
+    styleUrl: './editor-view.component.scss',
 })
-export class CounterFormComponent implements OnInit {
+export class EditorViewComponent implements OnInit {
     @Input() public title = 'Create a new Counter';
-    @Input() public editCounter: CounterForm | undefined = undefined;
+    @Input() public editCounter: EditorViewCounter | undefined = undefined;
 
-    public counter = output<CounterForm>();
+    public counter = output<EditorViewCounter>();
     public closeOverlay = output<string | undefined>();
 
     public editMode = false;
@@ -52,6 +52,7 @@ export class CounterFormComponent implements OnInit {
 
     public ngOnInit(): void {
         if (this.editCounter && this.editCounter.id) {
+            this.title = 'Edit Counter';
             this.counterForm.setValue({
                 name: this.editCounter.name,
                 defaultIncrement: this.editCounter.defaultIncrement,

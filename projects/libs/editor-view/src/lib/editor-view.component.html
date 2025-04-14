@@ -1,17 +1,17 @@
-<article class="counter-form">
+<article class="editor-view">
     <mat-icon class="close" fontIcon="close" (click)="close()"></mat-icon>
-    <mat-card class="counter-form-card">
+    <mat-card class="editor-view-card">
         <mat-card-header>
             <h3 class="form-title">{{ title }}</h3>
         </mat-card-header>
         <mat-card-content>
-            <form [formGroup]="counterForm" class="counter-form-form">
+            <form [formGroup]="counterForm" class="editor-view-form">
                 <mat-accordion>
                     <mat-expansion-panel expanded>
                         <mat-expansion-panel-header>
                             <mat-panel-title>Counter Details</mat-panel-title>
                         </mat-expansion-panel-header>
-                        <mat-form-field class="counter-form-field">
+                        <mat-form-field class="editor-view-field">
                             <mat-label>Name</mat-label>
                             <input
                                 matInput
@@ -29,7 +29,7 @@
                         </mat-expansion-panel-header>
 
                         @if (!editMode) {
-                            <mat-form-field class="counter-form-field">
+                            <mat-form-field class="editor-view-field">
                                 <mat-label>Initial Value</mat-label>
                                 <input matInput formControlName="initialValue" type="number" />
                                 <mat-hint>Your counter will start at this value</mat-hint>
@@ -39,7 +39,7 @@
                             </mat-form-field>
                         }
 
-                        <mat-form-field class="counter-form-field">
+                        <mat-form-field class="editor-view-field">
                             <mat-label>Default Increment</mat-label>
                             <input matInput formControlName="defaultIncrement" type="number" />
                             <mat-hint>The amount to increase/decrease by each click</mat-hint>
@@ -48,7 +48,7 @@
                             }
                         </mat-form-field>
 
-                        <mat-form-field class="counter-form-field">
+                        <mat-form-field class="editor-view-field">
                             <mat-label>Goal</mat-label>
                             <input matInput formControlName="goal" type="number" />
                             <mat-hint>Set a target value for this counter</mat-hint>

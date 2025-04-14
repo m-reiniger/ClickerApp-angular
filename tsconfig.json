@@ -21,7 +21,7 @@
             "@app/*": ["./projects/clickerapp/src/app/*"],
             "@app/environments/*": ["./projects/clickerapp/src/environments/*"],
             "libs": ["./projects/libs"],
-            "@libs/counter-form": ["./projects/libs/counter-form/src/public-api"],
+            "@libs/editor-view": ["./projects/libs/editor-view/src/public-api"],
             "@libs/home-view": ["./projects/libs/home-view/src/public-api"],
             "@libs/history-view": ["./projects/libs/history-view/src/public-api"],
             "@libs/detail-view": ["./projects/libs/detail-view/src/public-api"]

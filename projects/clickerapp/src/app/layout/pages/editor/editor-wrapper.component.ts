@@ -1,19 +1,19 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { CounterForm, CounterFormComponent } from '@libs/counter-form';
+import { EditorViewCounter, EditorViewComponent } from '@libs/editor-view';
 
 import { CounterService } from '@app/core/counter/counter.service';
 import { TransactionOperation } from '@app/core/transaction/transaction.type';
 
 @Component({
-    selector: 'app-create',
-    imports: [CounterFormComponent],
-    templateUrl: './create.component.html',
-    styleUrl: './create.component.scss',
+    selector: 'app-editor-wrapper',
+    imports: [EditorViewComponent],
+    templateUrl: './editor-wrapper.component.html',
+    styleUrl: './editor-wrapper.component.scss',
 })
-export class CreateComponent implements OnInit {
-    public editCounter: CounterForm | undefined = undefined;
+export class EditorWrapperComponent implements OnInit {
+    public editCounter: EditorViewCounter | undefined = undefined;
 
     private activatedRoute = inject(ActivatedRoute);
     private counterService = inject(CounterService);
@@ -34,7 +34,7 @@ export class CreateComponent implements OnInit {
         }
     }
 
-    public saveCounter(counter: CounterForm): void {
+    public saveCounter(counter: EditorViewCounter): void {
         if (counter.id) {
             this.counterService.updateCounter(
                 counter.id,
