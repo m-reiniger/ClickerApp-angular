@@ -1,4 +1,12 @@
-import { Directive, ElementRef, EventEmitter, HostListener, inject, Output } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    inject,
+    Input,
+    Output,
+} from '@angular/core';
 
 export enum SwipeDirection {
     Up = 'up',
@@ -12,14 +20,18 @@ export enum SwipeDirection {
     standalone: true,
 })
 export class SwipeDirective {
-    @Output() public swipe = new EventEmitter<SwipeDirection>();
+    @Input() public swipeThreshold = 150;
+    @Output() public swipe = new EventEmitter<{ direction: SwipeDirection; amount: number }>();
     @Output() public swipeState = new EventEmitter<{
         isSwiping: boolean;
         direction?: SwipeDirection;
+        amount?: number;
     }>();
 
     private touchStartX = 0;
     private touchStartY = 0;
+    private lastTouchX = 0;
+    private lastTouchY = 0;
     private isSwiping = false;
     private currentDirection: SwipeDirection | undefined;
 
@@ -42,33 +54,57 @@ export class SwipeDirective {
         const touch = event.touches[0];
         const deltaX = touch.clientX - this.touchStartX;
         const deltaY = touch.clientY - this.touchStartY;
+        this.lastTouchX = touch.clientX;
+        this.lastTouchY = touch.clientY;
 
         // Determine the primary direction of the swipe
-        if (!this.isSwiping) {
-            const absDeltaX = Math.abs(deltaX);
-            const absDeltaY = Math.abs(deltaY);
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
 
-            // Only consider it a swipe if the movement is significant enough
-            if (absDeltaX > 10 || absDeltaY > 10) {
-                this.isSwiping = true;
+        // Only consider it a swipe if the movement is significant enough
+        if (absDeltaX > 10 || absDeltaY > 10) {
+            this.isSwiping = true;
 
-                if (absDeltaX > absDeltaY) {
-                    this.currentDirection = deltaX > 0 ? SwipeDirection.Right : SwipeDirection.Left;
-                } else {
-                    this.currentDirection = deltaY > 0 ? SwipeDirection.Down : SwipeDirection.Up;
-                }
-
-                this.swipeState.emit({ isSwiping: true, direction: this.currentDirection });
+            if (absDeltaX > absDeltaY) {
+                this.currentDirection = deltaX > 0 ? SwipeDirection.Right : SwipeDirection.Left;
+            } else {
+                this.currentDirection = deltaY > 0 ? SwipeDirection.Down : SwipeDirection.Up;
             }
+
+            this.swipeState.emit({
+                isSwiping: true,
+                direction: this.currentDirection,
+                amount:
+                    this.currentDirection === SwipeDirection.Up ||
+                    this.currentDirection === SwipeDirection.Down
+                        ? Math.abs(deltaY)
+                        : Math.abs(deltaX),
+            });
         }
     }
 
     @HostListener('touchend', ['$event'])
     public onTouchEnd(event: TouchEvent): void {
         event.stopPropagation();
-        if (this.isSwiping && this.currentDirection) {
-            this.swipe.emit(this.currentDirection);
+
+        const deltaX = Math.abs(this.touchStartX - this.lastTouchX);
+        const deltaY = Math.abs(this.touchStartY - this.lastTouchY);
+
+        if (
+            this.isSwiping &&
+            this.currentDirection &&
+            (deltaX > this.swipeThreshold || deltaY > this.swipeThreshold)
+        ) {
+            this.swipe.emit({
+                direction: this.currentDirection,
+                amount:
+                    this.currentDirection === SwipeDirection.Up ||
+                    this.currentDirection === SwipeDirection.Down
+                        ? Math.abs(deltaY)
+                        : Math.abs(deltaX),
+            });
         }
+
         this.swipeState.emit({ isSwiping: false });
         this.resetSwipe();
     }
