@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, output, signal, Signal } from '@angular/core';
+import { Component, inject, Input, OnInit, output, signal, Signal } from '@angular/core';
 import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -57,7 +57,9 @@ export class HomeViewComponent implements OnInit {
     public showHint = true;
     public isHintAnimating = false;
 
-    constructor(private viewModeService: ViewModeService) {}
+    private viewModeService: ViewModeService = inject(ViewModeService);
+
+    private shownHints: Set<string> = new Set();
 
     public ngOnInit(): void {
         this.viewMode = this.viewModeService.getViewMode();
@@ -69,15 +71,21 @@ export class HomeViewComponent implements OnInit {
 
         this.isHintAnimating = true;
         const hintData = hints as HintData;
-        const randomIndex = Math.floor(Math.random() * hintData.hints.length);
 
-        // Ensure we don't show the same hint twice in a row
-        let newHint = hintData.hints[randomIndex];
-        while (newHint === this.currentHint && hintData.hints.length > 1) {
-            newHint = hintData.hints[Math.floor(Math.random() * hintData.hints.length)];
+        // If we've shown all hints, reset the tracking
+        if (this.shownHints.size >= hintData.hints.length) {
+            this.shownHints.clear();
         }
 
+        // Get available hints (ones we haven't shown yet)
+        const availableHints = hintData.hints.filter((hint) => !this.shownHints.has(hint));
+
+        // Select a random hint from available hints
+        const randomIndex = Math.floor(Math.random() * availableHints.length);
+        const newHint = availableHints[randomIndex];
+
         this.currentHint = newHint;
+        this.shownHints.add(newHint);
 
         // Reset animation flag after a short delay
         setTimeout(() => {
