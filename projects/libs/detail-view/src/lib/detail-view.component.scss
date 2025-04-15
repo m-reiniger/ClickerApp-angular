@@ -220,8 +220,8 @@
 
     .close {
         position: absolute;
-        top: 1rem;
-        right: 1rem;
+        top: 0;
+        right: 0;
         cursor: pointer;
         z-index: 1000;
         transition: all 0.2s ease;

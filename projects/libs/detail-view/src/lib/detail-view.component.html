@@ -6,19 +6,19 @@
             }
         </div>
     }
-    <mat-icon
-        class="close"
-        aria-hidden="false"
-        aria-label="close"
-        fontIcon="close"
-        (click)="close()"></mat-icon>
     <mat-card
         class="detail-view-card"
         #detailViewCard
         libSwipe
         (swipe)="onSwipe($event)"
         (swipeState)="onSwipeStateChange($event)"
-        [swipeThreshold]="150">
+        [swipeThreshold]="175">
+        <mat-icon
+            class="close"
+            aria-hidden="false"
+            aria-label="close"
+            fontIcon="close"
+            (click)="close()"></mat-icon>
         <mat-card-header>
             <h3>{{ counterDetail()?.name }}</h3>
         </mat-card-header>
