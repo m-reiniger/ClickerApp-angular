@@ -42,6 +42,8 @@ export class DetailViewComponent extends SwipeUpToCloseComponent {
     >(undefined);
     @Input() public counterValue: Signal<number> = signal(0);
 
+    public scrollContainerId = 'main';
+
     public incrementCounter = output<string | undefined>();
     public decrementCounter = output<string | undefined>();
     public editCounter = output<string | undefined>();

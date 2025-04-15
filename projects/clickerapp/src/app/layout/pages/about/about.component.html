@@ -1,12 +1,12 @@
 <div class="about-container">
-    <mat-icon
-        class="close"
-        aria-hidden="false"
-        aria-label="close"
-        fontIcon="close"
-        (click)="onClose()"></mat-icon>
-
-    <mat-card class="about-card">
+    <mat-card
+        class="about-card"
+        #swipeUpToClose
+        libSwipe
+        (swipe)="onSwipe($event)"
+        (swipeState)="onSwipeStateChange($event)"
+        [swipeThreshold]="175">
+        <mat-icon class="close" fontIcon="close" (click)="close()"></mat-icon>
         <mat-card-header>
             <mat-card-title>About Clicker</mat-card-title>
             <mat-card-subtitle>The Counter App</mat-card-subtitle>
@@ -59,6 +59,7 @@
                         >
                     </li>
                 </ul>
+                <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             </section>
         </mat-card-content>
     </mat-card>

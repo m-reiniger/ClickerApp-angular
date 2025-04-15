@@ -1,6 +1,12 @@
 <article class="editor-view">
-    <mat-icon class="close" fontIcon="close" (click)="close()"></mat-icon>
-    <mat-card class="editor-view-card">
+    <mat-card
+        class="editor-view-card"
+        #swipeUpToClose
+        libSwipe
+        (swipe)="onSwipe($event)"
+        (swipeState)="onSwipeStateChange($event)"
+        [swipeThreshold]="175">
+        <mat-icon class="close" fontIcon="close" (click)="close()"></mat-icon>
         <mat-card-header>
             <h3 class="form-title">{{ title }}</h3>
         </mat-card-header>
