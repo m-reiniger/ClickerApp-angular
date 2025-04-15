@@ -24,7 +24,8 @@
             "@libs/editor-view": ["./projects/libs/editor-view/src/public-api"],
             "@libs/home-view": ["./projects/libs/home-view/src/public-api"],
             "@libs/history-view": ["./projects/libs/history-view/src/public-api"],
-            "@libs/detail-view": ["./projects/libs/detail-view/src/public-api"]
+            "@libs/detail-view": ["./projects/libs/detail-view/src/public-api"],
+            "@libs/touch-gestures": ["./projects/libs/touch-gestures/src/public-api"]
         }
     },
     "angularCompilerOptions": {

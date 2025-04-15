@@ -1,13 +1,16 @@
 import { Component, Input, OnInit, output, signal, Signal } from '@angular/core';
 import { DecimalPipe, NgFor, NgIf } from '@angular/common';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { FormsModule } from '@angular/forms';
+
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
 
 import { HomeViewCounter, HomeViewCounters } from './types/home-view.types';
 import { ViewModeService, ViewMode } from './services/view-mode.service';
-import { LongPressDirective, PressType } from './directives/long-press.directive';
+
+import { LongPressDirective, PressType } from '@libs/touch-gestures';
+
 import hints from './hints.json';
 
 interface HintData {
@@ -93,9 +96,9 @@ export class HomeViewComponent implements OnInit {
     }
 
     public handlePress(type: PressType, id: string): void {
-        if (type === 'click') {
+        if (type === PressType.Click) {
             this.navigateToDetail.emit(id);
-        } else if (type === 'longpress') {
+        } else if (type === PressType.LongPress) {
             this.incrementCounter.emit(id);
         }
     }

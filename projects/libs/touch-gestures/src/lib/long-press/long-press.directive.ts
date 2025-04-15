@@ -1,7 +1,10 @@
-import { Directive, ElementRef, EventEmitter, HostListener, Output } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostListener, inject, Output } from '@angular/core';
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
-export type PressType = 'click' | 'longpress';
+export enum PressType {
+    Click = 'click',
+    LongPress = 'longpress',
+}
 
 @Directive({
     selector: '[libLongPress]',
@@ -16,7 +19,7 @@ export class LongPressDirective {
 
     private hasEmitted = false;
 
-    constructor(private elementRef: ElementRef) {}
+    private elementRef = inject(ElementRef);
 
     @HostListener('touchstart', ['$event'])
     public onTouchStart(event: TouchEvent): void {
@@ -71,7 +74,7 @@ export class LongPressDirective {
             // Emit long press event
             if (!this.hasEmitted) {
                 this.hasEmitted = true;
-                this.press.emit('longpress');
+                this.press.emit(PressType.LongPress);
             }
             // Trigger haptic feedback using Capacitor Haptics
         }, this.LONG_PRESS_DURATION);
@@ -85,7 +88,7 @@ export class LongPressDirective {
             // If we cleared the timer before it triggered, emit click
             if (!this.hasEmitted && Date.now() - this.touchStartTime < this.LONG_PRESS_DURATION) {
                 this.hasEmitted = true;
-                this.press.emit('click');
+                this.press.emit(PressType.Click);
             }
         }
         // Emit press end
