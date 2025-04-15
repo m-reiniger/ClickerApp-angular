@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
-import { SwipeupToCloseDirective } from '@libs/touch-gestures';
+import { SwipeToCloseDirective, SwipeDirection } from '@libs/touch-gestures';
 
 import { DetailViewCounter } from './types/detail-view.types';
 import { ConfirmComponent } from './confirm/confirm.component';
@@ -31,7 +31,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
         DecimalPipe,
         MatDialogModule,
         MatCardModule,
-        SwipeupToCloseDirective,
+        SwipeToCloseDirective,
     ],
     templateUrl: './detail-view.component.html',
     styleUrl: './detail-view.component.scss',
@@ -49,6 +49,8 @@ export class DetailViewComponent {
     public resetCounter = output<{ id: string; keepHistory: boolean }>();
     public showHistory = output<string | undefined>();
     public closeOverlay = output<void>();
+
+    public swipeDirection: SwipeDirection = SwipeDirection.Up;
 
     public readonly hasReachedGoal = computed(() => {
         const counterDetail = this.counterDetail();

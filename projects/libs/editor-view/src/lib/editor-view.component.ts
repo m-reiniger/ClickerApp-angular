@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 
-import { SwipeupToCloseDirective } from '@libs/touch-gestures';
+import { SwipeToCloseDirective } from '@libs/touch-gestures';
 
 import { EditorViewCounter } from './types/editor-view.types';
 
@@ -32,7 +32,7 @@ import { EditorViewCounter } from './types/editor-view.types';
         MatExpansionModule,
         MatAccordion,
         MatCardModule,
-        SwipeupToCloseDirective,
+        SwipeToCloseDirective,
     ],
     templateUrl: './editor-view.component.html',
     styleUrl: './editor-view.component.scss',

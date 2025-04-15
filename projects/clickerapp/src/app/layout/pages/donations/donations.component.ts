@@ -5,12 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 
-import { SwipeupToCloseDirective } from '@libs/touch-gestures';
+import { SwipeToCloseDirective } from '@libs/touch-gestures';
 
 @Component({
     selector: 'app-donations',
     standalone: true,
-    imports: [MatButtonModule, MatIconModule, MatCardModule, SwipeupToCloseDirective],
+    imports: [MatButtonModule, MatIconModule, MatCardModule, SwipeToCloseDirective],
     templateUrl: './donations.component.html',
     styleUrl: './donations.component.scss',
 })

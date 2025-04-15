@@ -3,4 +3,4 @@
  */
 export * from './lib/directives/long-press/long-press.directive';
 export * from './lib/directives/swipe/swipe.directive';
-export * from './lib/directives/swipeup-to-close/swipeup-to-close.directive';
+export * from './lib/directives/swipe-to-close/swipe-to-close.directive';

@@ -6,7 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 
-import { SwipeupToCloseDirective } from '@libs/touch-gestures';
+import { SwipeToCloseDirective } from '@libs/touch-gestures';
 
 import {
     HistoryViewTransaction,
@@ -23,7 +23,7 @@ import {
         MatButtonModule,
         DecimalPipe,
         MatCardModule,
-        SwipeupToCloseDirective,
+        SwipeToCloseDirective,
     ],
     templateUrl: './history-view.component.html',
     styleUrl: './history-view.component.scss',

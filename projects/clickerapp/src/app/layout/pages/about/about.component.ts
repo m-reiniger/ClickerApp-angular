@@ -6,12 +6,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 
 import packageJson from '../../../../../../../package.json';
-import { SwipeupToCloseDirective } from '@libs/touch-gestures';
+import { SwipeToCloseDirective } from '@libs/touch-gestures';
 
 @Component({
     selector: 'app-about',
     standalone: true,
-    imports: [MatButtonModule, MatIconModule, MatCardModule, SwipeupToCloseDirective],
+    imports: [MatButtonModule, MatIconModule, MatCardModule, SwipeToCloseDirective],
     templateUrl: './about.component.html',
     styleUrl: './about.component.scss',
 })
