@@ -20,7 +20,7 @@ export enum SwipeDirection {
     standalone: true,
 })
 export class SwipeDirective {
-    @Input() public swipeThreshold = 150;
+    @Input() public swipeThreshold = 175;
     @Output() public swipe = new EventEmitter<{ direction: SwipeDirection; amount: number }>();
     @Output() public swipeState = new EventEmitter<{
         isSwiping: boolean;

@@ -1,15 +1,4 @@
-import {
-    Component,
-    Input,
-    output,
-    Signal,
-    signal,
-    computed,
-    effect,
-    ViewChild,
-    ElementRef,
-    inject,
-} from '@angular/core';
+import { Component, Input, output, Signal, signal, computed, effect, inject } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -17,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
-import { SwipeDirection, SwipeDirective } from '@libs/touch-gestures';
+import { SwipeDirective, SwipeUpToCloseComponent } from '@libs/touch-gestures';
 
 import { DetailViewCounter } from './types/detail-view.types';
 import { ConfirmComponent } from './confirm/confirm.component';
@@ -47,7 +36,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
     templateUrl: './detail-view.component.html',
     styleUrl: './detail-view.component.scss',
 })
-export class DetailViewComponent {
+export class DetailViewComponent extends SwipeUpToCloseComponent {
     @Input() public counterDetail: Signal<DetailViewCounter | undefined> = signal<
         DetailViewCounter | undefined
     >(undefined);
@@ -68,15 +57,11 @@ export class DetailViewComponent {
 
     public readonly shouldShowCelebration = computed(() => this.showingCelebration());
 
-    @ViewChild('detailViewCard', { read: ElementRef }) public detailCard!: ElementRef<HTMLElement>;
-
     private readonly dialog = inject(MatDialog);
     private readonly showingCelebration = signal(false);
 
-    private readonly SWIPE_THRESHOLD = 0; // 30% of screen height
-    private readonly ANIMATION_DURATION = 300; // ms
-
     constructor() {
+        super();
         effect(() => {
             if (this.hasReachedGoal() && !this.showingCelebration()) {
                 this.showingCelebration.set(true);
@@ -198,43 +183,5 @@ export class DetailViewComponent {
 
         // Convert progress to degrees (0-360)
         return `${progress * 360}deg`;
-    }
-
-    public onSwipe(swipe: { direction: SwipeDirection; amount: number }): void {
-        if (swipe.direction === SwipeDirection.Up) {
-            this.handleSwipeUp(this.detailCard, swipe.amount);
-        }
-    }
-
-    public onSwipeStateChange(state: {
-        isSwiping: boolean;
-        direction?: SwipeDirection;
-        amount?: number;
-    }): void {
-        if (!this.detailCard) return;
-
-        if (state.isSwiping && state.direction === SwipeDirection.Up) {
-            this.detailCard.nativeElement.style.marginTop = `-${state.amount}px`;
-        } else if (!state.isSwiping) {
-            setTimeout(() => {
-                this.resetSwipeStyleChanges();
-            }, this.ANIMATION_DURATION);
-        }
-    }
-
-    private resetSwipeStyleChanges(): void {
-        this.detailCard.nativeElement.style.marginTop = '';
-    }
-
-    private handleSwipeUp(element: ElementRef<HTMLElement>, swipeAmount?: number): void {
-        if (!element) return;
-
-        element.nativeElement.style.transform = `translateY(-${swipeAmount}%)`;
-        element.nativeElement.style.transition = `transform ${this.ANIMATION_DURATION}ms ease-out`;
-        element.nativeElement.style.transform = `translateY(-${swipeAmount}%)`;
-
-        setTimeout(() => {
-            this.closeOverlay.emit();
-        }, this.ANIMATION_DURATION);
     }
 }

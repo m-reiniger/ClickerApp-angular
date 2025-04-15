@@ -3,5 +3,6 @@
  */
 
 // export * from './lib/touch-gestures.service';
-export * from './lib/long-press/long-press.directive';
-export * from './lib/swipe/swipe.directive';
+export * from './lib/directives/long-press/long-press.directive';
+export * from './lib/directives/swipe/swipe.directive';
+export * from './lib/components/swipe-up-to-close/swipe-up-to-close.component';
