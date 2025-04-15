@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 
-import { SwipeDirective, SwipeUpToCloseComponent } from '@libs/touch-gestures';
+import { SwipeupToCloseDirective } from '@libs/touch-gestures';
 
 import { EditorViewCounter } from './types/editor-view.types';
 
@@ -32,16 +32,14 @@ import { EditorViewCounter } from './types/editor-view.types';
         MatExpansionModule,
         MatAccordion,
         MatCardModule,
-        SwipeDirective,
+        SwipeupToCloseDirective,
     ],
     templateUrl: './editor-view.component.html',
     styleUrl: './editor-view.component.scss',
 })
-export class EditorViewComponent extends SwipeUpToCloseComponent implements OnInit {
+export class EditorViewComponent implements OnInit {
     @Input() public title = 'Create a new Counter';
     @Input() public editCounter: EditorViewCounter | undefined = undefined;
-
-    public scrollContainerId = 'main';
 
     public counter = output<EditorViewCounter>();
     public closeOverlay = output<string | undefined>();

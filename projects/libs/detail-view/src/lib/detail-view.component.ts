@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
-import { SwipeDirective, SwipeUpToCloseComponent } from '@libs/touch-gestures';
+import { SwipeupToCloseDirective } from '@libs/touch-gestures';
 
 import { DetailViewCounter } from './types/detail-view.types';
 import { ConfirmComponent } from './confirm/confirm.component';
@@ -31,18 +31,16 @@ import { ConfirmComponent } from './confirm/confirm.component';
         DecimalPipe,
         MatDialogModule,
         MatCardModule,
-        SwipeDirective,
+        SwipeupToCloseDirective,
     ],
     templateUrl: './detail-view.component.html',
     styleUrl: './detail-view.component.scss',
 })
-export class DetailViewComponent extends SwipeUpToCloseComponent {
+export class DetailViewComponent {
     @Input() public counterDetail: Signal<DetailViewCounter | undefined> = signal<
         DetailViewCounter | undefined
     >(undefined);
     @Input() public counterValue: Signal<number> = signal(0);
-
-    public scrollContainerId = 'main';
 
     public incrementCounter = output<string | undefined>();
     public decrementCounter = output<string | undefined>();
@@ -63,7 +61,6 @@ export class DetailViewComponent extends SwipeUpToCloseComponent {
     private readonly showingCelebration = signal(false);
 
     constructor() {
-        super();
         effect(() => {
             if (this.hasReachedGoal() && !this.showingCelebration()) {
                 this.showingCelebration.set(true);

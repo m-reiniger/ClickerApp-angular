@@ -6,18 +6,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 
 import packageJson from '../../../../../../../package.json';
-import { SwipeDirective, SwipeUpToCloseComponent } from '@libs/touch-gestures';
+import { SwipeupToCloseDirective } from '@libs/touch-gestures';
 
 @Component({
     selector: 'app-about',
     standalone: true,
-    imports: [MatButtonModule, MatIconModule, MatCardModule, SwipeDirective],
+    imports: [MatButtonModule, MatIconModule, MatCardModule, SwipeupToCloseDirective],
     templateUrl: './about.component.html',
     styleUrl: './about.component.scss',
 })
-export class AboutComponent extends SwipeUpToCloseComponent {
+export class AboutComponent {
     public version = packageJson.version;
-    public scrollContainerId = 'main';
 
     private router = inject(Router);
 

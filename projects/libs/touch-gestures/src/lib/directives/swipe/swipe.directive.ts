@@ -1,12 +1,4 @@
-import {
-    Directive,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    inject,
-    Input,
-    Output,
-} from '@angular/core';
+import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 export enum SwipeDirection {
     Up = 'up',
@@ -21,11 +13,16 @@ export enum SwipeDirection {
 })
 export class SwipeDirective {
     @Input() public swipeThreshold = 175;
-    @Output() public swipe = new EventEmitter<{ direction: SwipeDirection; amount: number }>();
+    @Output() public swipe = new EventEmitter<{
+        direction: SwipeDirection;
+        amount: number;
+        swipeThreshold: number;
+    }>();
     @Output() public swipeState = new EventEmitter<{
         isSwiping: boolean;
         direction?: SwipeDirection;
         amount?: number;
+        wasSwipe?: boolean;
     }>();
 
     private touchStartX = 0;
@@ -34,8 +31,6 @@ export class SwipeDirective {
     private lastTouchY = 0;
     private isSwiping = false;
     private currentDirection: SwipeDirection | undefined;
-
-    private elementRef = inject(ElementRef);
 
     @HostListener('touchstart', ['$event'])
     public onTouchStart(event: TouchEvent): void {
@@ -90,11 +85,13 @@ export class SwipeDirective {
         const deltaX = Math.abs(this.touchStartX - this.lastTouchX);
         const deltaY = Math.abs(this.touchStartY - this.lastTouchY);
 
+        let wasSwipe = false;
         if (
             this.isSwiping &&
             this.currentDirection &&
             (deltaX > this.swipeThreshold || deltaY > this.swipeThreshold)
         ) {
+            wasSwipe = true;
             this.swipe.emit({
                 direction: this.currentDirection,
                 amount:
@@ -102,10 +99,11 @@ export class SwipeDirective {
                     this.currentDirection === SwipeDirection.Down
                         ? Math.abs(deltaY)
                         : Math.abs(deltaX),
+                swipeThreshold: this.swipeThreshold,
             });
         }
 
-        this.swipeState.emit({ isSwiping: false });
+        this.swipeState.emit({ isSwiping: false, wasSwipe });
         this.resetSwipe();
     }
 
