@@ -31,6 +31,7 @@
                 class="counter-item"
                 *ngFor="let counter of orderedCounters()"
                 cdkDrag
+                cdkDragPreviewContainer="parent"
                 (click)="navigateToDetailHandle(counter.id)"
                 [style.background]="counter.color || 'var(--counter-default)'">
                 <div class="counter-name">
