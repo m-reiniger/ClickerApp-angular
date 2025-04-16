@@ -29,7 +29,8 @@
         <section
             class="counter-item"
             *ngFor="let counter of counterList$()"
-            (click)="navigateToDetailHandle(counter.id)">
+            (click)="navigateToDetailHandle(counter.id)"
+            [style.background]="counter.color || 'var(--counter-default)'">
             <div class="counter-name">
                 <p>{{ counter.name }}</p>
             </div>
@@ -68,7 +69,8 @@
             <section
                 class="counter-tile"
                 *ngFor="let counter of counterList$()"
-                [class.pressed]="isTilePressed(counter.id)">
+                [class.pressed]="isTilePressed(counter.id)"
+                [style.background]="counter.color || 'var(--counter-default)'">
                 <div
                     class="tile-overlay"
                     libLongPress

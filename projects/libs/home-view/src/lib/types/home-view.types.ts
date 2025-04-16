@@ -9,6 +9,7 @@ export type HomeViewCounter = {
     defaultIncrement: number;
     initialValue: number;
     goal?: number | null;
+    color?: string;
 };
 
 export enum HomeViewTransactionOperation {

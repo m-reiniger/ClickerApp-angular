@@ -32,6 +32,7 @@ export class DetailWrapperComponent implements OnInit {
                     defaultIncrement: counter$().defaultIncrement,
                     initialValue: counter$().initialValue,
                     goal: counter$().goal,
+                    color: counter$().color,
                 }));
                 this.counterValue$ = this.counterService.getCounterValue$(counter$().id);
             }

@@ -28,6 +28,7 @@ export class HomeWrapperComponent implements OnInit {
                 defaultIncrement: counter.defaultIncrement,
                 initialValue: counter.initialValue,
                 goal: counter.goal !== undefined ? counter.goal : null,
+                color: counter.color,
             }))
         );
     }

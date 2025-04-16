@@ -4,4 +4,5 @@ export type DetailViewCounter = {
     defaultIncrement: number;
     initialValue: number;
     goal: number | null | undefined;
+    color?: string;
 };
