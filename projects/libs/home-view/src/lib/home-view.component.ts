@@ -77,6 +77,14 @@ export class HomeViewComponent implements OnInit {
 
     private shownHints: Set<string> = new Set();
 
+    constructor() {
+        // Set up an effect to update the order when the counter list changes
+        effect(() => {
+            this.counterList$();
+            this.updateOrder();
+        });
+    }
+
     private updateOrder(): void {
         const counters = this.counterList$();
         const order = this.orderingService.getOrder()();
@@ -111,12 +119,6 @@ export class HomeViewComponent implements OnInit {
     public ngOnInit(): void {
         this.viewMode = this.viewModeService.getViewMode();
         this.updateHint();
-
-        // Set up an effect to update the order when the counter list changes
-        effect(() => {
-            this.counterList$();
-            this.updateOrder();
-        });
     }
 
     public updateHint(): void {
@@ -254,10 +256,16 @@ export class HomeViewComponent implements OnInit {
     }
 
     public onDrop(event: CdkDragDrop<HomeViewCounters>): void {
-        this.orderingService.updateOrder(event.previousIndex, event.currentIndex);
+        const previousIndex = event.previousIndex;
+        const currentIndex = event.currentIndex;
+
+        // Update the order in the service
+        this.orderingService.updateOrder(previousIndex, currentIndex);
+
+        // Emit the reorder event
         this.reorderCounters.emit({
-            previousIndex: event.previousIndex,
-            currentIndex: event.currentIndex,
+            previousIndex,
+            currentIndex,
         });
     }
 }
