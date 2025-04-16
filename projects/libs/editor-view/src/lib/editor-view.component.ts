@@ -94,6 +94,7 @@ export class EditorViewComponent implements OnInit {
                 defaultIncrement: this.counterForm.value.defaultIncrement as number,
                 initialValue: this.counterForm.value.initialValue as number,
                 goal: this.counterForm.value.goal,
+                color: this.selectedColor,
             });
         }
     }

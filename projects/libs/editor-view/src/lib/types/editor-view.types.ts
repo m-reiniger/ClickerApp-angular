@@ -4,4 +4,5 @@ export type EditorViewCounter = {
     defaultIncrement: number;
     initialValue?: number;
     goal?: number | null;
+    color?: string;
 };

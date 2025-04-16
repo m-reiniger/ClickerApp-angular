@@ -87,7 +87,8 @@ export class CounterService {
         defaultIncrement: number,
         defaultOperation: TransactionOperation,
         initialValue: number,
-        goal: number | undefined = undefined
+        goal: number | undefined = undefined,
+        color: string | undefined = undefined
     ): Counter {
         const counter: Counter = {
             id: uuidv4(),
@@ -97,6 +98,7 @@ export class CounterService {
             defaultOperation,
             initialValue: initialValue,
             goal,
+            color,
         };
 
         const transaction = this.transactionService.create(
@@ -123,7 +125,8 @@ export class CounterService {
         id: string,
         name: string,
         defaultIncrement: number,
-        goal: number | undefined = undefined
+        goal: number | undefined = undefined,
+        color: string | undefined = undefined
     ): void {
         const counter = this.getCounter(id);
         if (counter) {
@@ -132,6 +135,10 @@ export class CounterService {
 
             if (goal) {
                 counter.goal = goal;
+            }
+
+            if (color) {
+                counter.color = color;
             }
 
             this.counterList$.set(this.counterList);

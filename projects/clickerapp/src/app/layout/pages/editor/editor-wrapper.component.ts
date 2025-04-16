@@ -29,6 +29,7 @@ export class EditorWrapperComponent implements OnInit {
                     name: counter$().name,
                     defaultIncrement: counter$().defaultIncrement,
                     goal: counter$().goal || null,
+                    color: counter$().color,
                 };
             }
         }
@@ -40,7 +41,8 @@ export class EditorWrapperComponent implements OnInit {
                 counter.id,
                 counter.name,
                 counter.defaultIncrement,
-                counter.goal !== undefined && counter.goal !== null ? counter.goal : undefined
+                counter.goal !== undefined && counter.goal !== null ? counter.goal : undefined,
+                counter.color !== undefined && counter.color !== null ? counter.color : undefined
             );
             this.router.navigate(['detail', counter.id]);
         } else {
@@ -49,7 +51,8 @@ export class EditorWrapperComponent implements OnInit {
                 counter.defaultIncrement,
                 TransactionOperation.ADD,
                 counter.initialValue || 0,
-                counter.goal !== undefined && counter.goal !== null ? counter.goal : undefined
+                counter.goal !== undefined && counter.goal !== null ? counter.goal : undefined,
+                counter.color !== undefined && counter.color !== null ? counter.color : undefined
             );
             this.router.navigate(['/']);
         }

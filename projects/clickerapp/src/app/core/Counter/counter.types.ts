@@ -10,4 +10,5 @@ export type Counter = {
     initialValue: number;
     goal?: number;
     defaultOperation: TransactionOperation;
+    color?: string;
 };
