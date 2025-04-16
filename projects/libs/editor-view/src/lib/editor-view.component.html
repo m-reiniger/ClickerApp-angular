@@ -20,6 +20,25 @@
                         }
                     </mat-form-field>
 
+                    <div class="color-picker">
+                        <label class="color-picker-label">Counter Color</label>
+                        <div class="color-options">
+                            @for (color of colorOptions; track color.value) {
+                                <button
+                                    type="button"
+                                    class="color-option"
+                                    [style.background-color]="color.value"
+                                    [class.selected]="selectedColor === color.value"
+                                    (click)="selectColor(color.value)"
+                                    [attr.aria-label]="color.name">
+                                    @if (selectedColor === color.value) {
+                                        <mat-icon>check</mat-icon>
+                                    }
+                                </button>
+                            }
+                        </div>
+                    </div>
+
                     @if (!editMode) {
                         <mat-form-field class="editor-view-field">
                             <mat-label>Initial Value</mat-label>

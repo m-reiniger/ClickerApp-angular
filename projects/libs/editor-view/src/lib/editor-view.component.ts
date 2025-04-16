@@ -11,6 +11,11 @@ import { SwipeToCloseDirective } from '@libs/touch-gestures';
 
 import { EditorViewCounter } from './types/editor-view.types';
 
+interface ColorOption {
+    name: string;
+    value: string;
+}
+
 /**
  * Form component for creating and editing counters.
  *
@@ -42,6 +47,20 @@ export class EditorViewComponent implements OnInit {
     public closeOverlay = output<string | undefined>();
 
     public editMode = false;
+    public selectedColor = 'var(--counter-default)';
+
+    public colorOptions: ColorOption[] = [
+        { name: 'Default', value: 'var(--counter-default)' },
+        { name: 'Blue', value: 'var(--counter-blue)' },
+        { name: 'Green', value: 'var(--counter-green)' },
+        { name: 'Purple', value: 'var(--counter-purple)' },
+        { name: 'Red', value: 'var(--counter-red)' },
+        { name: 'Yellow', value: 'var(--counter-yellow)' },
+        { name: 'Orange', value: 'var(--counter-orange)' },
+        { name: 'Pink', value: 'var(--counter-pink)' },
+        { name: 'Cyan', value: 'var(--counter-cyan)' },
+        { name: 'Gray', value: 'var(--counter-gray)' },
+    ];
 
     public counterForm = new FormGroup({
         name: new FormControl('', [Validators.required]),
@@ -61,6 +80,10 @@ export class EditorViewComponent implements OnInit {
             });
             this.editMode = true;
         }
+    }
+
+    public selectColor(color: string): void {
+        this.selectedColor = color;
     }
 
     public saveCounter(): void {
