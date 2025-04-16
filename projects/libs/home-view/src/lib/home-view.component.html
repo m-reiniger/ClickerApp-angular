@@ -72,10 +72,16 @@
             </div>
         </section>
     } @else {
-        <div class="tile-grid">
+        <div
+            class="tile-grid"
+            cdkDropList
+            (cdkDropListDropped)="onDrop($event)"
+            [cdkDropListOrientation]="'mixed'">
             <section
                 class="counter-tile"
                 *ngFor="let counter of orderedCounters()"
+                cdkDrag
+                cdkDragPreviewContainer="parent"
                 [class.pressed]="isTilePressed(counter.id)"
                 [style.background]="counter.color || 'var(--counter-default)'">
                 <div
@@ -96,6 +102,10 @@
                     </div>
                     <p class="tile-name">{{ counter.name }}</p>
                 </div>
+                <div class="drag-handle" cdkDragHandle (click)="$event.stopPropagation()">
+                    <mat-icon>drag_indicator</mat-icon>
+                </div>
+                <div *cdkDragPlaceholder></div>
             </section>
         </div>
     }

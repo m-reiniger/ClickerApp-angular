@@ -307,7 +307,7 @@
         }
 
         &.cdk-drag-preview {
-            display: none;
+            // display: none;
             opacity: 0.8;
             transform: none !important;
             box-shadow:
@@ -604,6 +604,14 @@
                     line-height: 1.2;
                 }
             }
+
+            &.cdk-drag-preview {
+                opacity: 0.8;
+                box-shadow:
+                    0 3px 3px -2px rgba(0, 0, 0, 0.2),
+                    0 3px 4px 0 rgba(0, 0, 0, 0.14),
+                    0 1px 8px 0 rgba(0, 0, 0, 0.12);
+            }
         }
     }
 }
@@ -722,6 +730,8 @@
     cursor: move;
     opacity: 0.5;
     transition: opacity 0.2s ease;
+
+    z-index: 3000;
 
     &:hover {
         opacity: 1;
