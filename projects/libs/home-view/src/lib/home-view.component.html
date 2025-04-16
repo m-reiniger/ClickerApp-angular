@@ -26,49 +26,55 @@
     }
 
     @if (viewMode === 'list') {
-        <section
-            class="counter-item"
-            *ngFor="let counter of counterList$()"
-            (click)="navigateToDetailHandle(counter.id)"
-            [style.background]="counter.color || 'var(--counter-default)'">
-            <div class="counter-name">
-                <p>{{ counter.name }}</p>
-            </div>
-            <div class="decrement-button">
-                <button mat-mini-fab (click)="decrementCounterHandle($event, counter.id)">
-                    @if (counter.defaultIncrement > 0) {
-                        -
-                    } @else {
-                        +
-                    }
-                </button>
-            </div>
-            <div class="counter-value">
-                <div
-                    class="value-progress-border"
-                    [style.--progress]="
-                        getProgress(counter.initialValue, counter.goal, counter.value())
-                    "
-                    [class]="{ 'goal-reached': checkGoal(counter, counter.value()) }">
-                    <button mat-fab>
-                        {{ counter.value() | number: '1.0-2' }}
+        <section cdkDropList (cdkDropListDropped)="onDrop($event)" class="counter-list-container">
+            <div
+                class="counter-item"
+                *ngFor="let counter of orderedCounters()"
+                cdkDrag
+                (click)="navigateToDetailHandle(counter.id)"
+                [style.background]="counter.color || 'var(--counter-default)'">
+                <div class="counter-name">
+                    <p>{{ counter.name }}</p>
+                </div>
+                <div class="decrement-button">
+                    <button mat-mini-fab (click)="decrementCounterHandle($event, counter.id)">
+                        @if (counter.defaultIncrement > 0) {
+                            -
+                        } @else {
+                            +
+                        }
                     </button>
                 </div>
-            </div>
-            <div class="increment-button">
-                <button mat-fab (click)="incrementCounterHandle($event, counter.id)">
-                    @if (counter.defaultIncrement > 0) {
-                        +
-                    }
-                    {{ counter.defaultIncrement }}
-                </button>
+                <div class="counter-value">
+                    <div
+                        class="value-progress-border"
+                        [style.--progress]="
+                            getProgress(counter.initialValue, counter.goal, counter.value())
+                        "
+                        [class]="{ 'goal-reached': checkGoal(counter, counter.value()) }">
+                        <button mat-fab>
+                            {{ counter.value() | number: '1.0-2' }}
+                        </button>
+                    </div>
+                </div>
+                <div class="increment-button">
+                    <button mat-fab (click)="incrementCounterHandle($event, counter.id)">
+                        @if (counter.defaultIncrement > 0) {
+                            +
+                        }
+                        {{ counter.defaultIncrement }}
+                    </button>
+                </div>
+                <div class="drag-handle" cdkDragHandle>
+                    <mat-icon>drag_indicator</mat-icon>
+                </div>
             </div>
         </section>
     } @else {
         <div class="tile-grid">
             <section
                 class="counter-tile"
-                *ngFor="let counter of counterList$()"
+                *ngFor="let counter of orderedCounters()"
                 [class.pressed]="isTilePressed(counter.id)"
                 [style.background]="counter.color || 'var(--counter-default)'">
                 <div
@@ -93,7 +99,7 @@
         </div>
     }
 
-    <section class="counter-list-empty" *ngIf="counterList$().length === 0">
+    <section class="counter-list-empty" *ngIf="orderedCounters().length === 0">
         <div class="empty-state-content">
             <p class="icon">📊</p>
             <h4>No Counters Yet</h4>

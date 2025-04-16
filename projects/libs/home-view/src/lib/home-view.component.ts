@@ -1,13 +1,25 @@
-import { Component, inject, Input, OnInit, output, signal, Signal } from '@angular/core';
+import {
+    Component,
+    inject,
+    Input,
+    OnInit,
+    output,
+    signal,
+    Signal,
+    computed,
+    effect,
+} from '@angular/core';
 import { DecimalPipe, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 
 import { HomeViewCounter, HomeViewCounters } from './types/home-view.types';
 import { ViewModeService, ViewMode } from './services/view-mode.service';
+import { OrderingService } from './services/ordering.service';
 
 import { LongPressDirective, PressType } from '@libs/touch-gestures';
 
@@ -27,6 +39,7 @@ interface HintData {
  * @Output decrementCounter - Emits the ID of the counter to decrement
  * @Output navigateToDetail - Emits the ID of the counter to view details
  * @Output addCounter - Emits when the add counter button is clicked
+ * @Output reorderCounters - Emits the previous and current index of the reordered counter
  */
 @Component({
     selector: 'lib-home-view',
@@ -39,6 +52,7 @@ interface HintData {
         MatButtonToggleModule,
         FormsModule,
         LongPressDirective,
+        DragDropModule,
     ],
     templateUrl: './home-view.component.html',
     styleUrl: './home-view.component.scss',
@@ -52,18 +66,57 @@ export class HomeViewComponent implements OnInit {
     public decrementCounter = output<string>();
     public navigateToDetail = output<string>();
     public addCounter = output<void>();
+    public reorderCounters = output<{ previousIndex: number; currentIndex: number }>();
     public pressedTileId: string | null = null;
     public currentHint = '';
     public showHint = true;
     public isHintAnimating = false;
 
     private viewModeService: ViewModeService = inject(ViewModeService);
+    private orderingService: OrderingService = inject(OrderingService);
 
     private shownHints: Set<string> = new Set();
+
+    private updateOrder(): void {
+        const counters = this.counterList$();
+        const order = this.orderingService.getOrder()();
+
+        // Add any new counters to the order
+        counters.forEach((counter) => {
+            if (!order.includes(counter.id)) {
+                this.orderingService.addToOrder(counter.id);
+            }
+        });
+
+        // Remove any deleted counters from the order
+        const validIds = new Set(counters.map((c) => c.id));
+        const filteredOrder = order.filter((id) => validIds.has(id));
+        if (filteredOrder.length !== order.length) {
+            this.orderingService.setOrder(filteredOrder);
+        }
+    }
+
+    public orderedCounters = computed(() => {
+        const counters = this.counterList$();
+        const order = this.orderingService.getOrder()();
+
+        // Sort counters according to the order
+        return counters.sort((a, b) => {
+            const indexA = order.indexOf(a.id);
+            const indexB = order.indexOf(b.id);
+            return indexA - indexB;
+        });
+    });
 
     public ngOnInit(): void {
         this.viewMode = this.viewModeService.getViewMode();
         this.updateHint();
+
+        // Set up an effect to update the order when the counter list changes
+        effect(() => {
+            this.counterList$();
+            this.updateOrder();
+        });
     }
 
     public updateHint(): void {
@@ -198,5 +251,13 @@ export class HomeViewComponent implements OnInit {
 
         // Convert progress to degrees (0-360)
         return `${progress * 360}deg`;
+    }
+
+    public onDrop(event: CdkDragDrop<HomeViewCounters>): void {
+        this.orderingService.updateOrder(event.previousIndex, event.currentIndex);
+        this.reorderCounters.emit({
+            previousIndex: event.previousIndex,
+            currentIndex: event.currentIndex,
+        });
     }
 }
