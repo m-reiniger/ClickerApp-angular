@@ -104,59 +104,22 @@
                 flex-direction: column;
                 gap: 1.5rem;
 
-                mat-accordion {
-                    .mat-expansion-panel {
-                        background: transparent;
-                        box-shadow: none;
-                        border: 1px solid var(--mat-sys-on-surface-variant);
-                        border-radius: 8px;
-                        margin-bottom: 1rem;
-
-                        &.mat-expanded {
-                            margin-bottom: 1rem;
-                        }
-
-                        .mat-expansion-panel-header {
-                            background: transparent;
-                            padding: 1.5rem;
-                            height: auto;
-
-                            &:hover {
-                                background: color-mix(
-                                    in srgb,
-                                    var(--mat-sys-on-surface) 4%,
-                                    transparent
-                                );
-                            }
-
-                            &.mat-expanded,
-                            &.mat-expansion-panel-header-active,
-                            &:focus {
-                                background: transparent;
-                            }
-
-                            .mat-expansion-panel-header-title {
-                                color: var(--mat-sys-on-surface);
-                                font-weight: 500;
-                                font-size: 1.1rem;
-                            }
-                        }
-
-                        .mat-expansion-panel-content {
-                            .mat-expansion-panel-body {
-                                padding: 1.5rem;
-                            }
-                        }
-                    }
+                .form-section {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 1.5rem;
+                    background: color-mix(
+                        in srgb,
+                        var(--mat-sys-surface-container-lowest) 95%,
+                        white
+                    );
+                    padding: 1.5rem;
+                    border-radius: 12px;
+                    border: 1px solid var(--mat-sys-outline-variant);
                 }
 
                 .editor-view-field {
                     width: 100%;
-                    margin-bottom: 1rem;
-
-                    &:last-child {
-                        margin-bottom: 0;
-                    }
 
                     .mat-form-field-wrapper {
                         padding-bottom: 0;
@@ -165,7 +128,7 @@
                     .mat-form-field-flex {
                         background-color: color-mix(
                             in srgb,
-                            var(--mat-sys-on-surface) 4%,
+                            var(--mat-sys-on-surface) 1%,
                             transparent
                         );
                         padding: 0.75em 0.75em 0;
@@ -179,10 +142,15 @@
                     .mat-form-field-subscript-wrapper {
                         padding: 0 1em;
                     }
+
+                    .mat-hint {
+                        color: var(--mat-sys-on-surface-variant);
+                        font-size: 0.875rem;
+                    }
                 }
 
                 .action-button {
-                    margin-top: 2rem;
+                    margin-top: 1rem;
                     display: flex;
                     justify-content: center;
 

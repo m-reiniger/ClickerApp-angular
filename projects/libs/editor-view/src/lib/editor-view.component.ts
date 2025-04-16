@@ -5,7 +5,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatAccordion, MatExpansionModule } from '@angular/material/expansion';
 import { MatCardModule } from '@angular/material/card';
 
 import { SwipeToCloseDirective } from '@libs/touch-gestures';
@@ -29,8 +28,6 @@ import { EditorViewCounter } from './types/editor-view.types';
         MatFormFieldModule,
         ReactiveFormsModule,
         MatIconModule,
-        MatExpansionModule,
-        MatAccordion,
         MatCardModule,
         SwipeToCloseDirective,
     ],
