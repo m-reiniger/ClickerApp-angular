@@ -43,7 +43,7 @@
                         <mat-form-field class="editor-view-field">
                             <mat-label>Initial Value</mat-label>
                             <input matInput formControlName="initialValue" type="number" />
-                            <mat-hint>Your counter will start at this value</mat-hint>
+                            <mat-hint>Counter starting value</mat-hint>
                             @if (counterForm.get('initialValue')?.hasError('required')) {
                                 <mat-error>Initial value is required</mat-error>
                             }
@@ -53,7 +53,7 @@
                     <mat-form-field class="editor-view-field">
                         <mat-label>Default Increment</mat-label>
                         <input matInput formControlName="defaultIncrement" type="number" />
-                        <mat-hint>The amount to increase/decrease by each click</mat-hint>
+                        <mat-hint>Amount to increase by each click</mat-hint>
                         @if (counterForm.get('defaultIncrement')?.hasError('required')) {
                             <mat-error>Default increment is required</mat-error>
                         }

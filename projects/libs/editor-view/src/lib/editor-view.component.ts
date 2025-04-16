@@ -78,6 +78,7 @@ export class EditorViewComponent implements OnInit {
                 initialValue: 0,
                 goal: this.editCounter.goal ? this.editCounter.goal : null,
             });
+            this.selectedColor = this.editCounter.color || 'var(--counter-default)';
             this.editMode = true;
         }
     }
