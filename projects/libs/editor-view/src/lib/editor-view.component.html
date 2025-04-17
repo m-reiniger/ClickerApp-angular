@@ -14,7 +14,10 @@
                 <div class="form-section">
                     <mat-form-field class="editor-view-field">
                         <mat-label>Name</mat-label>
-                        <input matInput formControlName="name" placeholder="e.g., Daily Workouts" />
+                        <input
+                            matInput
+                            formControlName="name"
+                            placeholder="e.g., Weekly Workouts" />
                         @if (counterForm.get('name')?.hasError('required')) {
                             <mat-error>Name is required</mat-error>
                         }
