@@ -1,4 +1,5 @@
 @use '@angular/material' as mat;
+@use 'sass:math';
 
 @keyframes slideInFromBottom {
     0% {
@@ -157,12 +158,12 @@
 
             @for $i from 1 through 50 {
                 &:nth-child(#{$i}) {
-                    left: #{random(100)}vw;
+                    left: #{math.random(100)}vw;
                     top: -20px;
-                    animation: confetti #{random(1500) + 1000}ms ease-out forwards;
-                    animation-delay: #{random(300)}ms;
+                    animation: confetti #{math.random(1500) + 1000}ms ease-out forwards;
+                    animation-delay: #{math.random(300)}ms;
 
-                    $shape: random(4);
+                    $shape: math.random(4);
                     @if $shape == 1 {
                         clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); // diamond
                     } @else if $shape == 2 {
@@ -185,7 +186,7 @@
                         // circle is default
                     }
 
-                    $color: random(5);
+                    $color: math.random(5);
                     @if $color == 1 {
                         background-color: var(--mat-sys-tertiary);
                     } @else if $color == 2 {
@@ -296,6 +297,12 @@
             margin-bottom: 2em;
 
             .decrement-button button {
+                font-size: 1.5em;
+                font-weight: 500;
+                min-width: 48px;
+                min-height: 48px;
+                transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
                 @include mat.fab-overrides(
                     (
                         container-color: var(--mat-sys-surface-container-highest),
@@ -303,11 +310,6 @@
                         container-shape: 50%,
                     )
                 );
-                font-size: 1.5em;
-                font-weight: 500;
-                min-width: 48px;
-                min-height: 48px;
-                transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 
                 &:active {
                     transform: scale(0.95);
@@ -315,6 +317,17 @@
             }
 
             .increment-button button {
+                font-size: 2.5em;
+                font-weight: 600;
+                min-width: 120px;
+                min-height: 120px;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+                box-shadow:
+                    0 8px 16px rgba(0, 0, 0, 0.2),
+                    0 4px 8px rgba(0, 0, 0, 0.1),
+                    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+
                 @include mat.fab-overrides(
                     (
                         container-color: var(--mat-sys-secondary),
@@ -322,20 +335,6 @@
                         container-shape: 50%,
                     )
                 );
-                font-size: 2.5em;
-                font-weight: 600;
-                min-width: 120px;
-                min-height: 120px;
-                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                // background: linear-gradient(
-                //     145deg,
-                //     var(--mat-sys-tertiary) 0%,
-                //     color-mix(in srgb, var(--mat-sys-secondary) 85%, black) 100%
-                // );
-                box-shadow:
-                    0 8px 16px rgba(0, 0, 0, 0.2),
-                    0 4px 8px rgba(0, 0, 0, 0.1),
-                    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
 
                 &:hover {
                     transform: translateY(-3px) scale(1.05);
@@ -374,14 +373,6 @@
                 position: relative;
 
                 button {
-                    @include mat.fab-overrides(
-                        (
-                            container-color: var(--mat-sys-primary-container),
-                            foreground-color: var(--mat-sys-primary),
-                            container-shape: 50%,
-                        )
-                    );
-
                     font-size: 3em;
                     font-weight: bold;
                     width: 148px;
@@ -389,6 +380,14 @@
                     transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
                     position: relative;
                     overflow: hidden;
+
+                    @include mat.fab-overrides(
+                        (
+                            container-color: var(--mat-sys-primary-container),
+                            foreground-color: var(--mat-sys-primary),
+                            container-shape: 50%,
+                        )
+                    );
 
                     &::before {
                         content: '';
@@ -418,6 +417,8 @@
                     }
 
                     &.goal-reached {
+                        animation: quickPop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+
                         @include mat.fab-overrides(
                             (
                                 container-color: var(--mat-sys-tertiary-container),
@@ -425,7 +426,6 @@
                                 container-shape: 50%,
                             )
                         );
-                        animation: quickPop 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 
                         &::before {
                             background: conic-gradient(
@@ -471,14 +471,6 @@
             }
 
             button {
-                @include mat.fab-overrides(
-                    (
-                        container-color: var(--mat-sys-surface-container-high),
-                        foreground-color: var(--mat-sys-primary),
-                        container-shape: 16px,
-                    )
-                );
-
                 width: 100%;
                 aspect-ratio: 1;
                 padding: 0.5rem;
@@ -488,6 +480,14 @@
                 justify-content: center;
                 gap: 0.5rem;
                 transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+                @include mat.fab-overrides(
+                    (
+                        container-color: var(--mat-sys-surface-container-high),
+                        foreground-color: var(--mat-sys-primary),
+                        container-shape: 16px,
+                    )
+                );
 
                 mat-icon {
                     font-size: 24px;

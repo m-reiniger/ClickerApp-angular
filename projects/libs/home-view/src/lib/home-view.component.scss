@@ -198,13 +198,6 @@
             margin: 0 0.1rem !important;
 
             button {
-                @include mat.fab-overrides(
-                    (
-                        container-color: var(--mat-sys-primary-container),
-                        foreground-color: var(--mat-sys-primary),
-                        container-shape: 50%,
-                    )
-                );
                 font-size: 28px;
                 font-weight: 500;
                 min-width: 68px;
@@ -212,6 +205,14 @@
                 transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
                 position: relative;
                 overflow: hidden;
+
+                @include mat.fab-overrides(
+                    (
+                        container-color: var(--mat-sys-primary-container),
+                        foreground-color: var(--mat-sys-primary),
+                        container-shape: 50%,
+                    )
+                );
 
                 &::before {
                     content: '';
@@ -242,6 +243,8 @@
             }
 
             .goal-reached button {
+                animation: pulse 1.5s ease-in-out infinite;
+
                 @include mat.fab-overrides(
                     (
                         container-color: var(--mat-sys-tertiary-container),
@@ -249,7 +252,6 @@
                         container-shape: 50%,
                     )
                 );
-                animation: pulse 1.5s ease-in-out infinite;
 
                 &::before {
                     background: conic-gradient(
@@ -285,6 +287,11 @@
         }
 
         .increment-button button {
+            font-size: 16px;
+            font-weight: 500;
+            min-width: 48px;
+            min-height: 48px;
+
             @include mat.fab-overrides(
                 (
                     container-color: var(--mat-sys-secondary),
@@ -292,13 +299,14 @@
                     container-shape: 50%,
                 )
             );
-            font-size: 16px;
-            font-weight: 500;
-            min-width: 48px;
-            min-height: 48px;
         }
 
         .decrement-button button {
+            font-size: 16px;
+            font-weight: 500;
+            min-width: 40px;
+            min-height: 40px;
+
             @include mat.fab-overrides(
                 (
                     small-container-color: var(--mat-sys-surface-container-highest),
@@ -306,10 +314,6 @@
                     small-container-shape: 50%,
                 )
             );
-            font-size: 16px;
-            font-weight: 500;
-            min-width: 40px;
-            min-height: 40px;
         }
 
         &.cdk-drag-preview {
@@ -542,13 +546,6 @@
                     transition: background 0.3s ease;
 
                     button {
-                        @include mat.fab-overrides(
-                            (
-                                container-color: var(--mat-sys-primary-container),
-                                foreground-color: var(--mat-sys-primary),
-                                container-shape: 50%,
-                            )
-                        );
                         font-size: 24px;
                         font-weight: 500;
                         min-width: 56px;
@@ -556,6 +553,14 @@
                         transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
                         position: relative;
                         overflow: hidden;
+
+                        @include mat.fab-overrides(
+                            (
+                                container-color: var(--mat-sys-primary-container),
+                                foreground-color: var(--mat-sys-primary),
+                                container-shape: 50%,
+                            )
+                        );
 
                         &::before {
                             content: '';
@@ -579,6 +584,8 @@
                 }
 
                 .goal-reached button {
+                    animation: pulse 1.5s ease-in-out infinite;
+
                     @include mat.fab-overrides(
                         (
                             container-color: var(--mat-sys-tertiary-container),
@@ -586,7 +593,6 @@
                             container-shape: 50%,
                         )
                     );
-                    animation: pulse 1.5s ease-in-out infinite;
 
                     &::before {
                         background: conic-gradient(
