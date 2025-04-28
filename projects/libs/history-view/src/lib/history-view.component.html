@@ -13,19 +13,22 @@
             <section class="history-list">
                 <mat-list>
                     @for (transaction of sortedTransactions(); track transaction.timestamp) {
-                        <mat-list-item
-                            class="{{
-                                getOperationColor(transaction.operation, transaction.value)
-                            }}">
+                        <mat-list-item class="{{ getOperationColor(transaction.operation) }}">
                             <div matListItemTitle>
                                 <button mat-fab>
                                     {{ transaction.currentValue | number: '1.0-2' }}
                                 </button>
                                 <span class="operation">
-                                    @if (transaction.operation === 'add') {
-                                        +{{ transaction.value }}
-                                    } @else if (transaction.operation === 'subtract') {
-                                        -{{ transaction.value }}
+                                    @if (
+                                        transaction.operation === 'add' ||
+                                        transaction.operation === 'subtract'
+                                    ) {
+                                        {{
+                                            getOperationText(
+                                                transaction.operation,
+                                                transaction.value
+                                            )
+                                        }}
                                     } @else if (transaction.operation === 'reset') {
                                         <mat-icon>restart_alt</mat-icon>
                                     } @else {

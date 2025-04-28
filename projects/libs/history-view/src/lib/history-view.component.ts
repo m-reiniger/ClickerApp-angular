@@ -135,34 +135,38 @@ export class HistoryViewComponent implements OnInit {
         }
     }
 
-    public getOperationColor(operation: HistoryViewTransactionOperation, value: number): string {
+    public getOperationColor(operation: HistoryViewTransactionOperation): string {
+        switch (operation) {
+            case 'add':
+                return 'add';
+            case 'subtract':
+                return 'substract';
+            case 'reset':
+                return 'reset';
+            case 'snapshot':
+                return 'snapshot';
+            default:
+                return '';
+        }
+    }
+
+    public getOperationText(operation: HistoryViewTransactionOperation, value: number): string {
         if (value >= 0) {
             switch (operation) {
                 case 'add':
-                    return 'add';
+                    return `+${value}`;
                 case 'subtract':
-                    return 'substract';
-                case 'reset':
-                    return 'reset';
-                case 'snapshot':
-                    return 'snapshot';
-                default:
-                    return '';
+                    return `-${value}`;
             }
         } else {
             switch (operation) {
                 case 'add':
-                    return 'substract';
+                    return `-${Math.abs(value)}`;
                 case 'subtract':
-                    return 'add';
-                case 'reset':
-                    return 'reset';
-                case 'snapshot':
-                    return 'snapshot';
-                default:
-                    return '';
+                    return `+${Math.abs(value)}`;
             }
         }
+        return '';
     }
 
     public formatTitleText(operation: HistoryViewTransactionOperation, value: number): string {
