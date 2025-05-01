@@ -1,10 +1,10 @@
-# Clicker Issue Tracker
+# clickr Issue Tracker
 
-This repository serves as the official issue tracker for Clicker. It does not contain any source code - it is used exclusively for tracking bugs, feature requests, and other issues related to Clicker.
+This repository serves as the official issue tracker for clickr. It does not contain any source code - it is used exclusively for tracking bugs, feature requests, and other issues related to clickr.
 
-## About Clicker
+## About clickr
 
-Clicker is a versatile mobile counter application that allows you to create and manage multiple custom counters with an intuitive user interface. Perfect for various counting needs in both personal and professional settings like tracking workouts, books read, glasses of water, home office days or drings had in a bar.
+clickr is a versatile mobile counter application that allows you to create and manage multiple custom counters with an intuitive user interface. Perfect for various counting needs in both personal and professional settings like tracking workouts, books read, glasses of water, home office days or drings had in a bar.
 
 ### Key Features
 
@@ -20,7 +20,7 @@ Clicker is a versatile mobile counter application that allows you to create and 
 
 ### Use Cases
 
-Clicker is perfect for various scenarios, such as:
+clickr is perfect for various scenarios, such as:
 
 - **Sports & Fitness**
   - Counting laps while running
@@ -48,10 +48,10 @@ Clicker is perfect for various scenarios, such as:
 ## Download the App
 
 <div align="center">
-  <a href="https://apps.apple.com/app/clicker">
+  <a href="https://apps.apple.com/app/clickr">
     <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store" height="45">
   </a>
-  <!-- <a href="https://play.google.com/store/apps/details?id=de.codewald.apps.clicker">
+  <!-- <a href="https://play.google.com/store/apps/details?id=de.codewald.apps.clickr">
     <img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play" height="60">
   </a> -->
 </div>
@@ -64,7 +64,7 @@ This repository is used exclusively for issue tracking and does not contain any 
 - Share feedback
 - Ask questions about the app
 
-Please use the [Issues](https://github.com/m-reiniger/Clicker-Public/issues) section of this repository.
+Please use the [Issues](https://github.com/m-reiniger/clickr-Public/issues) section of this repository.
 
 ## Support
 

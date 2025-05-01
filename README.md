@@ -1,4 +1,4 @@
-# ClickerApp
+# clickr
 
 A versatile mobile counter application that allows you to create and manage multiple custom counters with an intuitive user interface. Perfect for various counting needs in both personal and professional settings.
 
@@ -14,7 +14,7 @@ A versatile mobile counter application that allows you to create and manage mult
 
 ## Use Cases
 
-ClickerApp is perfect for various scenarios, such as:
+clickr is perfect for various scenarios, such as:
 
 - **Sports & Fitness**
   - Counting laps while running
