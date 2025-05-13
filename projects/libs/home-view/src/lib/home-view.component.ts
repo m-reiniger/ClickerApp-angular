@@ -65,7 +65,7 @@ export class HomeViewComponent implements OnInit {
     public incrementCounter = output<string>();
     public decrementCounter = output<string>();
     public navigateToDetail = output<string>();
-    public addCounter = output<void>();
+    public addCounter = output<string | undefined>();
     public reorderCounters = output<{ previousIndex: number; currentIndex: number }>();
     public pressedTileId: string | null = null;
     public currentHint = '';
@@ -184,8 +184,8 @@ export class HomeViewComponent implements OnInit {
         this.decrementCounter.emit(id);
     }
 
-    public addCounterHandle(): void {
-        this.addCounter.emit();
+    public addCounterHandle(preset: string | undefined = undefined): void {
+        this.addCounter.emit(preset);
     }
 
     public navigateToDetailHandle(id: string): void {

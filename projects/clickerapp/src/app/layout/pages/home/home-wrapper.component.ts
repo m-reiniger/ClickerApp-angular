@@ -41,8 +41,12 @@ export class HomeWrapperComponent implements OnInit {
         this.counterService.decrementCounter(id);
     }
 
-    public addCounter(): void {
-        this.router.navigate(['/create']);
+    public addCounter(preset: string | undefined = undefined): void {
+        if (preset) {
+            this.router.navigate(['/edit', preset]);
+        } else {
+            this.router.navigate(['/create']);
+        }
     }
 
     public navigateToDetail(id: string): void {

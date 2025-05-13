@@ -1,5 +1,5 @@
 <article class="counter-list">
-    <div class="header">
+    <div class="header" *ngIf="orderedCounters().length > 0">
         <h3>{{ title }}</h3>
         <div class="view-mode-selector">
             <button mat-icon-button (click)="toggleViewMode('list')">
@@ -121,13 +121,20 @@
             <div class="suggestions">
                 <p>Try counting:</p>
                 <ul>
-                    <li>🏢 Office visits</li>
-                    <li>🏃🏻 Workouts</li>
-                    <li>📚 Books read</li>
-                    <li>💧 Water drank</li>
+                    <li (click)="addCounterHandle('preset#1')"><span>🏢 Office Visits</span></li>
+                    <li (click)="addCounterHandle('preset#2')"><span>🏃🏻 Weekly Workouts</span></li>
+                    <li (click)="addCounterHandle('preset#3')"><span>📚 Books read</span></li>
+                    <li (click)="addCounterHandle('preset#4')"><span>💧 Glasses of Water</span></li>
+                    <li (click)="addCounterHandle('preset#5')"><span>⚖️ Weight</span></li>
+                    <li (click)="addCounterHandle('preset#6')">
+                        <span>🚫 Days without Alcohol</span>
+                    </li>
                 </ul>
             </div>
-            <button mat-flat-button (click)="addCounterHandle()">
+            <button
+                mat-flat-button
+                (click)="addCounterHandle()"
+                [class.animate-pulse]="counterList$().length === 0">
                 <mat-icon>add</mat-icon>
                 <span>Create Counter</span>
             </button>
@@ -136,6 +143,7 @@
 </article>
 
 <button
+    *ngIf="orderedCounters().length > 0"
     mat-fab
     class="add-counter-button"
     (click)="addCounterHandle()"

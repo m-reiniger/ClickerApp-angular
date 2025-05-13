@@ -129,3 +129,17 @@ Project Link: [https://github.com/yourusername/ClickerApp](https://github.com/yo
 - Thanks to all contributors who have helped shape this project
 - Inspired by the need for a simple yet versatile counting solution
 
+
+## Changelog:
+
+### 1.0.0 -> 1.0.2
+
+#### Improvements
+
+* Suggestions on home screen now link to pre-filled counter creation
+
+#### Bug fixes
+
+* Fixed header spacing with several iPhones with notch or dynamic island
+* Fixed toolbar labelling on detail view
+

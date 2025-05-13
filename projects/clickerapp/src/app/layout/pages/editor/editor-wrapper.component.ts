@@ -6,6 +6,8 @@ import { EditorViewCounter, EditorViewComponent } from '@libs/editor-view';
 import { CounterService } from '@app/core/counter/counter.service';
 import { TransactionOperation } from '@app/core/transaction/transaction.type';
 
+import { environment } from '@app/environments/environment';
+
 @Component({
     selector: 'app-editor-wrapper',
     imports: [EditorViewComponent],
@@ -21,7 +23,17 @@ export class EditorWrapperComponent implements OnInit {
 
     public ngOnInit(): void {
         const counterId = this.activatedRoute.snapshot.params['counterId'];
-        if (counterId) {
+        if (counterId && counterId.startsWith('preset#')) {
+            const preset = environment.presets[
+                counterId as keyof typeof environment.presets
+            ] as EditorViewCounter;
+            this.editCounter = {
+                name: preset.name,
+                defaultIncrement: preset.defaultIncrement,
+                initialValue: preset.initialValue || undefined,
+                goal: preset.goal || undefined,
+            };
+        } else if (counterId) {
             const counter$ = this.counterService.getCounter$(counterId);
             if (counter$) {
                 this.editCounter = {

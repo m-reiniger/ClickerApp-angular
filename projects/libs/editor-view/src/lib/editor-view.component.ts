@@ -70,16 +70,21 @@ export class EditorViewComponent implements OnInit {
     });
 
     public ngOnInit(): void {
-        if (this.editCounter && this.editCounter.id) {
-            this.title = 'Edit Counter';
+        if (this.editCounter) {
+            if (this.editCounter.id) {
+                this.title = 'Edit Counter';
+                this.editMode = true;
+            } else {
+                this.title = 'Create a new Counter';
+                this.editMode = false;
+            }
             this.counterForm.setValue({
                 name: this.editCounter.name,
                 defaultIncrement: this.editCounter.defaultIncrement,
-                initialValue: 0,
+                initialValue: this.editCounter.initialValue || 0,
                 goal: this.editCounter.goal ? this.editCounter.goal : null,
             });
             this.selectedColor = this.editCounter.color || 'var(--counter-default)';
-            this.editMode = true;
         }
     }
 
