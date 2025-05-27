@@ -1,9 +1,12 @@
+// this is the main environment file. Make sure you have every environment variable at least initialized here.
+// override necessary variables in the ios or android environment files.
+
 export const environment = {
     production: false,
 
     // admob banner
     adsShowBanner: true,
-    adsAdId: 'ca-app-pub-7682466066834889/9968280932',
+    adsAdId: 'YOUR_AD_ID', // will be replaced by the ios or android environment
     adsIsTesting: true,
 
     // counter presets

@@ -31,7 +31,7 @@ export class AdMobService {
             position: BannerAdPosition.BOTTOM_CENTER,
             margin: 0,
             isTesting: this.isTesting,
-            // npa: true
+            // npa: true,
         };
         await AdMob.showBanner(options);
     }

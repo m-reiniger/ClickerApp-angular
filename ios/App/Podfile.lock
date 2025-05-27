@@ -1,11 +1,11 @@
 PODS:
-  - Capacitor (7.1.0):
+  - Capacitor (7.2.0):
     - CapacitorCordova
-  - CapacitorCommunityAdmob (7.0.2):
+  - CapacitorCommunityAdmob (7.0.3):
     - Capacitor
     - Google-Mobile-Ads-SDK (= 11.3.0)
     - GoogleUserMessagingPlatform (< 3.0.0, >= 2.7.0)
-  - CapacitorCordova (7.1.0)
+  - CapacitorCordova (7.2.0)
   - CapacitorHaptics (7.0.1):
     - Capacitor
   - Google-Mobile-Ads-SDK (11.3.0):
@@ -34,9 +34,9 @@ EXTERNAL SOURCES:
     :path: "../../node_modules/@capacitor/haptics"
 
 SPEC CHECKSUMS:
-  Capacitor: bceb785fb78f5e81e4a9e37843bc1c24bd9c7194
-  CapacitorCommunityAdmob: 66ea0a261565771c5b5180def626b90b9bd92bd3
-  CapacitorCordova: 866217f32c1d25b326c568a10ea3ed0c36b13e29
+  Capacitor: 03bc7cbdde6a629a8b910a9d7d78c3cc7ed09ea7
+  CapacitorCommunityAdmob: 310beff216a3470b2c85b1fccd99d2a6815e1ef7
+  CapacitorCordova: 5967b9ba03915ef1d585469d6e31f31dc49be96f
   CapacitorHaptics: 1f1e17041f435d8ead9ff2a34edd592c6aa6a8d6
   Google-Mobile-Ads-SDK: 301a16c461c331ba34ff4dab40a22ab7c147af61
   GoogleUserMessagingPlatform: a8b56893477f67212fbc8411c139e61d463349f5
