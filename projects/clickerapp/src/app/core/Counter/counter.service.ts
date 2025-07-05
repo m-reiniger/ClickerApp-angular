@@ -205,12 +205,16 @@ export class CounterService {
      * Increments a counter's value by its default increment
      * @param id - The ID of the counter to increment
      */
-    public incrementCounter(id: string): void {
+    public incrementCounter(
+        id: string,
+        fromAutomation = false,
+        value: number | 'default' = 'default'
+    ): void {
         const counter = this.getCounter(id);
         if (counter) {
             const transaction = this.transactionService.create(
-                counter.defaultOperation,
-                counter.defaultIncrement
+                fromAutomation ? TransactionOperation.AUTOMATION : counter.defaultOperation,
+                value === 'default' ? counter.defaultIncrement : value
             );
             counter.transactions.push(transaction);
             counter.transactions = this.handleTransactionLimit(counter.transactions);
@@ -243,15 +247,20 @@ export class CounterService {
      * Resets a counter to its initial value
      * @param id - The ID of the counter to reset
      */
-    public resetCounter(id: string, keepHistory: boolean): void {
+    public resetCounter(
+        id: string,
+        keepHistory: boolean,
+        fromAutomation = false,
+        value: number | 'default' = 'default'
+    ): void {
         const counter = this.getCounter(id);
         if (counter) {
             if (!keepHistory) {
                 counter.transactions = [];
             }
             const transaction = this.transactionService.create(
-                TransactionOperation.RESET,
-                counter.initialValue
+                fromAutomation ? TransactionOperation.AUTOMATION : TransactionOperation.RESET,
+                value === 'default' ? counter.initialValue : value
             );
             counter.transactions.push(transaction);
             counter.transactions = this.handleTransactionLimit(counter.transactions);

@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 
 import { LocalStorageService } from './services/local-storage.service';
 
+import { Automations } from '../automation/automation.type';
 import { Counters } from '@app/core/counter/counter.types';
 
 /**
@@ -35,5 +36,28 @@ export class StorageService {
      */
     public deleteCounters(): void {
         this.localStorageService.removeItem(LocalStorageService.COUNTERS_KEY);
+    }
+
+    /**
+     * Loads the current list of automations from local storage
+     * @returns The array of automations, or an empty array if none exist
+     */
+    public loadAutomations(): Automations {
+        return this.localStorageService.getItem(LocalStorageService.AUTOMATIONS_KEY);
+    }
+
+    /**
+     * Saves the current list of automations to local storage
+     * @param automations - The array of automations to save
+     */
+    public saveAutomations(automations: Automations): void {
+        this.localStorageService.setItem(LocalStorageService.AUTOMATIONS_KEY, automations);
+    }
+
+    /**
+     * Deletes all automations from local storage
+     */
+    public deleteAutomations(): void {
+        this.localStorageService.removeItem(LocalStorageService.AUTOMATIONS_KEY);
     }
 }

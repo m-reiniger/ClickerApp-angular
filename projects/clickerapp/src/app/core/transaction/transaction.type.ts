@@ -11,4 +11,5 @@ export enum TransactionOperation {
     SUBTRACT,
     RESET,
     SNAPSHOT,
+    AUTOMATION,
 }

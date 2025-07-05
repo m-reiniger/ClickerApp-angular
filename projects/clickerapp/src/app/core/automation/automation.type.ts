@@ -40,6 +40,7 @@ export type AutomationConfig = {
 };
 
 export type Automation = {
+    id: string;
     counterId: string;
     config: AutomationConfig;
     action: AutomationAction;

@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 })
 export class LocalStorageService {
     public static readonly COUNTERS_KEY = 'clickerapp-counters';
+    public static readonly AUTOMATIONS_KEY = 'clickerapp-automations';
     private localStorage: Storage;
 
     constructor() {

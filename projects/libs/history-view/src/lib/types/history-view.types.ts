@@ -1,4 +1,9 @@
-export type HistoryViewTransactionOperation = 'add' | 'subtract' | 'reset' | 'snapshot';
+export type HistoryViewTransactionOperation =
+    | 'add'
+    | 'subtract'
+    | 'reset'
+    | 'snapshot'
+    | 'automation';
 
 export interface HistoryViewTransaction {
     operation: HistoryViewTransactionOperation;
