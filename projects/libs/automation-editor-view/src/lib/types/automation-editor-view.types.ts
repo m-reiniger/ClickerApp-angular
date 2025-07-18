@@ -1,0 +1,54 @@
+export type AutomationEditorViewCounter = {
+    id: string;
+    name: string;
+    defaultIncrement: number;
+    initialValue: number;
+};
+
+export type AutomationEditorViewAutomations = AutomationEditorViewAutomation[];
+
+export enum AutomationType {
+    RESET = 'reset',
+    INCREMENT = 'increment',
+    SET_VALUE = 'set-value',
+}
+
+export enum AutomationInterval {
+    YEAR = 'year',
+    MONTH = 'month',
+    WEEK = 'week',
+    DAY = 'day',
+}
+
+export enum AutomationWeekday {
+    SUNDAY = 'sunday',
+    MONDAY = 'monday',
+    TUESDAY = 'tuesday',
+    WEDNESDAY = 'wednesday',
+    THURSDAY = 'thursday',
+    FRIDAY = 'friday',
+    SATURDAY = 'saturday',
+}
+
+export type AutomationAction = {
+    type: AutomationType;
+    value: number | 'default';
+    nextRun: Date;
+};
+
+export type AutomationConfig = {
+    interval: AutomationInterval;
+    month?: number;
+    day?: number;
+    weekday?: AutomationWeekday;
+    hour: number;
+    minute: number;
+    isActive: boolean;
+};
+
+export type AutomationEditorViewAutomation = {
+    id: string;
+    counterId: string;
+    config: AutomationConfig;
+    action: AutomationAction;
+};

@@ -38,6 +38,11 @@ export class AutomationService {
         }
     }
 
+    public getAutomations(counterId: string): Automations {
+        const automations = this.loadAutomations();
+        return automations.filter((automation) => automation.counterId === counterId);
+    }
+
     public createAutomation(automation: Automation): Automation {
         this.saveAutomation(automation);
         return automation;

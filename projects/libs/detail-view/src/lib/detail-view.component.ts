@@ -45,6 +45,7 @@ export class DetailViewComponent {
     public incrementCounter = output<string | undefined>();
     public decrementCounter = output<string | undefined>();
     public editCounter = output<string | undefined>();
+    public editAutomations = output<string | undefined>();
     public deleteCounter = output<string>();
     public resetCounter = output<{ id: string; keepHistory: boolean }>();
     public showHistory = output<string | undefined>();
@@ -90,6 +91,11 @@ export class DetailViewComponent {
     public editCounterHandle(event: Event, id: string | undefined): void {
         event.stopPropagation();
         this.editCounter.emit(id);
+    }
+
+    public editAutomationsHandle(event: Event, id: string | undefined): void {
+        event.stopPropagation();
+        this.editAutomations.emit(id);
     }
 
     public confirmDelete(): void {

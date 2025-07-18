@@ -1,0 +1,112 @@
+@use '@angular/material' as mat;
+
+@keyframes slideInFromRight {
+    0% {
+        transform: translateX(30px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes expandWidth {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 2rem;
+    }
+}
+
+.automation-editor-view {
+    padding: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    animation: slideInFromRight 0.3s ease-out;
+
+    .close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+        z-index: 1000;
+        transition: all 0.2s ease;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        padding: 0.5rem;
+        animation: fadeIn 0.3s ease-out 0.2s backwards;
+
+        &:hover {
+            background: rgba(0, 0, 0, 0.1);
+            transform: rotate(90deg);
+        }
+    }
+
+    .automation-view-card {
+        background: linear-gradient(
+            145deg,
+            var(--mat-sys-surface-container-lowest) 0%,
+            color-mix(in srgb, var(--mat-sys-surface-container-lowest) 97%, white) 100%
+        );
+        border-radius: 24px;
+        box-shadow: var(--mat-sys-level2);
+        transition: all 0.3s ease;
+        overflow: hidden;
+        animation: fadeIn 0.3s ease-out 0.1s backwards;
+
+        &:hover {
+            background: linear-gradient(
+                145deg,
+                var(--mat-sys-surface-container-lowest) 0%,
+                color-mix(in srgb, var(--mat-sys-surface-container-lowest) 95%, white) 100%
+            );
+            box-shadow: var(--mat-sys-level3);
+        }
+
+        mat-card-header {
+            padding: 1.2rem 1.2rem 0.8rem;
+            margin-bottom: 0;
+            background: transparent;
+            border-bottom: none;
+
+            .form-title {
+                margin: 0;
+                font-size: 1.5rem;
+                font-weight: 600;
+                color: var(--mat-sys-on-surface);
+                position: relative;
+                display: inline-block;
+                animation: fadeIn 0.3s ease-out 0.2s backwards;
+
+                &:after {
+                    content: '';
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 40px;
+                    height: 2px;
+                    background: #1976d2;
+                    border-radius: 2px;
+                    animation: expandWidth 0.3s ease-out 0.3s backwards;
+                }
+            }
+        }
+
+        mat-card-content {
+            padding: 2rem;
+            animation: fadeIn 0.3s ease-out 0.3s backwards;
+        }
+    }
+}

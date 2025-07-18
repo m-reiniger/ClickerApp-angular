@@ -78,4 +78,10 @@ export class DetailWrapperComponent implements OnInit {
             this.router.navigate(['history', id]);
         }
     }
+
+    public editAutomations(id: string | undefined): void {
+        if (id) {
+            this.router.navigate(['automation', id]);
+        }
+    }
 }
