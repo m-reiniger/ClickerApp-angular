@@ -92,6 +92,17 @@
                             ],
                             "outputHashing": "all"
                         },
+                        "development": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "projects/clickerapp/src/environments/environment.ts",
+                                    "with": "projects/clickerapp/src/environments/environment.ios.ts"
+                                }
+                            ],
+                            "optimization": false,
+                            "extractLicenses": false,
+                            "sourceMap": true
+                        },
                         "development.ios": {
                             "fileReplacements": [
                                 {
@@ -115,13 +126,16 @@
                             "sourceMap": true
                         }
                     },
-                    "defaultConfiguration": "development.ios"
+                    "defaultConfiguration": "development"
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
                     "configurations": {
                         "production": {
                             "buildTarget": "clickerapp:build:production"
+                        },
+                        "development": {
+                            "buildTarget": "clickerapp:build:development"
                         },
                         "development-ios": {
                             "buildTarget": "clickerapp:build:development-ios"
@@ -339,6 +353,36 @@
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
                         "tsConfig": "projects/libs/touch-gestures/tsconfig.spec.json",
+                        "polyfills": ["zone.js", "zone.js/testing"]
+                    }
+                }
+            }
+        },
+        "automation-editor-view": {
+            "projectType": "library",
+            "root": "projects/libs/automation-editor-view",
+            "sourceRoot": "projects/libs/automation-editor-view/src",
+            "prefix": "lib",
+            "architect": {
+                "build": {
+                    "builder": "@angular-devkit/build-angular:ng-packagr",
+                    "options": {
+                        "project": "projects/libs/automation-editor-view/ng-package.json"
+                    },
+                    "configurations": {
+                        "production": {
+                            "tsConfig": "projects/libs/automation-editor-view/tsconfig.lib.prod.json"
+                        },
+                        "development": {
+                            "tsConfig": "projects/libs/automation-editor-view/tsconfig.lib.json"
+                        }
+                    },
+                    "defaultConfiguration": "production"
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "tsConfig": "projects/libs/automation-editor-view/tsconfig.spec.json",
                         "polyfills": ["zone.js", "zone.js/testing"]
                     }
                 }

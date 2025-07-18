@@ -448,9 +448,9 @@
 
         .counter-tools {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1rem;
-            padding: 1rem 2rem;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0.5rem;
+            padding: 1rem auto;
             margin-top: 3em;
             position: relative;
 
@@ -493,6 +493,10 @@
                     font-size: 24px;
                     height: 24px;
                     width: 24px;
+                }
+
+                &.highlighted {
+                    background-color: var(--mat-sys-secondary-container);
                 }
 
                 .counter-tools-label {

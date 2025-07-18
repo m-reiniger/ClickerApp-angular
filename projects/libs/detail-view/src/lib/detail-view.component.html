@@ -84,12 +84,24 @@
                     ></span>
                     <span class="counter-tools-label">&nbsp;edit&nbsp;</span>
                 </button>
+                <button
+                    mat-fab
+                    (click)="showHistoryHandle($event, counterDetail()?.id)"
+                    class="highlighted">
+                    <span
+                        ><mat-icon
+                            aria-hidden="false"
+                            aria-label="automation"
+                            fontIcon="history"></mat-icon
+                    ></span>
+                    <span class="counter-tools-label">auto</span>
+                </button>
                 <button mat-fab (click)="showHistoryHandle($event, counterDetail()?.id)">
                     <span
                         ><mat-icon
                             aria-hidden="false"
                             aria-label="history"
-                            fontIcon="history"></mat-icon
+                            fontIcon="bar_chart"></mat-icon
                     ></span>
                     <span class="counter-tools-label">history</span>
                 </button>
