@@ -213,7 +213,9 @@ export class CounterService {
         const counter = this.getCounter(id);
         if (counter) {
             const transaction = this.transactionService.create(
-                fromAutomation ? TransactionOperation.AUTOMATION : counter.defaultOperation,
+                fromAutomation
+                    ? TransactionOperation.AUTOMATION_INCREMENT
+                    : counter.defaultOperation,
                 value === 'default' ? counter.defaultIncrement : value
             );
             counter.transactions.push(transaction);
@@ -259,7 +261,7 @@ export class CounterService {
                 counter.transactions = [];
             }
             const transaction = this.transactionService.create(
-                fromAutomation ? TransactionOperation.AUTOMATION : TransactionOperation.RESET,
+                fromAutomation ? TransactionOperation.AUTOMATION_SET : TransactionOperation.RESET,
                 value === 'default' ? counter.initialValue : value
             );
             counter.transactions.push(transaction);

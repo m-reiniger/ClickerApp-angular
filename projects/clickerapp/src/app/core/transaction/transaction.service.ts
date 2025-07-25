@@ -44,9 +44,13 @@ export class TransactionService {
         switch (transaction.operation) {
             case TransactionOperation.ADD:
                 return accumulator + transaction.value;
+            case TransactionOperation.AUTOMATION_INCREMENT:
+                return accumulator + transaction.value;
             case TransactionOperation.SUBTRACT:
                 return accumulator - transaction.value;
             case TransactionOperation.RESET:
+                return transaction.value;
+            case TransactionOperation.AUTOMATION_SET:
                 return transaction.value;
             case TransactionOperation.SNAPSHOT:
                 return transaction.value;

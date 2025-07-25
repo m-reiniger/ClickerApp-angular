@@ -10,7 +10,220 @@
             <h3 class="form-title">{{ title }}</h3>
         </mat-card-header>
         <mat-card-content>
-            {{ automations | json }}
+            <form [formGroup]="automationFormGroup" class="automation-editor-form">
+                <div formArrayName="automations">
+                    @for (
+                        automationForm of automationForms.controls;
+                        track $index;
+                        let i = $index
+                    ) {
+                        <div class="automation-section" [formGroupName]="i">
+                            <div class="automation-header">
+                                <h4>Automation {{ i + 1 }}</h4>
+                                @if (automationForms.length > 1) {
+                                    <button
+                                        type="button"
+                                        mat-icon-button
+                                        class="remove-button"
+                                        (click)="removeAutomation(i)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                }
+                            </div>
+
+                            <div class="form-section">
+                                <!-- Interval Selection -->
+                                <mat-form-field class="automation-field">
+                                    <mat-label>Interval</mat-label>
+                                    <mat-select formControlName="interval">
+                                        @for (option of intervalOptions; track option.value) {
+                                            <mat-option [value]="option.value">{{
+                                                option.label
+                                            }}</mat-option>
+                                        }
+                                    </mat-select>
+                                    @if (automationForm.get('interval')?.hasError('required')) {
+                                        <mat-error>Interval is required</mat-error>
+                                    }
+                                </mat-form-field>
+
+                                <!-- Time Selection -->
+                                <div class="time-selection">
+                                    @if (
+                                        automationForm.get('interval')?.value ===
+                                        automationInterval.WEEK
+                                    ) {
+                                        <mat-form-field class="automation-field">
+                                            <mat-label>Weekday</mat-label>
+                                            <mat-select formControlName="weekday">
+                                                @for (
+                                                    option of weekdayOptions;
+                                                    track option.value
+                                                ) {
+                                                    <mat-option [value]="option.value">{{
+                                                        option.label
+                                                    }}</mat-option>
+                                                }
+                                            </mat-select>
+                                        </mat-form-field>
+                                    }
+
+                                    @if (
+                                        automationForm.get('interval')?.value ===
+                                        automationInterval.MONTH
+                                    ) {
+                                        <mat-form-field class="automation-field">
+                                            <mat-label>Day of Month</mat-label>
+                                            <mat-select formControlName="day">
+                                                @for (option of dayOptions; track option.value) {
+                                                    <mat-option [value]="option.value">{{
+                                                        option.label
+                                                    }}</mat-option>
+                                                }
+                                            </mat-select>
+                                        </mat-form-field>
+                                    }
+
+                                    @if (
+                                        automationForm.get('interval')?.value ===
+                                        automationInterval.YEAR
+                                    ) {
+                                        <div class="year-selection">
+                                            <mat-form-field class="automation-field">
+                                                <mat-label>Month</mat-label>
+                                                <mat-select formControlName="month">
+                                                    @for (
+                                                        option of monthOptions;
+                                                        track option.value
+                                                    ) {
+                                                        <mat-option [value]="option.value">{{
+                                                            option.label
+                                                        }}</mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+
+                                            <mat-form-field class="automation-field">
+                                                <mat-label>Day of Month</mat-label>
+                                                <mat-select formControlName="day">
+                                                    @for (
+                                                        option of dayOptions;
+                                                        track option.value
+                                                    ) {
+                                                        <mat-option [value]="option.value">{{
+                                                            option.label
+                                                        }}</mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    }
+
+                                    <div class="time-inputs">
+                                        <mat-form-field class="automation-field">
+                                            <mat-label>Hour</mat-label>
+                                            <mat-select formControlName="hour">
+                                                @for (option of hourOptions; track option.value) {
+                                                    <mat-option [value]="option.value">{{
+                                                        option.label
+                                                    }}</mat-option>
+                                                }
+                                            </mat-select>
+                                        </mat-form-field>
+
+                                        <mat-form-field class="automation-field">
+                                            <mat-label>Minute</mat-label>
+                                            <mat-select formControlName="minute">
+                                                @for (option of minuteOptions; track option.value) {
+                                                    <mat-option [value]="option.value">{{
+                                                        option.label
+                                                    }}</mat-option>
+                                                }
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!-- Action Selection -->
+                                <div class="action-selection">
+                                    <mat-form-field class="automation-field">
+                                        <mat-label>Action</mat-label>
+                                        <mat-select
+                                            formControlName="type"
+                                            (selectionChange)="
+                                                onActionTypeChange(automationForm, $event.value)
+                                            ">
+                                            <mat-option [value]="automationType.RESET"
+                                                >Reset to Initial Value</mat-option
+                                            >
+                                            <mat-option [value]="automationType.INCREMENT"
+                                                >Increment by Value</mat-option
+                                            >
+                                            <mat-option [value]="automationType.SET_VALUE"
+                                                >Set to Value</mat-option
+                                            >
+                                        </mat-select>
+                                    </mat-form-field>
+
+                                    <mat-form-field class="automation-field">
+                                        <mat-label>Value</mat-label>
+                                        <input
+                                            matInput
+                                            formControlName="value"
+                                            type="number"
+                                            [readonly]="
+                                                automationForm.get('type')?.value ===
+                                                automationType.RESET
+                                            " />
+                                        <mat-hint>
+                                            @if (
+                                                automationForm.get('type')?.value ===
+                                                automationType.RESET
+                                            ) {
+                                                Will reset to counter's initial value
+                                            } @else if (
+                                                automationForm.get('type')?.value ===
+                                                automationType.INCREMENT
+                                            ) {
+                                                Amount to increment by
+                                            } @else {
+                                                Value to set the counter to
+                                            }
+                                        </mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- Add New Automation Button -->
+                @if (automationForms.length > 0) {
+                    <div class="add-automation-section">
+                        <button
+                            type="button"
+                            mat-stroked-button
+                            class="add-automation-button"
+                            (click)="addNewAutomation()"
+                            [disabled]="!automationForms.at(automationForms.length - 1)?.valid">
+                            <mat-icon>add</mat-icon>
+                            <span>Add Another Automation</span>
+                        </button>
+                    </div>
+                }
+
+                <!-- Save Button -->
+                <div class="action-button">
+                    <button
+                        mat-flat-button
+                        (click)="saveAutomations()"
+                        type="button"
+                        [disabled]="!automationForms.valid">
+                        <mat-icon>save</mat-icon>
+                        <span>Save Automations</span>
+                    </button>
+                </div>
+            </form>
         </mat-card-content>
     </mat-card>
 </article>

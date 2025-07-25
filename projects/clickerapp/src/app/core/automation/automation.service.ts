@@ -24,6 +24,16 @@ export class AutomationService {
     private storageService = inject(StorageService);
     private counterService = inject(CounterService);
 
+    private weekdayMap = {
+        [AutomationWeekday.SUNDAY]: 0,
+        [AutomationWeekday.MONDAY]: 1,
+        [AutomationWeekday.TUESDAY]: 2,
+        [AutomationWeekday.WEDNESDAY]: 3,
+        [AutomationWeekday.THURSDAY]: 4,
+        [AutomationWeekday.FRIDAY]: 5,
+        [AutomationWeekday.SATURDAY]: 6,
+    };
+
     constructor() {
         this.startAutomationScheduler();
     }
@@ -48,6 +58,17 @@ export class AutomationService {
         return automation;
     }
 
+    public saveAutomations(automations: Automation[]): void {
+        automations.forEach((automation) => {
+            this.setInitialNextRun(automation);
+            if (automation.id === undefined) {
+                this.createAutomation(automation);
+            } else {
+                this.saveAutomation(automation);
+            }
+        });
+    }
+
     private loadAutomations(): Automations {
         const automations = this.storageService.loadAutomations();
         return automations || [];
@@ -55,7 +76,9 @@ export class AutomationService {
 
     private shouldRunAutomation(automation: Automation): boolean {
         const now = new Date();
-        const nextRun = automation.action.nextRun;
+        const nextRun = new Date(automation.action.nextRun);
+
+        // console.log('checking if automation should run', nextRun, now);
 
         if (!automation.config.isActive) {
             return false;
@@ -73,6 +96,8 @@ export class AutomationService {
         if (!counter) {
             return;
         }
+
+        // console.log('executing automation on counter', counter);
 
         switch (automation.action.type) {
             case AutomationType.RESET:
@@ -94,8 +119,44 @@ export class AutomationService {
         }
     }
 
+    private setInitialNextRun(automation: Automation): void {
+        const now = new Date();
+        const nextRun = new Date(now);
+
+        switch (automation.config.interval) {
+            case AutomationInterval.YEAR:
+                nextRun.setFullYear(now.getFullYear() + 1);
+                break;
+            case AutomationInterval.MONTH:
+                nextRun.setHours(automation.config.hour, automation.config.minute, 0, 0);
+                this.setCorrectDayOfMonth(nextRun, automation.config.day || 1);
+                if (nextRun < now) {
+                    this.incrementByOneMonth(nextRun, automation.config.day || 1);
+                }
+                break;
+            case AutomationInterval.WEEK:
+                nextRun.setHours(automation.config.hour, automation.config.minute, 0, 0);
+                const targetWeekday =
+                    this.weekdayMap[automation.config.weekday || AutomationWeekday.SUNDAY];
+                const currentWeekday = now.getDay();
+                const daysToAdd = (targetWeekday - currentWeekday + 7) % 7;
+                nextRun.setDate(now.getDate() + daysToAdd);
+                if (nextRun < now) {
+                    nextRun.setDate(now.getDate() + 7);
+                }
+                break;
+            case AutomationInterval.DAY:
+                nextRun.setHours(automation.config.hour, automation.config.minute, 0, 0);
+                if (nextRun < now) {
+                    nextRun.setDate(now.getDate() + 1);
+                }
+                break;
+        }
+        automation.action.nextRun = nextRun;
+    }
+
     private updateAutomationNextRun(automation: Automation): void {
-        const lastRun = automation.action.nextRun;
+        const lastRun = new Date(automation.action.nextRun);
         const nextRun = lastRun;
 
         switch (automation.config.interval) {
@@ -107,34 +168,26 @@ export class AutomationService {
                 if (automation.config.day === undefined) {
                     automation.config.day = 1;
                 }
-                this.handleMonthOverflow(nextRun, automation.config.day);
+                this.incrementByOneMonth(nextRun, automation.config.day);
 
                 nextRun.setHours(automation.config.hour, automation.config.minute, 0, 0);
                 break;
 
             case AutomationInterval.MONTH:
-                nextRun.setMonth(lastRun.getMonth() + 1);
+                // nextRun.setMonth(lastRun.getMonth() + 1);
                 // if day is not set, set it to 1
                 if (automation.config.day === undefined) {
                     automation.config.day = 1;
                 }
-                this.handleMonthOverflow(nextRun, automation.config.day);
+                // nextRun.setDate(automation.config.day);
+                this.incrementByOneMonth(nextRun, automation.config.day);
 
                 nextRun.setHours(automation.config.hour, automation.config.minute, 0, 0);
                 break;
 
             case AutomationInterval.WEEK:
                 if (automation.config.weekday !== undefined) {
-                    const weekdayMap = {
-                        [AutomationWeekday.SUNDAY]: 0,
-                        [AutomationWeekday.MONDAY]: 1,
-                        [AutomationWeekday.TUESDAY]: 2,
-                        [AutomationWeekday.WEDNESDAY]: 3,
-                        [AutomationWeekday.THURSDAY]: 4,
-                        [AutomationWeekday.FRIDAY]: 5,
-                        [AutomationWeekday.SATURDAY]: 6,
-                    };
-                    const targetWeekday = weekdayMap[automation.config.weekday];
+                    const targetWeekday = this.weekdayMap[automation.config.weekday];
                     const currentWeekday = lastRun.getDay();
                     const daysToAdd = (targetWeekday - currentWeekday + 7) % 7;
                     if (daysToAdd === 0) {
@@ -158,6 +211,11 @@ export class AutomationService {
         this.saveAutomation(automation);
     }
 
+    private isInPast(date: Date): boolean {
+        const now = new Date();
+        return date < now;
+    }
+
     private saveAutomation(automation: Automation): void {
         const automations = this.loadAutomations();
         const index = automations.findIndex((a) => a.id === automation.id);
@@ -170,10 +228,12 @@ export class AutomationService {
     }
 
     private startAutomationScheduler(): void {
+        this.executeAllAutomations();
         // Run automations every minute
         this.automationScheduler = setInterval(() => {
             this.executeAllAutomations();
         }, this.schedulerInterval);
+        // console.log('automationScheduler started');
     }
 
     private stopAutomationScheduler(): void {
@@ -183,15 +243,42 @@ export class AutomationService {
         }
     }
 
-    private handleMonthOverflow(nextRun: Date, day: number): void {
-        // handle month overflow e.g. 31.01.2025 -> 28.02.2025
-        if (nextRun.getDate() !== day) {
-            const correctMonth = nextRun.getMonth() - 1;
-            while (nextRun.getMonth() !== correctMonth) {
-                nextRun.setDate(nextRun.getDate() - 1);
-            }
+    private setCorrectDayOfMonth(nextRun: Date, day: number): void {
+        if (day > this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth())) {
+            nextRun.setDate(this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth()));
         } else {
             nextRun.setDate(day);
         }
+        // console.log('setCorrectDayOfMonth', nextRun, day);
+    }
+
+    private incrementByOneMonth(nextRun: Date, day: number): void {
+        // handle month overflow e.g. 31.01.2025 -> 28.02.2025
+        // console.log('handling month overflow', nextRun, day);
+
+        // console.log('incrementByOneMonth', day, nextRun.getDate(), nextRun.getMonth(), this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth() + 1));
+
+        if (day > this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth() + 1)) {
+            nextRun.setMonth(
+                nextRun.getMonth() + 1,
+                this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth() + 1)
+            );
+        } else {
+            nextRun.setMonth(nextRun.getMonth() + 1, day);
+        }
+        //console.log('incrementByOneMonth', nextRun, day);
+
+        // if (nextRun.getDate() !== day) {
+        //     const correctMonth = nextRun.getMonth() - 1;
+        //     while (nextRun.getMonth() !== correctMonth) {
+        //         nextRun.setDate(nextRun.getDate() - 1);
+        //     }
+        // } else {
+        //     nextRun.setDate(day);
+        // }
+    }
+
+    private lastDayOfMonth(year: number, month: number): number {
+        return new Date(year, month + 1, 0).getDate();
     }
 }

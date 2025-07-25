@@ -79,7 +79,9 @@ export class HistoryWrapperComponent implements OnInit {
                 return 'reset';
             case TransactionOperation.SNAPSHOT:
                 return 'snapshot';
-            case TransactionOperation.AUTOMATION:
+            case TransactionOperation.AUTOMATION_SET:
+                return 'automation';
+            case TransactionOperation.AUTOMATION_INCREMENT:
                 return 'automation';
         }
     }

@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
+    AutomationEditorViewAutomation,
     AutomationEditorViewAutomations,
     AutomationEditorViewComponent,
     AutomationEditorViewCounter,
@@ -9,6 +10,7 @@ import {
 
 import { AutomationService } from '@app/core/automation/automation.service';
 import { CounterService } from '@app/core/counter/counter.service';
+import { Automation } from '@app/core/automation/automation.type';
 
 @Component({
     selector: 'app-automation-wrapper',
@@ -42,19 +44,21 @@ export class AutomationWrapperComponent implements OnInit {
         if (this.editCounter?.id) {
             const automations = this.automationService.getAutomations(this.editCounter.id);
             if (automations) {
-                this.automations = automations.map((automation) => ({
-                    id: automation.id,
-                    counterId: automation.counterId,
-                    config: automation.config,
-                    action: automation.action,
-                }));
+                this.automations = automations.map((automation) => {
+                    return structuredClone(automation) as AutomationEditorViewAutomation;
+                });
             }
         }
     }
 
-    // public saveAutomations(automations: AutomationEditorViewAutomations): void {
-    //     console.log('automations', automations);
-    // }
+    public saveAutomations(automations: AutomationEditorViewAutomations): void {
+        if (automations.length > 0) {
+            const automationsToSave = automations.map((automation) => {
+                return structuredClone(automation) as Automation;
+            });
+            this.automationService.saveAutomations(automationsToSave);
+        }
+    }
 
     public closeOverlay(): void {
         this.router.navigate(['detail', this.editCounter?.id]);

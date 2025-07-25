@@ -99,7 +99,7 @@
                                     "with": "projects/clickerapp/src/environments/environment.ios.ts"
                                 }
                             ],
-                            "optimization": false,
+                            "optimization": true,
                             "extractLicenses": false,
                             "sourceMap": true
                         },
@@ -110,7 +110,7 @@
                                     "with": "projects/clickerapp/src/environments/environment.ios.ts"
                                 }
                             ],
-                            "optimization": false,
+                            "optimization": true,
                             "extractLicenses": false,
                             "sourceMap": true
                         },
@@ -121,7 +121,7 @@
                                     "with": "projects/clickerapp/src/environments/environment.android.ts"
                                 }
                             ],
-                            "optimization": false,
+                            "optimization": true,
                             "extractLicenses": false,
                             "sourceMap": true
                         }

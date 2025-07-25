@@ -11,5 +11,6 @@ export enum TransactionOperation {
     SUBTRACT,
     RESET,
     SNAPSHOT,
-    AUTOMATION,
+    AUTOMATION_SET,
+    AUTOMATION_INCREMENT,
 }
