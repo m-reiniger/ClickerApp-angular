@@ -4,6 +4,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideAnimations, provideNoopAnimations } from '@angular/platform-browser/animations';
 
 import { routes } from './app.routes';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 
 export const appConfig: ApplicationConfig = {
     providers: [
@@ -12,5 +13,10 @@ export const appConfig: ApplicationConfig = {
         provideAnimations(),
         provideAnimationsAsync(),
         provideNoopAnimations(),
+        // Ionic platform providers
+        provideIonicAngular({
+            mode: 'ios',
+            animated: true,
+        }),
     ],
 };

@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+        </ion-buttons>
+        <ion-title>Month</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="confirm()">Confirm</ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-picker isOpen="true">
+        <ion-picker-column name="interval" [value]="currentValue" (ionChange)="onIonChange($event)">
+            @for (option of options; track option.value) {
+                <ion-picker-column-option [value]="option.value">
+                    {{ option.label }}
+                </ion-picker-column-option>
+            }
+        </ion-picker-column>
+    </ion-picker>
+</ion-content>

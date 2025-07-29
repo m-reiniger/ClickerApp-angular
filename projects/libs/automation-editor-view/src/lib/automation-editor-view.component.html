@@ -33,19 +33,19 @@
 
                             <div class="form-section">
                                 <!-- Interval Selection -->
-                                <mat-form-field class="automation-field">
-                                    <mat-label>Interval</mat-label>
-                                    <mat-select formControlName="interval">
-                                        @for (option of intervalOptions; track option.value) {
-                                            <mat-option [value]="option.value">{{
-                                                option.label
-                                            }}</mat-option>
-                                        }
-                                    </mat-select>
+                                <div class="picker-field">
+                                    <label>Interval</label>
+                                    <ion-button
+                                        fill="outline"
+                                        class="picker-button"
+                                        (click)="openIntervalPicker(i)">
+                                        {{ getDisplayValue(i, 'interval') }}
+                                        <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
+                                    </ion-button>
                                     @if (automationForm.get('interval')?.hasError('required')) {
-                                        <mat-error>Interval is required</mat-error>
+                                        <div class="error-message">Interval is required</div>
                                     }
-                                </mat-form-field>
+                                </div>
 
                                 <!-- Time Selection -->
                                 <div class="time-selection">
@@ -53,35 +53,36 @@
                                         automationForm.get('interval')?.value ===
                                         automationInterval.WEEK
                                     ) {
-                                        <mat-form-field class="automation-field">
-                                            <mat-label>Weekday</mat-label>
-                                            <mat-select formControlName="weekday">
-                                                @for (
-                                                    option of weekdayOptions;
-                                                    track option.value
-                                                ) {
-                                                    <mat-option [value]="option.value">{{
-                                                        option.label
-                                                    }}</mat-option>
-                                                }
-                                            </mat-select>
-                                        </mat-form-field>
+                                        <div class="picker-field">
+                                            <label>Weekday</label>
+                                            <ion-button
+                                                fill="outline"
+                                                class="picker-button"
+                                                (click)="openWeekdayPicker(i)">
+                                                {{ getDisplayValue(i, 'weekday') }}
+                                                <ion-icon
+                                                    name="chevron-down-outline"
+                                                    slot="end"></ion-icon>
+                                            </ion-button>
+                                        </div>
                                     }
 
                                     @if (
                                         automationForm.get('interval')?.value ===
                                         automationInterval.MONTH
                                     ) {
-                                        <mat-form-field class="automation-field">
-                                            <mat-label>Day of Month</mat-label>
-                                            <mat-select formControlName="day">
-                                                @for (option of dayOptions; track option.value) {
-                                                    <mat-option [value]="option.value">{{
-                                                        option.label
-                                                    }}</mat-option>
-                                                }
-                                            </mat-select>
-                                        </mat-form-field>
+                                        <div class="picker-field">
+                                            <label>Day of Month</label>
+                                            <ion-button
+                                                fill="outline"
+                                                class="picker-button"
+                                                (click)="openDayPicker(i)">
+                                                {{ getDisplayValue(i, 'day') }}
+                                                <ion-icon
+                                                    name="chevron-down-outline"
+                                                    slot="end"></ion-icon>
+                                            </ion-button>
+                                        </div>
                                     }
 
                                     @if (
@@ -89,81 +90,62 @@
                                         automationInterval.YEAR
                                     ) {
                                         <div class="year-selection">
-                                            <mat-form-field class="automation-field">
-                                                <mat-label>Month</mat-label>
-                                                <mat-select formControlName="month">
-                                                    @for (
-                                                        option of monthOptions;
-                                                        track option.value
-                                                    ) {
-                                                        <mat-option [value]="option.value">{{
-                                                            option.label
-                                                        }}</mat-option>
-                                                    }
-                                                </mat-select>
-                                            </mat-form-field>
+                                            <div class="picker-field">
+                                                <label>Month</label>
+                                                <ion-button
+                                                    fill="outline"
+                                                    class="picker-button"
+                                                    (click)="openMonthPicker(i)">
+                                                    {{ getDisplayValue(i, 'month') }}
+                                                    <ion-icon
+                                                        name="chevron-down-outline"
+                                                        slot="end"></ion-icon>
+                                                </ion-button>
+                                            </div>
 
-                                            <mat-form-field class="automation-field">
-                                                <mat-label>Day of Month</mat-label>
-                                                <mat-select formControlName="day">
-                                                    @for (
-                                                        option of dayOptions;
-                                                        track option.value
-                                                    ) {
-                                                        <mat-option [value]="option.value">{{
-                                                            option.label
-                                                        }}</mat-option>
-                                                    }
-                                                </mat-select>
-                                            </mat-form-field>
+                                            <div class="picker-field">
+                                                <label>Day</label>
+                                                <ion-button
+                                                    fill="outline"
+                                                    class="picker-button"
+                                                    (click)="openDayPicker(i)">
+                                                    {{ getDisplayValue(i, 'day') }}
+                                                    <ion-icon
+                                                        name="chevron-down-outline"
+                                                        slot="end"></ion-icon>
+                                                </ion-button>
+                                            </div>
                                         </div>
                                     }
 
-                                    <div class="time-inputs">
-                                        <mat-form-field class="automation-field">
-                                            <mat-label>Hour</mat-label>
-                                            <mat-select formControlName="hour">
-                                                @for (option of hourOptions; track option.value) {
-                                                    <mat-option [value]="option.value">{{
-                                                        option.label
-                                                    }}</mat-option>
-                                                }
-                                            </mat-select>
-                                        </mat-form-field>
-
-                                        <mat-form-field class="automation-field">
-                                            <mat-label>Minute</mat-label>
-                                            <mat-select formControlName="minute">
-                                                @for (option of minuteOptions; track option.value) {
-                                                    <mat-option [value]="option.value">{{
-                                                        option.label
-                                                    }}</mat-option>
-                                                }
-                                            </mat-select>
-                                        </mat-form-field>
+                                    <div class="picker-field">
+                                        <label>Time</label>
+                                        <ion-button
+                                            fill="outline"
+                                            class="picker-button"
+                                            (click)="openTimePicker(i)">
+                                            {{ getDisplayValue(i, 'time') }}
+                                            <ion-icon
+                                                name="chevron-down-outline"
+                                                slot="end"></ion-icon>
+                                        </ion-button>
                                     </div>
                                 </div>
 
                                 <!-- Action Selection -->
                                 <div class="action-selection">
-                                    <mat-form-field class="automation-field">
-                                        <mat-label>Action</mat-label>
-                                        <mat-select
-                                            formControlName="type"
-                                            (selectionChange)="
-                                                onActionTypeChange(automationForm, $event.value)
-                                            ">
-                                            <mat-option [value]="automationType.RESET"
-                                                >Reset to Initial Value</mat-option
-                                            >
-                                            <mat-option [value]="automationType.INCREMENT"
-                                                >Increment by Value</mat-option
-                                            >
-                                            <mat-option [value]="automationType.SET_VALUE"
-                                                >Set to Value</mat-option
-                                            >
-                                        </mat-select>
-                                    </mat-form-field>
+                                    <div class="picker-field">
+                                        <label>Action</label>
+                                        <ion-button
+                                            fill="outline"
+                                            class="picker-button"
+                                            (click)="openActionTypePicker(i)">
+                                            {{ getDisplayValue(i, 'type') }}
+                                            <ion-icon
+                                                name="chevron-down-outline"
+                                                slot="end"></ion-icon>
+                                        </ion-button>
+                                    </div>
 
                                     <mat-form-field class="automation-field">
                                         <mat-label>Value</mat-label>
