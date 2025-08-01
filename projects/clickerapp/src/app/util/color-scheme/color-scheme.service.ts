@@ -14,8 +14,10 @@ export class ColorSchemeService {
 
         if (colorScheme === 'dark') {
             document.documentElement.classList.add('dark');
+            document.documentElement.classList.add('ion-palette-dark');
         } else {
             document.documentElement.classList.remove('dark');
+            document.documentElement.classList.remove('ion-palette-dark');
         }
     }
 
