@@ -1,5 +1,4 @@
 import { Component, Input, OnInit, output, CUSTOM_ELEMENTS_SCHEMA, inject } from '@angular/core';
-import { NgFor } from '@angular/common';
 import {
     FormArray,
     FormBuilder,
@@ -16,14 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
-import {
-    IonButton,
-    IonPicker,
-    IonIcon,
-    IonPickerColumn,
-    IonPickerColumnOption,
-    ModalController,
-} from '@ionic/angular/standalone';
+import { IonButton, IonIcon, ModalController } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
 import { chevronDownOutline } from 'ionicons/icons';
@@ -64,11 +56,7 @@ import { ActionTypePickerComponent } from './picker/action-type-picker/action-ty
         MatInputModule,
         MatSelectModule,
         IonButton,
-        IonPicker,
         IonIcon,
-        IonPickerColumn,
-        IonPickerColumnOption,
-        NgFor,
     ],
     templateUrl: './automation-editor-view.component.html',
     styleUrl: './automation-editor-view.component.css',
@@ -87,15 +75,6 @@ export class AutomationEditorViewComponent implements OnInit {
     public automationType = AutomationType;
     public automationInterval = AutomationInterval;
     public automationWeekday = AutomationWeekday;
-
-    // Picker state
-    public isIntervalPickerOpen = false;
-    public isWeekdayPickerOpen = false;
-    public isDayPickerOpen = false;
-    public isMonthPickerOpen = false;
-    public isTimePickerOpen = false;
-    public isActionTypePickerOpen = false;
-    public currentFormIndex = 0;
 
     public intervalOptions = intervalOptions;
     public weekdayOptions = weekdayOptions;
@@ -205,11 +184,10 @@ export class AutomationEditorViewComponent implements OnInit {
     public async openIntervalPicker(formIndex: number): Promise<void> {
         const modal = await this.modalCtrl.create({
             component: IntervalPickerComponent,
+            cssClass: 'picker-modal',
             componentProps: {
                 currentValue: this.automationForms.at(formIndex).get('interval')?.value,
             },
-            backdropBreakpoint: 0,
-            initialBreakpoint: 0.4,
             showBackdrop: true,
         });
         modal.present();
@@ -232,12 +210,11 @@ export class AutomationEditorViewComponent implements OnInit {
     public async openTimePicker(formIndex: number): Promise<void> {
         const modal = await this.modalCtrl.create({
             component: TimePickerComponent,
+            cssClass: 'picker-modal',
             componentProps: {
                 currentHourValue: this.automationForms.at(formIndex).get('hour')?.value,
                 currentMinuteValue: this.automationForms.at(formIndex).get('minute')?.value,
             },
-            backdropBreakpoint: 0,
-            initialBreakpoint: 0.4,
             showBackdrop: true,
         });
         modal.present();
@@ -261,11 +238,10 @@ export class AutomationEditorViewComponent implements OnInit {
     public async openWeekdayPicker(formIndex: number): Promise<void> {
         const modal = await this.modalCtrl.create({
             component: WeekdayPickerComponent,
+            cssClass: 'picker-modal',
             componentProps: {
                 currentValue: this.automationForms.at(formIndex).get('weekday')?.value,
             },
-            backdropBreakpoint: 0,
-            initialBreakpoint: 0.4,
             showBackdrop: true,
         });
         modal.present();
@@ -288,11 +264,10 @@ export class AutomationEditorViewComponent implements OnInit {
     public async openDayPicker(formIndex: number): Promise<void> {
         const modal = await this.modalCtrl.create({
             component: DayPickerComponent,
+            cssClass: 'picker-modal',
             componentProps: {
                 currentValue: this.automationForms.at(formIndex).get('day')?.value,
             },
-            backdropBreakpoint: 0,
-            initialBreakpoint: 0.4,
             showBackdrop: true,
         });
         modal.present();
@@ -315,11 +290,10 @@ export class AutomationEditorViewComponent implements OnInit {
     public async openMonthPicker(formIndex: number): Promise<void> {
         const modal = await this.modalCtrl.create({
             component: MonthPickerComponent,
+            cssClass: 'picker-modal',
             componentProps: {
                 currentValue: this.automationForms.at(formIndex).get('month')?.value,
             },
-            backdropBreakpoint: 0,
-            initialBreakpoint: 0.4,
             showBackdrop: true,
         });
         modal.present();
@@ -342,11 +316,10 @@ export class AutomationEditorViewComponent implements OnInit {
     public async openActionTypePicker(formIndex: number): Promise<void> {
         const modal = await this.modalCtrl.create({
             component: ActionTypePickerComponent,
+            cssClass: 'picker-modal',
             componentProps: {
                 currentValue: this.automationForms.at(formIndex).get('type')?.value,
             },
-            backdropBreakpoint: 0,
-            initialBreakpoint: 0.4,
             showBackdrop: true,
         });
         modal.present();

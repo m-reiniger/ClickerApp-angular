@@ -164,59 +164,6 @@
                                 margin-bottom: 0.25rem;
                             }
 
-                            /* .picker-button {
-                                width: 100%;
-                                justify-content: space-between;
-                                padding: 0.75rem 1rem;
-                                border-radius: 8px;
-                                border: 1px solid var(--mat-sys-outline-variant);
-                                background: color-mix(
-                                    in srgb,
-                                    var(--mat-sys-on-surface) 1%,
-                                    transparent
-                                );
-                                color: var(--mat-sys-on-surface);
-                                font-size: 1rem;
-                                transition: all 0.2s ease;
-                                text-align: left;
-                                --border-width: 1px;
-                                --border-style: solid;
-                                --border-color: var(--mat-sys-outline-variant);
-                                --background: color-mix(
-                                    in srgb,
-                                    var(--mat-sys-on-surface) 1%,
-                                    transparent
-                                );
-                                --color: var(--mat-sys-on-surface);
-
-                                &:hover {
-                                    --background: color-mix(
-                                        in srgb,
-                                        var(--mat-sys-on-surface) 3%,
-                                        transparent
-                                    );
-                                    --border-color: var(--mat-sys-outline);
-                                }
-
-                                &:focus {
-                                    --border-color: var(--mat-sys-primary);
-                                    --box-shadow: 0 0 0 2px color-mix(
-                                        in srgb,
-                                        var(--mat-sys-primary) 20%,
-                                        transparent
-                                    );
-                                }
-
-                                ion-icon {
-                                    color: var(--mat-sys-on-surface-variant);
-                                    transition: transform 0.2s ease;
-                                }
-
-                                &:hover ion-icon {
-                                    transform: translateY(2px);
-                                }
-                            } */
-
                             .error-message {
                                 color: var(--mat-sys-error);
                                 font-size: 0.75rem;
@@ -344,10 +291,4 @@
             }
         }
     }
-}
-
-ion-modal {
-    --height: auto;
-
-    align-items: end;
 }
