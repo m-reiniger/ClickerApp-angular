@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { AdMobService } from '@app/util/ads/ad-mob.service';
 import { ColorSchemeService } from '@app/util/color-scheme/color-scheme.service';
+import { AutomationService } from '@app/core/automation/automation.service';
 
 import { MainMenuComponent } from '@app/layout/ui-components/main-menu/main-menu.component';
 
@@ -20,6 +21,7 @@ import { environment } from '@app/environments/environment';
 export class AppComponent implements OnInit {
     private adMobService = inject(AdMobService);
     private colorSchemeService = inject(ColorSchemeService);
+    private automationService = inject(AutomationService);
 
     public ngOnInit(): void {
         this.colorSchemeService.setUpColorScheme();

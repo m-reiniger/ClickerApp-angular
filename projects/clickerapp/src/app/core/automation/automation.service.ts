@@ -97,8 +97,6 @@ export class AutomationService {
             return;
         }
 
-        // console.log('executing automation on counter', counter);
-
         switch (automation.action.type) {
             case AutomationType.RESET:
                 this.counterService.resetCounter(counter.id, true, true, automation.action.value);
@@ -125,13 +123,19 @@ export class AutomationService {
 
         switch (automation.config.interval) {
             case AutomationInterval.YEAR:
-                nextRun.setFullYear(now.getFullYear() + 1);
+                nextRun.setHours(automation.config.hour, automation.config.minute, 0, 0);
+                nextRun.setDate(1);
+                nextRun.setMonth((automation.config.month || 0) - 1);
+                this.setCorrectDayOfMonth(nextRun, automation.config.day || 1);
+                if (nextRun < now) {
+                    this.incrementByXMonth(nextRun, automation.config.day || 1, 12);
+                }
                 break;
             case AutomationInterval.MONTH:
                 nextRun.setHours(automation.config.hour, automation.config.minute, 0, 0);
                 this.setCorrectDayOfMonth(nextRun, automation.config.day || 1);
                 if (nextRun < now) {
-                    this.incrementByOneMonth(nextRun, automation.config.day || 1);
+                    this.incrementByXMonth(nextRun, automation.config.day || 1, 1);
                 }
                 break;
             case AutomationInterval.WEEK:
@@ -161,26 +165,21 @@ export class AutomationService {
 
         switch (automation.config.interval) {
             case AutomationInterval.YEAR:
-                nextRun.setFullYear(lastRun.getFullYear() + 1);
-                if (automation.config.month !== undefined) {
+                if (automation.config.month === undefined) {
                     automation.config.month = 0;
                 }
                 if (automation.config.day === undefined) {
                     automation.config.day = 1;
                 }
-                this.incrementByOneMonth(nextRun, automation.config.day);
-
+                this.incrementByXMonth(nextRun, automation.config.day, 12);
                 nextRun.setHours(automation.config.hour, automation.config.minute, 0, 0);
                 break;
 
             case AutomationInterval.MONTH:
-                // nextRun.setMonth(lastRun.getMonth() + 1);
-                // if day is not set, set it to 1
                 if (automation.config.day === undefined) {
                     automation.config.day = 1;
                 }
-                // nextRun.setDate(automation.config.day);
-                this.incrementByOneMonth(nextRun, automation.config.day);
+                this.incrementByXMonth(nextRun, automation.config.day, 1);
 
                 nextRun.setHours(automation.config.hour, automation.config.minute, 0, 0);
                 break;
@@ -233,7 +232,6 @@ export class AutomationService {
         this.automationScheduler = setInterval(() => {
             this.executeAllAutomations();
         }, this.schedulerInterval);
-        // console.log('automationScheduler started');
     }
 
     private stopAutomationScheduler(): void {
@@ -249,33 +247,17 @@ export class AutomationService {
         } else {
             nextRun.setDate(day);
         }
-        // console.log('setCorrectDayOfMonth', nextRun, day);
     }
 
-    private incrementByOneMonth(nextRun: Date, day: number): void {
-        // handle month overflow e.g. 31.01.2025 -> 28.02.2025
-        // console.log('handling month overflow', nextRun, day);
-
-        // console.log('incrementByOneMonth', day, nextRun.getDate(), nextRun.getMonth(), this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth() + 1));
-
-        if (day > this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth() + 1)) {
+    private incrementByXMonth(nextRun: Date, day: number, addMonth: number): void {
+        if (day > this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth() + addMonth)) {
             nextRun.setMonth(
-                nextRun.getMonth() + 1,
-                this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth() + 1)
+                nextRun.getMonth() + addMonth,
+                this.lastDayOfMonth(nextRun.getFullYear(), nextRun.getMonth() + addMonth)
             );
         } else {
-            nextRun.setMonth(nextRun.getMonth() + 1, day);
+            nextRun.setMonth(nextRun.getMonth() + addMonth, day);
         }
-        //console.log('incrementByOneMonth', nextRun, day);
-
-        // if (nextRun.getDate() !== day) {
-        //     const correctMonth = nextRun.getMonth() - 1;
-        //     while (nextRun.getMonth() !== correctMonth) {
-        //         nextRun.setDate(nextRun.getDate() - 1);
-        //     }
-        // } else {
-        //     nextRun.setDate(day);
-        // }
     }
 
     private lastDayOfMonth(year: number, month: number): number {
