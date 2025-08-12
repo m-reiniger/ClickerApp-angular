@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialog } from '@angular/material/dialog';
 
 import { IonButton, IonIcon, ModalController } from '@ionic/angular/standalone';
 
@@ -44,6 +45,7 @@ import { WeekdayPickerComponent } from './picker/weekday-picker/weekday-picker.c
 import { DayPickerComponent } from './picker/day-picker/day-picker.component';
 import { MonthPickerComponent } from './picker/month-picker/month-picker.component';
 import { ActionTypePickerComponent } from './picker/action-type-picker/action-type-picker.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @Component({
     selector: 'lib-automation-editor-view',
@@ -87,6 +89,7 @@ export class AutomationEditorViewComponent implements OnInit {
     public showValidationErrors = false;
 
     private modalCtrl = inject(ModalController);
+    private dialog = inject(MatDialog);
 
     constructor(private fb: FormBuilder) {
         this.automationForms = this.fb.array([]);
@@ -230,8 +233,32 @@ export class AutomationEditorViewComponent implements OnInit {
         this.addAutomationForm();
     }
 
-    // TODO: handle automation removal
     public removeAutomation(index: number): void {
+        const form = this.automationForms.at(index) as FormGroup;
+        const automationId = form.get('id')?.value;
+
+        // Check if this is an existing automation (not a new one)
+        if (automationId) {
+            // Show confirmation dialog for existing automations
+            this.dialog.open(ConfirmComponent, {
+                data: {
+                    title: 'Delete Automation',
+                    message:
+                        'Are you sure you want to delete this automation? This action cannot be undone.',
+                    closeHandle: undefined,
+                    actionHandle: { emit: () => this.confirmDeleteAutomation(index) },
+                },
+            });
+        } else {
+            // For new automations, remove directly without confirmation
+            this.confirmDeleteAutomation(index);
+        }
+    }
+
+    /**
+     * Confirmed deletion of an automation
+     */
+    private confirmDeleteAutomation(index: number): void {
         if (this.automationForms.at(index).get('id')?.value) {
             this.deleteAutomation.emit(this.automationForms.at(index).get('id')?.value);
         }
