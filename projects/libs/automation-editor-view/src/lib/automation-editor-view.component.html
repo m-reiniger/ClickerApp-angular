@@ -42,7 +42,10 @@
                                         {{ getDisplayValue(i, 'interval') }}
                                         <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
                                     </ion-button>
-                                    @if (automationForm.get('interval')?.hasError('required')) {
+                                    @if (
+                                        showValidationErrors &&
+                                        automationForm.get('interval')?.hasError('required')
+                                    ) {
                                         <div class="error-message">Interval is required</div>
                                     }
                                 </div>
@@ -65,6 +68,7 @@
                                                     slot="end"></ion-icon>
                                             </ion-button>
                                             @if (
+                                                showValidationErrors &&
                                                 automationForm.get('weekday')?.hasError('required')
                                             ) {
                                                 <div class="error-message">
@@ -89,7 +93,10 @@
                                                     name="chevron-down-outline"
                                                     slot="end"></ion-icon>
                                             </ion-button>
-                                            @if (automationForm.get('day')?.hasError('required')) {
+                                            @if (
+                                                showValidationErrors &&
+                                                automationForm.get('day')?.hasError('required')
+                                            ) {
                                                 <div class="error-message">
                                                     Day of month is required for monthly automation
                                                 </div>
@@ -114,6 +121,7 @@
                                                         slot="end"></ion-icon>
                                                 </ion-button>
                                                 @if (
+                                                    showValidationErrors &&
                                                     automationForm
                                                         .get('month')
                                                         ?.hasError('required')
@@ -136,6 +144,7 @@
                                                         slot="end"></ion-icon>
                                                 </ion-button>
                                                 @if (
+                                                    showValidationErrors &&
                                                     automationForm.get('day')?.hasError('required')
                                                 ) {
                                                     <div class="error-message">
@@ -158,16 +167,18 @@
                                                 slot="end"></ion-icon>
                                         </ion-button>
                                         @if (
-                                            automationForm.get('hour')?.hasError('min') ||
-                                            automationForm.get('hour')?.hasError('max')
+                                            showValidationErrors &&
+                                            (automationForm.get('hour')?.hasError('min') ||
+                                                automationForm.get('hour')?.hasError('max'))
                                         ) {
                                             <div class="error-message">
                                                 Hour must be between 0 and 23
                                             </div>
                                         }
                                         @if (
-                                            automationForm.get('minute')?.hasError('min') ||
-                                            automationForm.get('minute')?.hasError('max')
+                                            showValidationErrors &&
+                                            (automationForm.get('minute')?.hasError('min') ||
+                                                automationForm.get('minute')?.hasError('max'))
                                         ) {
                                             <div class="error-message">
                                                 Minute must be between 0 and 59
@@ -216,7 +227,10 @@
                                                 Value to set the counter to
                                             }
                                         </mat-hint>
-                                        @if (automationForm.get('value')?.hasError('notANumber')) {
+                                        @if (
+                                            showValidationErrors &&
+                                            automationForm.get('value')?.hasError('notANumber')
+                                        ) {
                                             <mat-error>Value must be a valid number</mat-error>
                                         }
                                     </mat-form-field>
@@ -233,8 +247,7 @@
                             type="button"
                             mat-stroked-button
                             class="add-automation-button"
-                            (click)="addNewAutomation()"
-                            [disabled]="!automationForms.at(automationForms.length - 1).valid">
+                            (click)="addNewAutomation()">
                             <mat-icon>add</mat-icon>
                             <span>Add Another Automation</span>
                         </button>
@@ -243,11 +256,7 @@
 
                 <!-- Save Button -->
                 <div class="action-button">
-                    <button
-                        mat-flat-button
-                        (click)="saveAutomations()"
-                        type="button"
-                        [disabled]="!automationForms.valid">
+                    <button mat-flat-button (click)="saveAutomations()" type="button">
                         <mat-icon>save</mat-icon>
                         <span>Save Automations</span>
                     </button>

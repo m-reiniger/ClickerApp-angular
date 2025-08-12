@@ -82,6 +82,9 @@ export class AutomationEditorViewComponent implements OnInit {
     public monthOptions = monthOptions;
     public actionOptions = actionOptions;
 
+    // Track whether validation errors should be shown
+    public showValidationErrors = false;
+
     private modalCtrl = inject(ModalController);
 
     constructor(private fb: FormBuilder) {
@@ -223,10 +226,7 @@ export class AutomationEditorViewComponent implements OnInit {
     }
 
     public addNewAutomation(): void {
-        const lastForm = this.automationForms.at(this.automationForms.length - 1);
-        if (lastForm && lastForm.valid) {
-            this.addAutomationForm();
-        }
+        this.addAutomationForm();
     }
 
     // TODO: handle automation removal
@@ -457,9 +457,20 @@ export class AutomationEditorViewComponent implements OnInit {
 
     // TODO: validate automations before saving
     public saveAutomations(): void {
-        const now = new Date();
-        now.setHours(now.getHours() + 1, now.getMinutes(), 0, 0);
+        // Mark that validation errors should be shown
+        this.showValidationErrors = true;
+
+        // Trigger validation on all forms
+        this.automationForms.controls.forEach((form) => {
+            form.markAllAsTouched();
+        });
+
+        // Check if all forms are valid
         if (this.automationForms.valid) {
+            this.showValidationErrors = false;
+            const now = new Date();
+            now.setHours(now.getHours() + 1, now.getMinutes(), 0, 0);
+
             const automations: AutomationEditorViewAutomations = this.automationForms.controls.map(
                 (form) => {
                     const formValue = form.value;
@@ -486,6 +497,53 @@ export class AutomationEditorViewComponent implements OnInit {
 
             this.automationsToSave.emit(automations);
             this.close();
+        } else {
+            // Form is invalid, scroll to first error
+            this.scrollToFirstError();
+        }
+    }
+
+    /**
+     * Scroll to the first form with validation errors
+     */
+    private scrollToFirstError(): void {
+        // Find the first form with errors
+        for (let i = 0; i < this.automationForms.length; i++) {
+            const form = this.automationForms.at(i) as FormGroup;
+            if (form.invalid) {
+                // Try multiple selectors to find the automation section
+                let element = document.querySelector(`[formgroupname="${i}"]`);
+
+                if (!element) {
+                    // Try alternative selector based on the automation-section class
+                    element = document.querySelector(`.automation-section:nth-child(${i + 1})`);
+                }
+
+                if (!element) {
+                    // Try finding by the automation header text
+                    const headers = document.querySelectorAll('h4');
+                    for (const header of headers) {
+                        if (header.textContent?.includes(`Automation ${i + 1}`)) {
+                            element = header.closest('.automation-section');
+                            break;
+                        }
+                    }
+                }
+
+                if (element) {
+                    // Add a small delay to ensure DOM is ready
+                    setTimeout(() => {
+                        element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                        // Add a visual highlight to make it more obvious
+                        element.classList.add('error-highlight');
+                        setTimeout(() => {
+                            element.classList.remove('error-highlight');
+                        }, 2000);
+                    }, 100);
+                }
+                break;
+            }
         }
     }
 
