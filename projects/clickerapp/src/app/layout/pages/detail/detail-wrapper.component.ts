@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { DetailViewCounter, DetailViewComponent } from '@libs/detail-view';
 
+import { AutomationService } from '@app/core/automation/automation.service';
 import { CounterService } from '@app/core/counter/counter.service';
 
 @Component({
@@ -14,12 +15,14 @@ import { CounterService } from '@app/core/counter/counter.service';
 export class DetailWrapperComponent implements OnInit {
     private activatedRoute = inject(ActivatedRoute);
     private counterService = inject(CounterService);
+    private automationService = inject(AutomationService);
     private router = inject(Router);
 
     public counter$: Signal<DetailViewCounter | undefined> = signal<DetailViewCounter | undefined>(
         undefined
     );
     public counterValue$: Signal<number> = signal(0);
+    public nextAutomationRun: Date | null = null;
 
     public ngOnInit(): void {
         const counterId = this.activatedRoute.snapshot.params['counterId'];
@@ -35,6 +38,7 @@ export class DetailWrapperComponent implements OnInit {
                     color: counter$().color,
                 }));
                 this.counterValue$ = this.counterService.getCounterValue$(counter$().id);
+                this.nextAutomationRun = this.automationService.getNextAutomationRun(counter$().id);
             }
         }
     }

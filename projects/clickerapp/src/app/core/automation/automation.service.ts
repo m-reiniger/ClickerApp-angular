@@ -55,6 +55,21 @@ export class AutomationService {
         return automations.filter((automation) => automation.counterId === counterId);
     }
 
+    public getNextAutomationRun(counterId: string): Date | null {
+        const automations = this.getAutomations(counterId);
+        if (automations.length === 0) {
+            return null;
+        } else {
+            let nextRun = automations[0].action.nextRun;
+            for (const automation of automations) {
+                if (automation.action.nextRun < nextRun) {
+                    nextRun = automation.action.nextRun;
+                }
+            }
+            return nextRun;
+        }
+    }
+
     public createAutomation(automation: Automation): Automation {
         automation.id = uuidv4();
         this.saveAutomation(automation);

@@ -10,6 +10,7 @@ import { SwipeToCloseDirective, SwipeDirection } from '@libs/touch-gestures';
 
 import { DetailViewCounter } from './types/detail-view.types';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { RelativeDatePipe } from './pipes/relative-date.pipe';
 
 /**
  * Component that displays detailed information about a counter and provides controls for manipulation.
@@ -32,6 +33,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
         MatDialogModule,
         MatCardModule,
         SwipeToCloseDirective,
+        RelativeDatePipe,
     ],
     templateUrl: './detail-view.component.html',
     styleUrl: './detail-view.component.scss',
@@ -41,6 +43,7 @@ export class DetailViewComponent {
         DetailViewCounter | undefined
     >(undefined);
     @Input() public counterValue: Signal<number> = signal(0);
+    @Input() public nextAutomationRun: Date | null = null;
 
     public incrementCounter = output<string | undefined>();
     public decrementCounter = output<string | undefined>();

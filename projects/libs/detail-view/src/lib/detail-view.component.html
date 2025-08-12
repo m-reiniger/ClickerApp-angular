@@ -59,6 +59,13 @@
                     </button>
                 </div>
             </section>
+            @if (nextAutomationRun) {
+                <section class="next-automation-run-container">
+                    <div class="next-automation-run">
+                        <span>Next automation run: {{ nextAutomationRun | relativeDate }}</span>
+                    </div>
+                </section>
+            }
             <section class="counter-tools">
                 <button mat-fab (click)="confirmDelete()">
                     <span
