@@ -6,6 +6,7 @@ import {
     ReactiveFormsModule,
     Validators,
     AbstractControl,
+    ValidationErrors,
 } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
@@ -116,17 +117,91 @@ export class AutomationEditorViewComponent implements OnInit {
             month: [automation?.config.month || null],
             day: [automation?.config.day || null],
             weekday: [automation?.config.weekday || null],
-            hour: [automation?.config.hour || 0, Validators.required],
-            minute: [automation?.config.minute || 0, Validators.required],
+            hour: [
+                automation?.config.hour || 0,
+                [Validators.required, Validators.min(0), Validators.max(23)],
+            ],
+            minute: [
+                automation?.config.minute || 0,
+                [Validators.required, Validators.min(0), Validators.max(59)],
+            ],
             isActive: [automation?.config.isActive ?? true],
             type: [automation?.action.type || AutomationType.INCREMENT, Validators.required],
             value: [
                 automation?.action.value || this.getDefaultActionValue(automation?.action.type),
+                [Validators.required, this.numberValidator],
             ],
             nextRun: [automation?.action.nextRun || new Date()],
         });
 
+        // Apply conditional validation based on interval
+        this.updateFormValidations(form, automation?.config.interval || AutomationInterval.DAY);
+
         this.automationForms.push(form);
+    }
+
+    /**
+     * Custom validator to ensure value is a number
+     */
+    private numberValidator(control: AbstractControl): ValidationErrors | null {
+        if (control.value === null || control.value === undefined || control.value === '') {
+            return null; // Let required validator handle this
+        }
+
+        if (typeof control.value === 'number' && !isNaN(control.value)) {
+            return null;
+        }
+
+        return { notANumber: true };
+    }
+
+    /**
+     * Update form validations based on the selected interval
+     */
+    private updateFormValidations(form: FormGroup, interval: AutomationInterval): void {
+        const monthControl = form.get('month');
+        const dayControl = form.get('day');
+        const weekdayControl = form.get('weekday');
+
+        // Clear all validators first
+        monthControl?.clearValidators();
+        dayControl?.clearValidators();
+        weekdayControl?.clearValidators();
+
+        // Apply validators based on interval
+        switch (interval) {
+            case AutomationInterval.YEAR:
+                monthControl?.setValidators([
+                    Validators.required,
+                    Validators.min(1),
+                    Validators.max(12),
+                ]);
+                dayControl?.setValidators([
+                    Validators.required,
+                    Validators.min(1),
+                    Validators.max(31),
+                ]);
+                break;
+            case AutomationInterval.MONTH:
+                dayControl?.setValidators([
+                    Validators.required,
+                    Validators.min(1),
+                    Validators.max(31),
+                ]);
+                break;
+            case AutomationInterval.WEEK:
+                weekdayControl?.setValidators([Validators.required]);
+                break;
+            case AutomationInterval.DAY:
+            default:
+                // No additional validators needed for daily
+                break;
+        }
+
+        // Update validity
+        monthControl?.updateValueAndValidity();
+        dayControl?.updateValueAndValidity();
+        weekdayControl?.updateValueAndValidity();
     }
 
     // TODO:check if this is needed
@@ -200,8 +275,11 @@ export class AutomationEditorViewComponent implements OnInit {
     }
 
     public onIntervalChange(formIndex: number, value: string): void {
-        const form = this.automationForms.at(formIndex);
+        const form = this.automationForms.at(formIndex) as FormGroup;
         form.get('interval')?.setValue(value);
+
+        // Update validations when interval changes
+        this.updateFormValidations(form, value as AutomationInterval);
     }
 
     /**

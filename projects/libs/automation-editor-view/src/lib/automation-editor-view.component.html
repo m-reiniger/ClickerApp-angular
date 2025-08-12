@@ -64,6 +64,13 @@
                                                     name="chevron-down-outline"
                                                     slot="end"></ion-icon>
                                             </ion-button>
+                                            @if (
+                                                automationForm.get('weekday')?.hasError('required')
+                                            ) {
+                                                <div class="error-message">
+                                                    Weekday is required for weekly automation
+                                                </div>
+                                            }
                                         </div>
                                     }
 
@@ -82,6 +89,11 @@
                                                     name="chevron-down-outline"
                                                     slot="end"></ion-icon>
                                             </ion-button>
+                                            @if (automationForm.get('day')?.hasError('required')) {
+                                                <div class="error-message">
+                                                    Day of month is required for monthly automation
+                                                </div>
+                                            }
                                         </div>
                                     }
 
@@ -101,6 +113,15 @@
                                                         name="chevron-down-outline"
                                                         slot="end"></ion-icon>
                                                 </ion-button>
+                                                @if (
+                                                    automationForm
+                                                        .get('month')
+                                                        ?.hasError('required')
+                                                ) {
+                                                    <div class="error-message">
+                                                        Month is required for yearly automation
+                                                    </div>
+                                                }
                                             </div>
 
                                             <div class="picker-field">
@@ -114,6 +135,13 @@
                                                         name="chevron-down-outline"
                                                         slot="end"></ion-icon>
                                                 </ion-button>
+                                                @if (
+                                                    automationForm.get('day')?.hasError('required')
+                                                ) {
+                                                    <div class="error-message">
+                                                        Day is required for yearly automation
+                                                    </div>
+                                                }
                                             </div>
                                         </div>
                                     }
@@ -129,6 +157,22 @@
                                                 name="chevron-down-outline"
                                                 slot="end"></ion-icon>
                                         </ion-button>
+                                        @if (
+                                            automationForm.get('hour')?.hasError('min') ||
+                                            automationForm.get('hour')?.hasError('max')
+                                        ) {
+                                            <div class="error-message">
+                                                Hour must be between 0 and 23
+                                            </div>
+                                        }
+                                        @if (
+                                            automationForm.get('minute')?.hasError('min') ||
+                                            automationForm.get('minute')?.hasError('max')
+                                        ) {
+                                            <div class="error-message">
+                                                Minute must be between 0 and 59
+                                            </div>
+                                        }
                                     </div>
                                 </div>
 
@@ -172,6 +216,9 @@
                                                 Value to set the counter to
                                             }
                                         </mat-hint>
+                                        @if (automationForm.get('value')?.hasError('notANumber')) {
+                                            <mat-error>Value must be a valid number</mat-error>
+                                        }
                                     </mat-form-field>
                                 </div>
                             </div>
