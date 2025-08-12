@@ -187,7 +187,7 @@
                             mat-stroked-button
                             class="add-automation-button"
                             (click)="addNewAutomation()"
-                            [disabled]="!automationForms.at(automationForms.length - 1)?.valid">
+                            [disabled]="!automationForms.at(automationForms.length - 1).valid">
                             <mat-icon>add</mat-icon>
                             <span>Add Another Automation</span>
                         </button>
