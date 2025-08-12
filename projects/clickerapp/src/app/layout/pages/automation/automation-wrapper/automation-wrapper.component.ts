@@ -60,6 +60,10 @@ export class AutomationWrapperComponent implements OnInit {
         }
     }
 
+    public deleteAutomation(id: string): void {
+        this.automationService.deleteAutomation(id);
+    }
+
     public closeOverlay(): void {
         this.router.navigate(['detail', this.editCounter?.id]);
     }

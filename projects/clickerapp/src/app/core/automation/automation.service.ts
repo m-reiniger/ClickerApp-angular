@@ -1,5 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 
+import { v4 as uuidv4 } from 'uuid';
+
 import { CounterService } from '../counter/counter.service';
 import { StorageService } from '../storage/storage.service';
 
@@ -54,6 +56,7 @@ export class AutomationService {
     }
 
     public createAutomation(automation: Automation): Automation {
+        automation.id = uuidv4();
         this.saveAutomation(automation);
         return automation;
     }
@@ -61,12 +64,21 @@ export class AutomationService {
     public saveAutomations(automations: Automation[]): void {
         automations.forEach((automation) => {
             this.setInitialNextRun(automation);
-            if (automation.id === undefined) {
+            if (automation.id === undefined || automation.id === null) {
                 this.createAutomation(automation);
             } else {
                 this.saveAutomation(automation);
             }
         });
+    }
+
+    public deleteAutomation(id: string): void {
+        const automations = this.loadAutomations();
+        const index = automations.findIndex((a) => a.id === id);
+        if (index !== -1) {
+            automations.splice(index, 1);
+            this.storageService.saveAutomations(automations);
+        }
     }
 
     private loadAutomations(): Automations {

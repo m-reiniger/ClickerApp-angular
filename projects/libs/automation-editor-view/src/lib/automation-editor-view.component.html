@@ -20,7 +20,9 @@
                         <div class="automation-section" [formGroupName]="i">
                             <div class="automation-header">
                                 <h4>Automation {{ i + 1 }}</h4>
-                                @if (automationForms.length > 1) {
+                                @if (
+                                    automationForms.length > 1 || automationForm.get('id')?.value
+                                ) {
                                     <button
                                         type="button"
                                         mat-icon-button

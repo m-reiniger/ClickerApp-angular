@@ -69,6 +69,7 @@ export class AutomationEditorViewComponent implements OnInit {
     @Input() public automations: AutomationEditorViewAutomations = [];
 
     public automationsToSave = output<AutomationEditorViewAutomations>();
+    public deleteAutomation = output<string>();
     public closeOverlay = output<void>();
 
     public automationForms: FormArray;
@@ -114,7 +115,7 @@ export class AutomationEditorViewComponent implements OnInit {
 
     private addAutomationForm(automation?: AutomationEditorViewAutomation): void {
         const form = this.fb.group({
-            id: [automation?.id || this.generateId()],
+            id: [automation?.id || null],
             counterId: [this.editCounter?.id || ''],
             interval: [automation?.config.interval || AutomationInterval.DAY, Validators.required],
             month: [automation?.config.month || null],
@@ -231,7 +232,13 @@ export class AutomationEditorViewComponent implements OnInit {
 
     // TODO: handle automation removal
     public removeAutomation(index: number): void {
+        if (this.automationForms.at(index).get('id')?.value) {
+            this.deleteAutomation.emit(this.automationForms.at(index).get('id')?.value);
+        }
         this.automationForms.removeAt(index);
+        if (this.automationForms.length === 0) {
+            this.close();
+        }
     }
 
     public onActionTypeChange(form: AbstractControl, type: AutomationType): void {
