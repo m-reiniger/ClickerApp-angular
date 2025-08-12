@@ -38,16 +38,14 @@
                                     <ion-button
                                         fill="clear"
                                         class="picker-button"
+                                        [class.input-error]="
+                                            showValidationErrors &&
+                                            automationForm.get('interval')?.hasError('required')
+                                        "
                                         (click)="openIntervalPicker(i)">
                                         {{ getDisplayValue(i, 'interval') }}
                                         <ion-icon name="chevron-down-outline" slot="end"></ion-icon>
                                     </ion-button>
-                                    @if (
-                                        showValidationErrors &&
-                                        automationForm.get('interval')?.hasError('required')
-                                    ) {
-                                        <div class="error-message">Interval is required</div>
-                                    }
                                 </div>
 
                                 <!-- Time Selection -->
@@ -61,20 +59,18 @@
                                             <ion-button
                                                 fill="clear"
                                                 class="picker-button"
+                                                [class.input-error]="
+                                                    showValidationErrors &&
+                                                    automationForm
+                                                        .get('weekday')
+                                                        ?.hasError('required')
+                                                "
                                                 (click)="openWeekdayPicker(i)">
                                                 {{ getDisplayValue(i, 'weekday') }}
                                                 <ion-icon
                                                     name="chevron-down-outline"
                                                     slot="end"></ion-icon>
                                             </ion-button>
-                                            @if (
-                                                showValidationErrors &&
-                                                automationForm.get('weekday')?.hasError('required')
-                                            ) {
-                                                <div class="error-message">
-                                                    Weekday is required for weekly automation
-                                                </div>
-                                            }
                                         </div>
                                     }
 
@@ -87,20 +83,16 @@
                                             <ion-button
                                                 fill="clear"
                                                 class="picker-button"
+                                                [class.input-error]="
+                                                    showValidationErrors &&
+                                                    automationForm.get('day')?.hasError('required')
+                                                "
                                                 (click)="openDayPicker(i)">
                                                 {{ getDisplayValue(i, 'day') }}
                                                 <ion-icon
                                                     name="chevron-down-outline"
                                                     slot="end"></ion-icon>
                                             </ion-button>
-                                            @if (
-                                                showValidationErrors &&
-                                                automationForm.get('day')?.hasError('required')
-                                            ) {
-                                                <div class="error-message">
-                                                    Day of month is required for monthly automation
-                                                </div>
-                                            }
                                         </div>
                                     }
 
@@ -114,22 +106,18 @@
                                                 <ion-button
                                                     fill="clear"
                                                     class="picker-button"
+                                                    [class.input-error]="
+                                                        showValidationErrors &&
+                                                        automationForm
+                                                            .get('month')
+                                                            ?.hasError('required')
+                                                    "
                                                     (click)="openMonthPicker(i)">
                                                     {{ getDisplayValue(i, 'month') }}
                                                     <ion-icon
                                                         name="chevron-down-outline"
                                                         slot="end"></ion-icon>
                                                 </ion-button>
-                                                @if (
-                                                    showValidationErrors &&
-                                                    automationForm
-                                                        .get('month')
-                                                        ?.hasError('required')
-                                                ) {
-                                                    <div class="error-message">
-                                                        Month is required for yearly automation
-                                                    </div>
-                                                }
                                             </div>
 
                                             <div class="picker-field">
@@ -137,20 +125,18 @@
                                                 <ion-button
                                                     fill="clear"
                                                     class="picker-button"
+                                                    [class.input-error]="
+                                                        showValidationErrors &&
+                                                        automationForm
+                                                            .get('day')
+                                                            ?.hasError('required')
+                                                    "
                                                     (click)="openDayPicker(i)">
                                                     {{ getDisplayValue(i, 'day') }}
                                                     <ion-icon
                                                         name="chevron-down-outline"
                                                         slot="end"></ion-icon>
                                                 </ion-button>
-                                                @if (
-                                                    showValidationErrors &&
-                                                    automationForm.get('day')?.hasError('required')
-                                                ) {
-                                                    <div class="error-message">
-                                                        Day is required for yearly automation
-                                                    </div>
-                                                }
                                             </div>
                                         </div>
                                     }
@@ -160,30 +146,19 @@
                                         <ion-button
                                             fill="clear"
                                             class="picker-button"
+                                            [class.input-error]="
+                                                showValidationErrors &&
+                                                (automationForm.get('hour')?.hasError('min') ||
+                                                    automationForm.get('hour')?.hasError('max') ||
+                                                    automationForm.get('minute')?.hasError('min') ||
+                                                    automationForm.get('minute')?.hasError('max'))
+                                            "
                                             (click)="openTimePicker(i)">
                                             {{ getDisplayValue(i, 'time') }}
                                             <ion-icon
                                                 name="chevron-down-outline"
                                                 slot="end"></ion-icon>
                                         </ion-button>
-                                        @if (
-                                            showValidationErrors &&
-                                            (automationForm.get('hour')?.hasError('min') ||
-                                                automationForm.get('hour')?.hasError('max'))
-                                        ) {
-                                            <div class="error-message">
-                                                Hour must be between 0 and 23
-                                            </div>
-                                        }
-                                        @if (
-                                            showValidationErrors &&
-                                            (automationForm.get('minute')?.hasError('min') ||
-                                                automationForm.get('minute')?.hasError('max'))
-                                        ) {
-                                            <div class="error-message">
-                                                Minute must be between 0 and 59
-                                            </div>
-                                        }
                                     </div>
                                 </div>
 
@@ -194,6 +169,10 @@
                                         <ion-button
                                             fill="clear"
                                             class="picker-button"
+                                            [class.input-error]="
+                                                showValidationErrors &&
+                                                automationForm.get('type')?.hasError('required')
+                                            "
                                             (click)="openActionTypePicker(i)">
                                             {{ getDisplayValue(i, 'type') }}
                                             <ion-icon

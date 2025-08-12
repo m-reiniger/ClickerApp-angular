@@ -183,6 +183,10 @@
                                 margin-bottom: 0.25rem;
                             }
 
+                            .picker-button.input-error {
+                                border-bottom: 2px solid var(--mat-sys-error);
+                            }
+
                             .error-message {
                                 color: var(--mat-sys-error);
                                 font-size: 0.75rem;
