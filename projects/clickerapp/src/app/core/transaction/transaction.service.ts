@@ -16,11 +16,15 @@ export class TransactionService {
      * @param value - The value associated with the transaction
      * @returns A new transaction object with current timestamp
      */
-    public create(operation: TransactionOperation, value = 1): Transaction {
+    public create(
+        operation: TransactionOperation,
+        value = 1,
+        overrideExecutionTime: Date | undefined = undefined
+    ): Transaction {
         return {
             value: value,
             operation: operation,
-            created: new Date(),
+            created: overrideExecutionTime ?? new Date(),
         };
     }
 
@@ -32,6 +36,15 @@ export class TransactionService {
      */
     public compute(transactions: Transactions, initialValue = 0): number {
         return transactions.reduce(this.process, initialValue);
+    }
+
+    public sort(transactions: Transactions): Transactions {
+        if (transactions.length >= 2) {
+            return transactions.sort(
+                (a, b) => new Date(a.created).getTime() - new Date(b.created).getTime()
+            );
+        }
+        return transactions;
     }
 
     /**

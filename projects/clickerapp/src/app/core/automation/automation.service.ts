@@ -126,13 +126,30 @@ export class AutomationService {
 
         switch (automation.action.type) {
             case AutomationType.RESET:
-                this.counterService.resetCounter(counter.id, true, true, automation.action.value);
+                this.counterService.resetCounter(
+                    counter.id,
+                    true,
+                    true,
+                    automation.action.value,
+                    automation.action.nextRun
+                );
                 break;
             case AutomationType.INCREMENT:
-                this.counterService.incrementCounter(counter.id, true, automation.action.value);
+                this.counterService.incrementCounter(
+                    counter.id,
+                    true,
+                    automation.action.value,
+                    automation.action.nextRun
+                );
                 break;
             case AutomationType.SET_VALUE:
-                this.counterService.resetCounter(counter.id, true, true, automation.action.value);
+                this.counterService.resetCounter(
+                    counter.id,
+                    true,
+                    true,
+                    automation.action.value,
+                    automation.action.nextRun
+                );
                 break;
         }
 

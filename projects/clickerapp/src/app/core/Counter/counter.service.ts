@@ -208,7 +208,8 @@ export class CounterService {
     public incrementCounter(
         id: string,
         fromAutomation = false,
-        value: number | 'default' = 'default'
+        value: number | 'default' = 'default',
+        overrideExecutionTime: Date | undefined = undefined
     ): void {
         const counter = this.getCounter(id);
         if (counter) {
@@ -216,9 +217,11 @@ export class CounterService {
                 fromAutomation
                     ? TransactionOperation.AUTOMATION_INCREMENT
                     : counter.defaultOperation,
-                value === 'default' ? counter.defaultIncrement : value
+                value === 'default' ? counter.defaultIncrement : value,
+                overrideExecutionTime
             );
             counter.transactions.push(transaction);
+            counter.transactions = this.transactionService.sort(counter.transactions);
             counter.transactions = this.handleTransactionLimit(counter.transactions);
             this.updateSignal(id);
             this.saveCounters();
@@ -229,16 +232,18 @@ export class CounterService {
      * Decrements a counter's value by its default increment
      * @param id - The ID of the counter to decrement
      */
-    public decrementCounter(id: string): void {
+    public decrementCounter(id: string, overrideExecutionTime: Date | undefined = undefined): void {
         const counter = this.getCounter(id);
         if (counter) {
             const transaction = this.transactionService.create(
                 counter.defaultOperation === TransactionOperation.ADD
                     ? TransactionOperation.SUBTRACT
                     : TransactionOperation.ADD,
-                counter.defaultIncrement
+                counter.defaultIncrement,
+                overrideExecutionTime
             );
             counter.transactions.push(transaction);
+            counter.transactions = this.transactionService.sort(counter.transactions);
             counter.transactions = this.handleTransactionLimit(counter.transactions);
             this.updateSignal(id);
             this.saveCounters();
@@ -253,7 +258,8 @@ export class CounterService {
         id: string,
         keepHistory: boolean,
         fromAutomation = false,
-        value: number | 'default' = 'default'
+        value: number | 'default' = 'default',
+        overrideExecutionTime: Date | undefined = undefined
     ): void {
         const counter = this.getCounter(id);
         if (counter) {
@@ -262,9 +268,11 @@ export class CounterService {
             }
             const transaction = this.transactionService.create(
                 fromAutomation ? TransactionOperation.AUTOMATION_SET : TransactionOperation.RESET,
-                value === 'default' ? counter.initialValue : value
+                value === 'default' ? counter.initialValue : value,
+                overrideExecutionTime
             );
             counter.transactions.push(transaction);
+            counter.transactions = this.transactionService.sort(counter.transactions);
             counter.transactions = this.handleTransactionLimit(counter.transactions);
             this.updateSignal(id);
             this.saveCounters();

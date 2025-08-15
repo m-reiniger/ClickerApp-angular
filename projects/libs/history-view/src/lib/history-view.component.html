@@ -31,6 +31,8 @@
                                         }}
                                     } @else if (transaction.operation === 'reset') {
                                         <mat-icon>restart_alt</mat-icon>
+                                    } @else if (transaction.operation === 'automation') {
+                                        <mat-icon>history</mat-icon>
                                     } @else {
                                         <mat-icon>photo_camera</mat-icon>
                                     }

@@ -116,6 +116,8 @@ export class HistoryViewComponent implements OnInit {
                     return 'restart_alt';
                 case 'snapshot':
                     return 'photo_camera';
+                case 'automation':
+                    return 'history';
                 default:
                     return 'help';
             }
@@ -129,6 +131,8 @@ export class HistoryViewComponent implements OnInit {
                     return 'restart_alt';
                 case 'snapshot':
                     return 'photo_camera';
+                case 'automation':
+                    return 'history';
                 default:
                     return 'help';
             }
@@ -145,6 +149,8 @@ export class HistoryViewComponent implements OnInit {
                 return 'reset';
             case 'snapshot':
                 return 'snapshot';
+            case 'automation':
+                return 'history';
             default:
                 return '';
         }
@@ -180,6 +186,8 @@ export class HistoryViewComponent implements OnInit {
                     return `reset to ${value}`;
                 case 'snapshot':
                     return `snapshot value ${value}`;
+                case 'automation':
+                    return `automation run ${value}`;
                 default:
                     return '';
             }
@@ -193,6 +201,8 @@ export class HistoryViewComponent implements OnInit {
                     return `reset to ${value}`;
                 case 'snapshot':
                     return `snapshot value ${value}`;
+                case 'automation':
+                    return `automation run ${value}`;
                 default:
                     return '';
             }
