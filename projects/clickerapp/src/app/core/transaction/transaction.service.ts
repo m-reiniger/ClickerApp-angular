@@ -40,9 +40,15 @@ export class TransactionService {
 
     public sort(transactions: Transactions): Transactions {
         if (transactions.length >= 2) {
-            return transactions.sort(
-                (a, b) => new Date(a.created).getTime() - new Date(b.created).getTime()
-            );
+            return transactions.sort((a, b) => {
+                if (a.operation === TransactionOperation.SNAPSHOT) {
+                    return -1;
+                }
+                if (b.operation === TransactionOperation.SNAPSHOT) {
+                    return 1;
+                }
+                return new Date(a.created).getTime() - new Date(b.created).getTime();
+            });
         }
         return transactions;
     }
