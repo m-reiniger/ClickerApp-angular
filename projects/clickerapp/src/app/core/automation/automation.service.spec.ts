@@ -111,7 +111,7 @@ describe('AutomationService', () => {
 
             storageService.loadAutomations.and.returnValue([existingAutomation]);
 
-            service.createAutomation(updatedAutomation);
+            service.saveAutomations([updatedAutomation]);
 
             expect(storageService.saveAutomations).toHaveBeenCalledWith([updatedAutomation]);
         });
@@ -231,7 +231,12 @@ describe('AutomationService', () => {
 
             service['executeAutomation'](automation);
 
-            expect(counterService.incrementCounter).toHaveBeenCalledWith('test-counter', true, 5);
+            expect(counterService.incrementCounter).toHaveBeenCalledWith(
+                'test-counter',
+                true,
+                5,
+                jasmine.any(Date)
+            );
         });
 
         it('should execute RESET automation', () => {
@@ -257,7 +262,8 @@ describe('AutomationService', () => {
                 'test-counter',
                 true,
                 true,
-                10
+                10,
+                jasmine.any(Date)
             );
         });
 
@@ -284,7 +290,8 @@ describe('AutomationService', () => {
                 'test-counter',
                 true,
                 true,
-                15
+                15,
+                jasmine.any(Date)
             );
         });
 
@@ -813,12 +820,24 @@ describe('AutomationService', () => {
 
             service.executeAllAutomations();
 
-            expect(counterService.incrementCounter).toHaveBeenCalledWith('counter-1', true, 5);
-            expect(counterService.resetCounter).toHaveBeenCalledWith('counter-3', true, true, 10);
+            expect(counterService.incrementCounter).toHaveBeenCalledWith(
+                'counter-1',
+                true,
+                5,
+                jasmine.any(Date)
+            );
+            expect(counterService.resetCounter).toHaveBeenCalledWith(
+                'counter-3',
+                true,
+                true,
+                10,
+                jasmine.any(Date)
+            );
             expect(counterService.incrementCounter).not.toHaveBeenCalledWith(
                 'counter-2',
                 jasmine.any(Boolean),
-                jasmine.any(Number)
+                jasmine.any(Number),
+                jasmine.any(Date)
             );
         });
 
@@ -908,7 +927,12 @@ describe('AutomationService', () => {
 
             // Should execute multiple times for the weeks that passed
             expect(counterService.incrementCounter).toHaveBeenCalled();
-            expect(counterService.incrementCounter).toHaveBeenCalledWith('test-counter', true, 5);
+            expect(counterService.incrementCounter).toHaveBeenCalledWith(
+                'test-counter',
+                true,
+                5,
+                jasmine.any(Date)
+            );
         });
 
         it('should handle automation with non-existent counter gracefully', () => {
