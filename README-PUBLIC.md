@@ -17,6 +17,7 @@ clickr is a versatile mobile counter application that allows you to create and m
 - **Increment/Decrement**: Easily increase or decrease counter values
 - **History Tracking**: View counter history and trends
 - **Native Mobile Experience**: Optimized for both iOS and Android
+- **Automation**: Automate counters to perform incremenet, reset or set to value actions at specific intervals
 
 ### Use Cases
 

@@ -11,6 +11,7 @@ A versatile mobile counter application that allows you to create and manage mult
 - Offline functionality
 - Native mobile app experience
 - Set goals for counters
+- Automate counters
 
 ## Use Cases
 
@@ -131,6 +132,14 @@ Project Link: [https://github.com/yourusername/ClickerApp](https://github.com/yo
 
 
 ## Changelog:
+
+### 1.0.2 -> 1.1.0
+
+#### New Features
+
+* **Automation**: Create automations for counters
+  * Configure to run at specific intervals: daily, weekly, monthly and yearly
+  * Configure counter to increment, reset or set to specific value
 
 ### 1.0.0 -> 1.0.2
 
