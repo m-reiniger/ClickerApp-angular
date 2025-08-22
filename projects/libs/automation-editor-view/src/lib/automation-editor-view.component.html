@@ -19,7 +19,11 @@
                     ) {
                         <div class="automation-section" [formGroupName]="i">
                             <div class="automation-header">
-                                <h4>Automation {{ i + 1 }}</h4>
+                                @if (automationForm.get('id')?.value !== null) {
+                                    <h4>Automation {{ i + 1 }}</h4>
+                                } @else {
+                                    <h4>New Automation</h4>
+                                }
                                 @if (
                                     automationForms.length > 1 || automationForm.get('id')?.value
                                 ) {
