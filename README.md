@@ -120,11 +120,6 @@ The project uses Husky and lint-staged to automatically run code style checks an
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
-
-Your Name - [@yourusername](https://twitter.com/yourusername)
-Project Link: [https://github.com/yourusername/ClickerApp](https://github.com/yourusername/ClickerApp)
-
 ## Acknowledgments
 
 - Thanks to all contributors who have helped shape this project
